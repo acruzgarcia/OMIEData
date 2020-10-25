@@ -38,11 +38,13 @@ class GeneralOMIEDownloader:
             # There could be errors when downloading or writtng to file... try-catch ??
             urlaux = self.getCompleteURL()
             urlaux = urlaux.replace('DD', dd).replace('MM', mm).replace('YYYY', yyyy)
-            print('Downloading ' + urlaux + ' ...')
-            request = req.get(urlaux, allow_redirects=True)
 
             fileaux = self.output_mask.replace('DD', dd).replace('MM', mm).replace('YYYY', yyyy)
             fileaux = os.path.join(self.output_folder, fileaux)
+
+            print('Downloading ' + urlaux + ' ...')
+            request = req.get(urlaux, allow_redirects=True)
+
             print('Copying to ' + fileaux + ' ...')
             f = open(fileaux, 'wb').write(request.content)
 
