@@ -1,0 +1,5 @@
+
+src/OMIEPrices/Downloaders/__pycache__/__init__.cpython-38.pyc
+src/OMIEPrices/Downloaders/__pycache__/GeneralOMIEDownloader.cpython-38.pyc
+src/OMIEPrices/Downloaders/__pycache__/IntraDayPriceDownloader.cpython-38.pyc
+src/OMIEPrices/Downloaders/__pycache__/MarginalPriceDownloader.cpython-38.pyc
