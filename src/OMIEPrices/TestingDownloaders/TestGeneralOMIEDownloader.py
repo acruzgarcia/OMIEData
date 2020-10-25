@@ -1,6 +1,6 @@
 
 import datetime as dt
-import Downloaders.GeneralOMIEDownloader as GeneralOMIEDownloader
+from Downloaders.GeneralOMIEDownloader import GeneralOMIEDownloader
 
 ########################################################################################################################
 def Test1():
@@ -44,4 +44,6 @@ if __name__ == '__main__':
 
     # run the tests, they will fill if they do not pass
     Test1()
+    print('Test1() passed.')
     Test2()
+    print('Test2() passed.')

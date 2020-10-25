@@ -1,6 +1,5 @@
 
-import Downloaders.GeneralOMIEDownloader as GeneralOMIEDownloader
-import datetime as dt
+from Downloaders.GeneralOMIEDownloader import GeneralOMIEDownloader
 
 ####################################################################################################################
 class IntradayPriceDownloader(GeneralOMIEDownloader):
@@ -19,20 +18,11 @@ class IntradayPriceDownloader(GeneralOMIEDownloader):
         url1 = self.url_year + self.url_month + self.url_name
         url1 = url1.replace('SS', strSession)
 
-        super().__init__(url_mask=url1,
-                         output_folder=output_folder,
-                         output_mask=self.output_mask)
+        GeneralOMIEDownloader.__init__(self,
+                                       url_mask=url1,
+                                       output_folder=output_folder,
+                                       output_mask=self.output_mask)
     ####################################################################################################################
 
 # End class MarginalPriceDownloader
 ####################################################################################################################
-
-if __name__ == '__main__':
-
-    dateIni = dt.datetime(2009,1,1)
-    dateEnd = dt.datetime(2009,1,2)
-    downloader = IntradayPriceDownloader(session=2,
-                                         output_folder='F:\\PreciosOMIE\\DataStoreTest\\')
-
-    downloader.downloadData(dateIni=dateIni, dateEnd=dateEnd)
-

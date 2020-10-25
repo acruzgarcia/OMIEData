@@ -1,6 +1,7 @@
 
 import requests as req
 import datetime as dt
+import sys as sys
 
 ####################################################################################################################
 class GeneralOMIEDownloader:
@@ -51,9 +52,12 @@ class GeneralOMIEDownloader:
                 fileaux = fileaux.replace('YYYY', yyyy)
 
                 # write to file
-                f = open(fileaux, 'wb').write(request.content)
-            except:
+                f = open(fileaux, 'wb')
+                f.write(request.content)
+            except Exception as e: # catch all exceptions
+                print(e)
                 error = 1
+                break
 
             dtaux = dtaux + dt.timedelta(days=+1)
 

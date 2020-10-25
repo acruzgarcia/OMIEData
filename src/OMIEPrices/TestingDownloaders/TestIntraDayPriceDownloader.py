@@ -1,14 +1,15 @@
 
 import datetime as dt
-from Downloaders.MarginalPriceDownloader import MarginalPriceDownloader
+from Downloaders.IntraDayPriceDownloader import IntradayPriceDownloader
 
 ########################################################################################################################
 def Test1():
 
-    reader = MarginalPriceDownloader(output_folder='F:\\OMIEPrices\\DataStoreTest\\')
+    reader = IntradayPriceDownloader(session=2,
+                                     output_folder='F:\\OMIEPrices\\DataStoreTest\\')
 
     assert reader.getCompleteURL() == \
-           'https://www.omie.es/sites/default/files/dados/AGNO_YYYY/MES_MM/TXT/INT_PBC_EV_H_1_DD_MM_YYYY_DD_MM_YYYY.TXT'
+           'https://www.omie.es/sites/default/files/dados/AGNO_YYYY/MES_MM/TXT/INT_PIB_EV_H_1_2_DD_MM_YYYY_DD_MM_YYYY.TXT'
 ########################################################################################################################
 
 ########################################################################################################################
@@ -16,7 +17,8 @@ def Test2():
 
     dateIni = dt.datetime(2009, 1, 1)
     dateEnd = dt.datetime(2009, 1, 2)
-    downloader = MarginalPriceDownloader(output_folder='F:\\OMIEPrices\\DataStoreTest\\')
+    downloader = IntradayPriceDownloader(session=2,
+                                         output_folder='F:\\OMIEPrices\\DataStoreTest\\')
 
     error = downloader.downloadData(dateIni=dateIni, dateEnd=dateEnd)
 
