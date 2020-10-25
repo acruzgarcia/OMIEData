@@ -7,9 +7,9 @@ from Downloaders.IntraDayPriceDownloader import IntradayPriceDownloader
 def Test1():
 
     folder = os.path.abspath('OutputTesting')
-    reader = IntradayPriceDownloader(session=2, output_folder=folder)
+    downloader = IntradayPriceDownloader(session=2, output_folder=folder)
 
-    assert reader.getCompleteURL() == \
+    assert downloader.getCompleteURL() == \
            'https://www.omie.es/sites/default/files/dados/AGNO_YYYY/MES_MM/TXT/INT_PIB_EV_H_1_2_DD_MM_YYYY_DD_MM_YYYY.TXT'
 ########################################################################################################################
 

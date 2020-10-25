@@ -36,29 +36,17 @@ class GeneralOMIEDownloader:
             yyyy = f'{dtaux.year:04}'
 
             urlaux = self.getCompleteURL()
-
-            urlaux = urlaux.replace('DD', dd)
-            urlaux = urlaux.replace('MM', mm)
-            urlaux = urlaux.replace('YYYY', yyyy)
+            urlaux = urlaux.replace('DD', dd).replace('MM', mm).replace('YYYY', yyyy)
 
             print('Downloading ' + urlaux + ' ...')
 
-            fileaux = self.output_mask
-            fileaux = fileaux.replace('DD', dd)
-            fileaux = fileaux.replace('MM', mm)
-            fileaux = fileaux.replace('YYYY', yyyy)
-
+            fileaux = self.output_mask.replace('DD', dd).replace('MM', mm).replace('YYYY', yyyy)
             fileaux = os.path.join(self.output_folder, fileaux)
-            # It can be errors when downloading or writtng to file...
-            try:
-                request = req.get(urlaux, allow_redirects=True)
-                f = open(fileaux, 'wb')
-                f.write(request.content)
-            # Two possible exceptions, to catch them...
-            except Exception as e: # catch all exceptions
-                print(e)
-                error = 1
-                break
+
+            # It can be errors when downloading or writtng to file... try-catch ??
+            request = req.get(urlaux, allow_redirects=True)
+            f = open(fileaux, 'wb').write(request.content)
+            print('Copying to ' + fileaux + ' ...')
 
             dtaux = dtaux + dt.timedelta(days=+1)
 

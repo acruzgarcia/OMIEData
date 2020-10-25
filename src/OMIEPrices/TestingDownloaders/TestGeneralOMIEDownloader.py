@@ -13,11 +13,11 @@ def Test1():
 
     folder = os.path.abspath('OutputTesting')
     url1 = url_ano + url_mes + url_name
-    reader = GeneralOMIEDownloader(url_mask=url1,
-                                   output_folder=folder,
-                                   output_mask='PMD_YYYYMMDD.txt')
+    downloader = GeneralOMIEDownloader(url_mask=url1,
+                                       output_folder=folder,
+                                       output_mask='PMD_YYYYMMDD.txt')
 
-    assert reader.getCompleteURL() == \
+    assert downloader.getCompleteURL() == \
            'https://www.omie.es/sites/default/files/dados/AGNO_YYYY/MES_MM/TXT/INT_PBC_EV_H_1_DD_MM_YYYY_DD_MM_YYYY.TXT'
 ########################################################################################################################
 
@@ -31,13 +31,13 @@ def Test2():
 
     url1 = url_ano + url_mes + url_name
     folder = os.path.abspath('OutputTesting')
-    reader = GeneralOMIEDownloader(url_mask=url1,
-                                   output_folder=folder,
-                                   output_mask='PMD_YYYYMMDD.txt')
+    downloader = GeneralOMIEDownloader(url_mask=url1,
+                                       output_folder=folder,
+                                       output_mask='PMD_YYYYMMDD.txt')
 
     dateIni = dt.datetime(2006,1,1)
     dateEnd = dt.datetime(2006,1,31)
-    error = reader.downloadData(dateIni=dateIni, dateEnd=dateEnd)
+    error = downloader.downloadData(dateIni=dateIni, dateEnd=dateEnd)
 
     assert error == 0
 ########################################################################################################################
