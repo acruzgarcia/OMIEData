@@ -1,6 +1,7 @@
 
 import datetime as dt
 from Downloaders.GeneralOMIEDownloader import GeneralOMIEDownloader
+import os
 
 ########################################################################################################################
 def Test1():
@@ -10,9 +11,10 @@ def Test1():
     url_mes = '/MES_MM/TXT/'
     url_name = 'INT_PBC_EV_H_1_DD_MM_YYYY_DD_MM_YYYY.TXT'
 
+    folder = os.path.abspath('OutputTesting')
     url1 = url_ano + url_mes + url_name
     reader = GeneralOMIEDownloader(url_mask=url1,
-                                   output_folder='F:\\OMIEPrices\\DataStoreTest\\',
+                                   output_folder=folder,
                                    output_mask='PMD_YYYYMMDD.txt')
 
     assert reader.getCompleteURL() == \
@@ -28,8 +30,9 @@ def Test2():
     url_name = 'INT_PBC_EV_H_1_DD_MM_YYYY_DD_MM_YYYY.TXT'
 
     url1 = url_ano + url_mes + url_name
+    folder = os.path.abspath('OutputTesting')
     reader = GeneralOMIEDownloader(url_mask=url1,
-                                   output_folder='F:\\OMIEPrices\\DataStoreTest\\',
+                                   output_folder=folder,
                                    output_mask='PMD_YYYYMMDD.txt')
 
     dateIni = dt.datetime(2006,1,1)

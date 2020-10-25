@@ -1,7 +1,7 @@
 
 import requests as req
 import datetime as dt
-import sys as sys
+import os
 
 ####################################################################################################################
 class GeneralOMIEDownloader:
@@ -42,18 +42,19 @@ class GeneralOMIEDownloader:
             urlaux = urlaux.replace('YYYY', yyyy)
 
             print('Downloading ' + urlaux + ' ...')
+
+            fileaux = self.output_mask
+            fileaux = fileaux.replace('DD', dd)
+            fileaux = fileaux.replace('MM', mm)
+            fileaux = fileaux.replace('YYYY', yyyy)
+
+            fileaux = os.path.join(self.output_folder, fileaux)
             # It can be errors when downloading or writtng to file...
             try:
                 request = req.get(urlaux, allow_redirects=True)
-
-                fileaux = self.output_folder + self.output_mask
-                fileaux = fileaux.replace('DD', dd)
-                fileaux = fileaux.replace('MM', mm)
-                fileaux = fileaux.replace('YYYY', yyyy)
-
-                # write to file
                 f = open(fileaux, 'wb')
                 f.write(request.content)
+            # Two possible exceptions, to catch them...
             except Exception as e: # catch all exceptions
                 print(e)
                 error = 1
