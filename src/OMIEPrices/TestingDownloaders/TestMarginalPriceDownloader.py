@@ -32,7 +32,7 @@ def Test2():
 
     folderIn = os.path.abspath('InputTesting')
     assert filecmp.cmp(os.path.join(folderOut, outputFileName),
-                       os.path.join(folderIn, 'kk.txt'),
+                       os.path.join(folderIn, outputFileName),
                        shallow=True), \
         'The content of the downloaded file is not as expected.'
 

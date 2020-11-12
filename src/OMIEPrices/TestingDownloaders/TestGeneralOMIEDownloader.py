@@ -47,7 +47,7 @@ def Test2():
     assert error == 0, 'There was an error when downloading.'
 
     # Check it downloaded with the right name
-    assert os.path.isfile(os.path.join(folderOut, 'PMD_20060301.txt')),\
+    assert os.path.isfile(os.path.join(folderOut, 'PMD_20060101.txt')),\
         'The downloaded file does not have the expected name.'
 
     folderIn = os.path.abspath('InputTesting')
