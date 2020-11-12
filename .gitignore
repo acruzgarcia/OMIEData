@@ -1,2 +1,3 @@
-src/OMIEPrices/Downloaders/__pycache__/*
 src/OMIEPrices/TestingDownloaders/OutputTesting/*
+src/OMIEPrices/TestingRawFilesReader/OutputTesting/*
+*.pyc

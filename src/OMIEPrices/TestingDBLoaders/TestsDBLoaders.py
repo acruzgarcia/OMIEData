@@ -6,7 +6,7 @@ def Test1():
 
     # Testing PMDs
     #folder = os.path.abspath('InputForTesting')
-    folder = 'F:\\OMIEPrices\\proj\\OMIEPrices\\src\\OMIEPrices\\TestingLoaders\\InputForTesting'
+    folder = 'F:\\OMIEPrices\\proj\\OMIEPrices\\src\\OMIEPrices\\TestingDBLoaders\\InputForTesting'
     mask = 'PMD_YYYYMMDD.txt'
     file = 'PMD_20060120.txt'
 
