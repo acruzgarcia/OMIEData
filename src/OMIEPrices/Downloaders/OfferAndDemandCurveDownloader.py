@@ -10,9 +10,9 @@ class OfferAndDemandCurveDownloader(GeneralOMIEDownloader):
     output_mask = 'OfferAndDemandCurve_HH_YYYYMMDD.txt'
 
     ####################################################################################################################
-    def __init__(self, Hour: int, output_folder: str):
+    def __init__(self, hour: int, output_folder: str):
 
-        strHour = f'{Hour:01}'
+        strHour = f'{hour:01}'
         self.output_mask = self.output_mask.replace('HH', strHour)
 
         url1 = self.url_year + self.url_month + self.url_name
