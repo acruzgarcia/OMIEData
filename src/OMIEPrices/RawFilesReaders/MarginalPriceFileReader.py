@@ -5,6 +5,7 @@ import locale
 from enum import Enum, auto
 
 class ConceptType(Enum):
+
     PRICE_SPAIN = auto()
     PRICE_PORTUGAL = auto()
     ENERGY_IBERIAN = auto()
@@ -30,8 +31,8 @@ class MarginalPriceFileReader:
     _str_line_energy_new_iber_with_bilaterals_ = 'Energía total con bilaterales del mercado Ibérico (MWh)'
 
     _key_list_retrieve_ = ['DATE', 'CONCEPT',
-                       'H1', 'H2','H1', 'H2','H3', 'H4','H5', 'H6','H7', 'H8','H9', 'H10',
-                       'H11', 'H12','H13', 'H14','H15', 'H16','H17', 'H18','H19', 'H20',
+                       'H1', 'H2', 'H3', 'H4','H5', 'H6','H7', 'H8','H9','H10',
+                       'H11', 'H12','H13', 'H14','H15', 'H16','H17', 'H18','H19','H20',
                        'H21', 'H22','H23', 'H24']
 
     _dict_concept_str = {ConceptType.PRICE_SPAIN: 'PRICE_SP',
@@ -66,7 +67,7 @@ class MarginalPriceFileReader:
             print('File ' + self.filename + ' does not have the expected format.')
         else:
             # The second date is the one we want
-            date = dt.datetime.strptime(matches[1], self._dateFormatInFile_)
+            date = dt.datetime.strptime(matches[1], self._dateFormatInFile_).date()
 
             # Process all the lines
             while line:
@@ -74,6 +75,7 @@ class MarginalPriceFileReader:
                 line = file.readline()
                 splits = line.split(sep=';')
                 firstCol = splits[0]
+
                 if firstCol == self._str_line_price_old_cE_:
                     yield self._processLine_(date=date, concept=ConceptType.PRICE_SPAIN, line=line, multiplier=10.0)
                 if firstCol == self._str_line_price_old_E_:
@@ -86,7 +88,12 @@ class MarginalPriceFileReader:
                     yield self._processLine_(date=date, concept=ConceptType.PRICE_PORTUGAL, line=line, multiplier=10.0)
                 elif firstCol == self._str_line_price_new_pt_E_:
                     yield self._processLine_(date=date, concept=ConceptType.PRICE_PORTUGAL, line=line, multiplier=1.0)
-
+                elif firstCol == self._str_line_energy_old_:
+                    yield self._processLine_(date=date, concept=ConceptType.ENERGY_IBERIAN, line=line, multiplier=1.0)
+                elif firstCol == self._str_line_energy_new_iber_:
+                    yield self._processLine_(date=date, concept=ConceptType.ENERGY_IBERIAN, line=line, multiplier=1.0)
+                elif firstCol == self._str_line_energy_new_iber_with_bilaterals_:
+                    yield self._processLine_(date=date, concept=ConceptType.ENERGY_IBERIAN_WITH_BILLATERAL, line=line, multiplier=1.0)
     ####################################################################################################################
 
     ####################################################################################################################
@@ -105,5 +112,5 @@ class MarginalPriceFileReader:
         return result
     ####################################################################################################################
 
-# End class GeneralOMIEDownloader
+# End class
 ####################################################################################################################
