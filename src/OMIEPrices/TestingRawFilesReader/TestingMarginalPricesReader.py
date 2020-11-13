@@ -1,7 +1,7 @@
 import datetime as dt
 from RawFilesReaders.MarginalPriceFileReader import MarginalPriceFileReader
 import os
-import filecmp
+import pandas as pd
 
 ########################################################################################################################
 def AllKeysInDictionary():
@@ -9,24 +9,45 @@ def AllKeysInDictionary():
     folder = os.path.abspath('InputTesting')
     filename = os.path.join(folder,'PMD_20060101.txt')
     reader = MarginalPriceFileReader(filename=filename)
+    keys = reader.getKeys()
 
-    prices = list(reader.pricesGenerator())
+    data = list(reader.dataGenerator())
 
-    keys = ['DATE', 'COUNTRY',
-            'H1', 'H2', 'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'H7', 'H8', 'H9', 'H10',
-            'H11', 'H12', 'H13', 'H14', 'H15', 'H16', 'H17', 'H18', 'H19', 'H20',
-            'H21', 'H22', 'H23', 'H24']
-
-    for dictionary in prices:
-        thekeys = list(dictionary.keys())
+    # data is list of dictionaries
+    for dictionary in data:
         for k in keys:
             assert dictionary[k], 'Key: ' + k + ' not found.'
+########################################################################################################################
 
 ########################################################################################################################
+def DumpToDataFrame():
+
+    folder = os.path.abspath('InputTesting')
+    filename = os.path.join(folder,'PMD_20060101.txt')
+    reader = MarginalPriceFileReader(filename=filename)
+
+    keys = reader.getKeys()
+    #print(keys)
+    df = pd.DataFrame(columns=keys)
+
+    for row in reader.dataGenerator():
+        #print(row)
+        df.append(row, ignore_index=True)
+
+    # show dataframe
+    #print(df)
+########################################################################################################################
+
 
 # Unoffical testing ....
 if __name__ == '__main__':
 
     # run the tests, they will fill if they do not pass
     AllKeysInDictionary()
-    print('Test1() passed.')
+    print('AllKeysInDictionary() passed.')
+
+    DumpToDataFrame()
+    print('DumpToDataFrame() passed.')
+
+    #folder = r'F:\OMIEPrices\proj\OMIEPrices\src\OMIEPrices\TestingRawFilesReader\InputTesting'
+    #reader = MarginalPriceFileReader(filename=os.path.join(folder, 'PMD_20060101.txt'))
