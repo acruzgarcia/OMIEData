@@ -26,7 +26,7 @@ def CheckCorrectValues():
     folder = os.path.abspath('InputTesting')
     filename = os.path.join(folder,'PMD_20060101.txt')
 
-    # File contain
+    # File contains
     #'Precio marginal (Cent/kWh);  6,694;  4,888;  4,525;  4,371;  3,870;  3,777;  3,611;  1,000;  0,500;  1,000;  1,000;\
     #  1,954;  3,755;  3,777;  3,777;  3,755;  3,755;  3,755;  4,788;  5,600;  6,725;  7,001;  6,637;  7,617;
     #' Energía en el programa resultante de la casación (MWh);  26.377;  26.070;  24.916;  23.761;  22.814;  22.116;  \
@@ -35,7 +35,7 @@ def CheckCorrectValues():
 
     data = list(MarginalPriceFileReader(filename=filename).dataGenerator())
 
-    assert UtilTest.isEqualFloat(data[0]['H7'],36.11, tolerance=1e-3), 'Data is corrupted'
+    assert UtilTest.isEqualFloat(data[0]['H7'], 36.11, tolerance=1e-3), 'Data is corrupted'
     assert UtilTest.isEqualFloat(data[1]['H9'], 19438, tolerance=1e-3), 'Data is corrupted'
 
 ########################################################################################################################
