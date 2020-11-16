@@ -1,2 +1,2 @@
-src/OMIEPrices/*/OutputTesting/*.txt
+src/OMIEPrices/Testing/*/*.txt
 *.pyc
