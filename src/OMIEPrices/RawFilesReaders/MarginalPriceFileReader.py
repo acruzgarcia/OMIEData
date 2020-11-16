@@ -16,24 +16,22 @@ class MarginalPriceFileReader:
 
     filename: str
 
-    # Possible lines to recognize
-    # Prices
-    _str_line_price_old_cE_ = 'Precio marginal (Cent/kWh)'
-    _str_line_price_old_E_ = 'Precio marginal (EUR/MWh)'
-    _str_line_price_new_spain_cE_ = 'Precio marginal en el sistema español (Cent/kWh)'
-    _str_line_price_new_spain_E_ = 'Precio marginal en el sistema español (EUR/MWh)'
-    _str_line_price_new_pt_cE_ = 'Precio marginal en el sistema portugués (Cent/kWh)'
-    _str_line_price_new_pt_E_ = 'Precio marginal en el sistema portugués (EUR/MWh)'
-
-    # Energy
-    _str_line_energy_old_ = 'Energía en el programa resultante de la casación (MWh)'
-    _str_line_energy_new_iber_ = 'Energía total del mercado Ibérico (MWh)'
-    _str_line_energy_new_iber_with_bilaterals_ = 'Energía total con bilaterales del mercado Ibérico (MWh)'
+    # string -> [concept , multplier]
+    _dic_static_concepts_ = {'Precio marginal (Cent/kWh)': [ConceptType.PRICE_SPAIN, 10.0],
+                             'Precio marginal (EUR/MWh)': [ConceptType.PRICE_SPAIN, 1.0],
+                             'Precio marginal en el sistema español (Cent/kWh)': [ConceptType.PRICE_SPAIN, 10.0],
+                             'Precio marginal en el sistema español (EUR/MWh)': [ConceptType.PRICE_SPAIN, 1.0],
+                             'Precio marginal en el sistema portugués (Cent/kWh)': [ConceptType.PRICE_PORTUGAL, 10.0],
+                             'Precio marginal en el sistema portugués (EUR/MWh)': [ConceptType.PRICE_PORTUGAL, 1.0],
+                             'Demanda (MWh)': [ConceptType.ENERGY_IBERIAN, 1.0],
+                             'Energía en el programa resultante de la casación (MWh)': [ConceptType.ENERGY_IBERIAN, 1.0],
+                             'Energía total del mercado Ibérico (MWh)': [ConceptType.ENERGY_IBERIAN, 1.0],
+                             'Energía total con bilaterales del mercado Ibérico (MWh)': [ConceptType.ENERGY_IBERIAN_WITH_BILLATERAL, 1.0]}
 
     _key_list_retrieve_ = ['DATE', 'CONCEPT',
-                       'H1', 'H2', 'H3', 'H4','H5', 'H6','H7', 'H8','H9','H10',
-                       'H11', 'H12','H13', 'H14','H15', 'H16','H17', 'H18','H19','H20',
-                       'H21', 'H22','H23', 'H24']
+                           'H1', 'H2', 'H3', 'H4','H5', 'H6','H7', 'H8','H9','H10',
+                           'H11', 'H12','H13', 'H14','H15', 'H16','H17', 'H18','H19','H20',
+                           'H21', 'H22','H23', 'H24']
 
     _dict_concept_str = {ConceptType.PRICE_SPAIN: 'PRICE_SP',
                          ConceptType.PRICE_PORTUGAL: 'PRICE_PT',
@@ -76,29 +74,17 @@ class MarginalPriceFileReader:
                 splits = line.split(sep=';')
                 firstCol = splits[0]
 
-                if firstCol == self._str_line_price_old_cE_:
-                    yield self._processLine_(date=date, concept=ConceptType.PRICE_SPAIN, line=line, multiplier=10.0)
-                if firstCol == self._str_line_price_old_E_:
-                    yield self._processLine_(date=date, concept=ConceptType.PRICE_SPAIN, line=line, multiplier=1.0)
-                elif firstCol == self._str_line_price_new_spain_cE_:
-                    yield self._processLine_(date=date, concept=ConceptType.PRICE_SPAIN, line=line, multiplier=10.0)
-                elif firstCol == self._str_line_price_new_spain_E_:
-                    yield self._processLine_(date=date, concept=ConceptType.PRICE_SPAIN, line=line, multiplier=1.0)
-                elif firstCol == self._str_line_price_new_pt_cE_:
-                    yield self._processLine_(date=date, concept=ConceptType.PRICE_PORTUGAL, line=line, multiplier=10.0)
-                elif firstCol == self._str_line_price_new_pt_E_:
-                    yield self._processLine_(date=date, concept=ConceptType.PRICE_PORTUGAL, line=line, multiplier=1.0)
-                elif firstCol == self._str_line_energy_old_:
-                    yield self._processLine_(date=date, concept=ConceptType.ENERGY_IBERIAN, line=line, multiplier=1.0)
-                elif firstCol == self._str_line_energy_new_iber_:
-                    yield self._processLine_(date=date, concept=ConceptType.ENERGY_IBERIAN, line=line, multiplier=1.0)
-                elif firstCol == self._str_line_energy_new_iber_with_bilaterals_:
-                    yield self._processLine_(date=date, concept=ConceptType.ENERGY_IBERIAN_WITH_BILLATERAL, line=line,
-                                             multiplier=1.0)
+                if firstCol in self._dic_static_concepts_.keys():
+
+                    conceptType = self._dic_static_concepts_[firstCol][0]
+                    units = self._dic_static_concepts_[firstCol][1]
+
+                    yield self._processLine_(date=date,concept=conceptType, values=splits[1:], multiplier=units)
+
     ####################################################################################################################
 
     ####################################################################################################################
-    def _processLine_(self, date: dt.date, concept: ConceptType, line: str, multiplier = 1.0) -> dict:
+    def _processLine_(self, date: dt.date, concept: ConceptType, values: list, multiplier = 1.0) -> dict:
 
         result = dict.fromkeys(self.getKeys())
         result['DATE'] = date
@@ -107,9 +93,7 @@ class MarginalPriceFileReader:
         # These are the correct setting to read the files...
         locale.setlocale(locale.LC_NUMERIC, self._localeInFile_)
 
-        splits = line.split(sep=';')
-        splits = splits[1:] # first split contains the description
-        for i, v in enumerate(splits, start=1):
+        for i, v in enumerate(values, start=1):
             if i > 24:
                 # Jump if 25-hour day or spaces ..
                 break
