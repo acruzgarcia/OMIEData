@@ -14,7 +14,7 @@ if __name__ == '__main__':
     # download the files
     if not isDownloaded:
 
-        dateIni = dt.datetime(2000, 1, 1)
+        dateIni = dt.datetime(2012, 3, 11)
         dateEnd = dt.datetime(2014, 12, 31)
         downloader = MarginalPriceDownloader(output_folder=workingFolder)
         error = downloader.downloadData(dateIni=dateIni, dateEnd=dateEnd)

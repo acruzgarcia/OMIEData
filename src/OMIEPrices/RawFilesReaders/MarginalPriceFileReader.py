@@ -23,7 +23,7 @@ class MarginalPriceFileReader:
                              'Precio marginal en el sistema español (EUR/MWh)': [ConceptType.PRICE_SPAIN, 1.0],
                              'Precio marginal en el sistema portugués (Cent/kWh)': [ConceptType.PRICE_PORTUGAL, 10.0],
                              'Precio marginal en el sistema portugués (EUR/MWh)': [ConceptType.PRICE_PORTUGAL, 1.0],
-                             'Demanda (MWh)': [ConceptType.ENERGY_IBERIAN, 1.0],
+                             'Demanda+bombeos (MWh)': [ConceptType.ENERGY_IBERIAN, 1.0],
                              'Energía en el programa resultante de la casación (MWh)': [ConceptType.ENERGY_IBERIAN, 1.0],
                              'Energía total del mercado Ibérico (MWh)': [ConceptType.ENERGY_IBERIAN, 1.0],
                              'Energía total con bilaterales del mercado Ibérico (MWh)': [ConceptType.ENERGY_IBERIAN_WITH_BILLATERAL, 1.0]}
@@ -94,8 +94,7 @@ class MarginalPriceFileReader:
 
         for i, v in enumerate(values, start=1):
             if i > 24:
-                # Jump if 25-hour day or spaces ..
-                break
+                break # Jump if 25-hour day or spaces ..
             try:
                 f = multiplier * locale.atof(v)
             except:

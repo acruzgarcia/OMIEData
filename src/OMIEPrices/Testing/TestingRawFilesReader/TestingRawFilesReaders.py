@@ -1,5 +1,6 @@
 import datetime as dt
 from RawFilesReaders.MarginalPriceFileReader import MarginalPriceFileReader
+from RawFilesReaders.MarginalPriceFileReader import ConceptType
 from RawFilesReaders.MarginalPriceReader import MarginalPriceReader
 import os
 import Testing.UtilTest as UtilTest
@@ -107,6 +108,61 @@ def TestDayWith23hours():
         assert dataline['H23'] == dataline['H24'], 'Day with 23 hours must repeat last hour.'
 ########################################################################################################################
 
+########################################################################################################################
+def Test20030802():
+
+    folder = os.path.abspath('InputTesting')
+    filename = os.path.join(folder,'PMD_20030802.txt')
+
+    # File contains
+    #;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;24;
+    # Precio marginal (Cent/kWh);  4,553;  3,700;  2,955;  2,607;  2,406;  2,206;  2,089;  2,089;  2,647;  3,956;  \
+    # 4,662;  4,934;  5,096;  5,149;  5,000;  4,934;  4,900;  4,908;  4,908;  4,908;  4,800;  5,149;  5,309;  4,934;
+    # Demanda+bombeos (MWh);  24.623;  22.721;  22.019;  21.657;  21.307;  20.919;  20.989;  20.889;  21.350;  22.025;\
+    # 24.378;  25.414;  25.873;  25.947;  25.103;  24.215;  23.711;  23.506;  23.437;  23.406;  23.543;  24.854;  \
+    # 25.507;  24.181;
+    # ;;;;;;;;;;;;;;;;;;;;;;;;
+
+    input = list(MarginalPriceFileReader(filename=filename).dataGenerator())
+    concepts = [x.get('CONCEPT') for x in input]
+
+    assert 'ENER_IB' in concepts, 'ENER_IB has to be one of the concepts read'
+    assert 'PRICE_SP' in concepts, 'PRICE_SP has to be one of the concepts read'
+
+########################################################################################################################
+def Test20040101():
+
+    folder = os.path.abspath('InputTesting')
+    filename = os.path.join(folder,'PMD_20040101.txt')
+
+    # File contains
+    # OMEL - Mercado de electricidad;Fecha Emisión :31/12/2003 - 10:23;;01/01/2004;Precio del mercado diario (cent/kWh)\
+    # ;;;;
+    #
+    # ;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;24;
+    # Precio marginal (Cent/kWh);  2,899;  2,823;  2,548;  2,300;  1,654;  1,468;  1,454;  1,167;  0,757;  0,287;  \
+    # 1,001;  0,937;  1,127;  1,217;  1,197;  1,012;  0,917;  1,022;  1,468;  2,101;  2,101;  2,300;  2,101;  2,300;
+    # Demanda+bombeos (MWh);  21.704;  20.248;  18.415;  16.699;  15.449;  14.677;  14.539;  14.390;  14.596;  14.739;\
+    # 14.908;  16.360;  16.826;  16.855;  17.001;  16.914;  16.666;  17.398;  18.787;  20.146;  20.512;  20.935;\
+    # 20.381;  20.493;
+    # ;;;;;;;;;;;;;;;;;;;;;;;;;
+    #
+
+    input = list(MarginalPriceFileReader(filename=filename).dataGenerator())
+    concepts = [x.get('CONCEPT') for x in input]
+
+    assert 'ENER_IB' in concepts, 'ENER_IB has to be one of the concepts read'
+    assert 'PRICE_SP' in concepts, 'PRICE_SP has to be one of the concepts read'
+
+    prices = [2.899,  2.823,  2.548,  2.300,  1.654,  1.468,  1.454,  1.167,  0.757,  0.287,  1.001,  0.937,  1.127,
+              1.217, 1.197,  1.012,  0.917,  1.022,  1.468,  2,.101,  2.101,  2.300,  2.101,  2.300]
+
+    for inp in input:
+        if inp.get('PRICE_SP'):
+            for i, v in enumerate(prices):
+                assert UtilTest.isEqualFloat(prices[i], float(inp.get('H' + f'{i + 1:01}')), tolerance=1e-6), \
+                    'Data is corrupt'
+
 
 # Unoffical testing ....
 if __name__ == '__main__':
@@ -123,3 +179,9 @@ if __name__ == '__main__':
 
     TestDayWith23hours()
     print('TestDayWith23hours() passed.')
+
+    Test20030802()
+    print('Test20030802() passed.')
+
+    Test20040101()
+    print('Test20030802() passed.')
