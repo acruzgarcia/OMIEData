@@ -49,7 +49,6 @@ class MarginalPriceFileReader:
     ####################################################################################################################
     def getKeys(self):
         return self._key_list_retrieve_
-
     ####################################################################################################################
 
     ####################################################################################################################
@@ -87,8 +86,8 @@ class MarginalPriceFileReader:
     def _processLine_(self, date: dt.date, concept: ConceptType, values: list, multiplier = 1.0) -> dict:
 
         result = dict.fromkeys(self.getKeys())
-        result['DATE'] = date
-        result['CONCEPT'] = self._dict_concept_str[concept]
+        result[self._key_list_retrieve_[0]] = date
+        result[self._key_list_retrieve_[1]] = self._dict_concept_str[concept]
 
         # These are the correct setting to read the files...
         locale.setlocale(locale.LC_NUMERIC, self._localeInFile_)
@@ -102,11 +101,11 @@ class MarginalPriceFileReader:
             except:
                 if i == 24:
                     # Day with 23-hours.
-                    result['H24'] = result['H23']
+                    result[self._key_list_retrieve_[25]] = result[self._key_list_retrieve_[24]]
                 else:
                     raise
             else:
-                result['H' + f'{i:01}'] = f
+                result[self._key_list_retrieve_[i+1]] = f
 
         return result
     ####################################################################################################################
