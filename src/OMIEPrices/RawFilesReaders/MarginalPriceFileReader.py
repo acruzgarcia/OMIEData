@@ -93,21 +93,36 @@ class MarginalPriceFileReader:
                 elif firstCol == self._str_line_energy_new_iber_:
                     yield self._processLine_(date=date, concept=ConceptType.ENERGY_IBERIAN, line=line, multiplier=1.0)
                 elif firstCol == self._str_line_energy_new_iber_with_bilaterals_:
-                    yield self._processLine_(date=date, concept=ConceptType.ENERGY_IBERIAN_WITH_BILLATERAL, line=line, multiplier=1.0)
+                    yield self._processLine_(date=date, concept=ConceptType.ENERGY_IBERIAN_WITH_BILLATERAL, line=line,
+                                             multiplier=1.0)
     ####################################################################################################################
 
     ####################################################################################################################
-    def _processLine_(self, date: dt.datetime, concept: ConceptType, line: str, multiplier = 1.0) -> dict:
+    def _processLine_(self, date: dt.date, concept: ConceptType, line: str, multiplier = 1.0) -> dict:
 
         result = dict.fromkeys(self.getKeys())
-
-        splits = line.split(sep=';')
         result['DATE'] = date
         result['CONCEPT'] = self._dict_concept_str[concept]
 
+        # These are the correct setting to read the files...
         locale.setlocale(locale.LC_NUMERIC, self._localeInFile_)
-        for i in range(1, 25):
-            result['H' + f'{i:01}'] = multiplier * locale.atof(splits[i])
+
+        splits = line.split(sep=';')
+        splits = splits[1:] # first split contains the description
+        for i, v in enumerate(splits, start=1):
+            if i > 24:
+                # Jump if 25-hour day or spaces ..
+                break
+            try:
+                f = multiplier * locale.atof(v)
+            except:
+                if i == 24:
+                    # Day with 23-hours.
+                    result['H24'] = result['H23']
+                else:
+                    raise
+            else:
+                result['H' + f'{i:01}'] = f
 
         return result
     ####################################################################################################################

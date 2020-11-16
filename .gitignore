@@ -1,3 +1,2 @@
-src/OMIEPrices/TestingDownloaders/OutputTesting/*
-src/OMIEPrices/TestingRawFilesReader/OutputTesting/*
+src/OMIEPrices/*/OutputTesting/*.txt
 *.pyc

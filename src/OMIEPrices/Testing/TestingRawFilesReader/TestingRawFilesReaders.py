@@ -1,6 +1,6 @@
 import datetime as dt
 from RawFilesReaders.MarginalPriceFileReader import MarginalPriceFileReader
-from RawFilesReaders.MarginalPriceDumper import MarginalPriceDumper
+from RawFilesReaders.MarginalPriceReader import MarginalPriceReader
 import os
 import Testing.UtilTest as UtilTest
 
@@ -41,13 +41,14 @@ def CheckCorrectValues():
 ########################################################################################################################
 
 ########################################################################################################################
-def DumpToDataframe():
+def DumpToDataframe(verbose=False):
 
-    dumper = MarginalPriceDumper(absolutePath=os.path.abspath('InputTesting'))
+    dumper = MarginalPriceReader(absolutePath=os.path.abspath('InputTesting'))
     df = dumper.readToDataFrame()
 
     # show dataframe
-    #print(df)
+    if verbose:
+        print(df)
 
     # 2006-1-1 file
     value = float(df.loc[(df.DATE == dt.date(2006, 1, 1)) & (df.CONCEPT == 'PRICE_SP'), 'H1'])
@@ -87,6 +88,25 @@ def DumpToDataframe():
                                      tolerance=1e-6), 'Data is corrupt'
 ########################################################################################################################
 
+########################################################################################################################
+def TestDayWith23hours():
+
+    folder = os.path.abspath('InputTesting')
+    filename = os.path.join(folder,'PrecioMD_OMIE_20200329.txt')
+
+    # File contains
+    #';1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;24;
+    #Precio marginal (Cent/kWh);  2,002;  1,762;  1,562;  1,527;  1,482;  1,475;  1,762;  2,149;  4,167;  4,340;  \
+    # 4,276;  4,276;  3,500;  3,585;  3,200;  3,300;  3,400;  2,192;  3,300;  5,000;  4,426;  4,197;  3,673;  4,340;
+    #Demanda+bombeos (MWh);  23.669;  21.263;  19.804;  19.187;  18.774;  18.666;  20.321;  22.565;  24.720;  25.838;  \
+    # 26.405;  26.603;  26.194;  25.455;  23.956;  24.020;  24.041;  24.599;  26.224;  28.132;  27.617;  26.571;  \
+    # 24.909;  24.664;
+    #;;;;;;;;;;;;;;;;;;;;;;;;;'
+
+    for dataline in MarginalPriceFileReader(filename=filename).dataGenerator():
+        assert dataline['H23'] == dataline['H24'], 'Day with 23 hours must repeat last hour.'
+########################################################################################################################
+
 
 # Unoffical testing ....
 if __name__ == '__main__':
@@ -96,7 +116,10 @@ if __name__ == '__main__':
     print('AllKeysInDictionary() passed.')
 
     CheckCorrectValues()
-    print('DumpToDataFrame() passed.')
+    print('CheckCorrectValues() passed.')
 
     DumpToDataframe()
     print('TestingDumper() passed.')
+
+    TestDayWith23hours()
+    print('TestDayWith23hours() passed.')
