@@ -33,10 +33,10 @@ class MarginalPriceFileReader:
                            'H11', 'H12','H13', 'H14','H15', 'H16','H17', 'H18','H19','H20',
                            'H21', 'H22','H23', 'H24']
 
-    _dict_concept_str = {ConceptType.PRICE_SPAIN: 'PRICE_SP',
-                         ConceptType.PRICE_PORTUGAL: 'PRICE_PT',
-                         ConceptType.ENERGY_IBERIAN: 'ENER_IB',
-                         ConceptType.ENERGY_IBERIAN_WITH_BILLATERAL: 'ENER_IB_BILLAT'}
+    _dict_concept_str_ = {ConceptType.PRICE_SPAIN: 'PRICE_SP',
+                          ConceptType.PRICE_PORTUGAL: 'PRICE_PT',
+                          ConceptType.ENERGY_IBERIAN: 'ENER_IB',
+                          ConceptType.ENERGY_IBERIAN_WITH_BILLATERAL: 'ENER_IB_BILLAT'}
 
     _dateFormatInFile_ = '%d/%m/%Y'
     _localeInFile_ = "en_DK.UTF-8"
@@ -87,7 +87,7 @@ class MarginalPriceFileReader:
 
         result = dict.fromkeys(self.getKeys())
         result[self._key_list_retrieve_[0]] = date
-        result[self._key_list_retrieve_[1]] = self._dict_concept_str[concept]
+        result[self._key_list_retrieve_[1]] = self._dict_concept_str_[concept]
 
         # These are the correct setting to read the files...
         locale.setlocale(locale.LC_NUMERIC, self._localeInFile_)
