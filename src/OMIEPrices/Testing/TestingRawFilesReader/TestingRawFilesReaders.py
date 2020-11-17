@@ -1,6 +1,5 @@
 import datetime as dt
 from RawFilesReaders.MarginalPriceFileReader import MarginalPriceFileReader
-from RawFilesReaders.MarginalPriceFileReader import ConceptType
 from RawFilesReaders.MarginalPriceReader import MarginalPriceReader
 import os
 import Testing.UtilTest as UtilTest
@@ -154,15 +153,14 @@ def Test20040101():
     assert 'ENER_IB' in concepts, 'ENER_IB has to be one of the concepts read'
     assert 'PRICE_SP' in concepts, 'PRICE_SP has to be one of the concepts read'
 
-    prices = [2.899,  2.823,  2.548,  2.300,  1.654,  1.468,  1.454,  1.167,  0.757,  0.287,  1.001,  0.937,  1.127,
-              1.217, 1.197,  1.012,  0.917,  1.022,  1.468,  2,.101,  2.101,  2.300,  2.101,  2.300]
+    prices = [10*x for x in [2.899,  2.823,  2.548,  2.300,  1.654,  1.468,  1.454,  1.167,  0.757,  0.287,  1.001,  0.937,  1.127,
+              1.217, 1.197,  1.012,  0.917,  1.022,  1.468,  2.101,  2.101,  2.300,  2.101,  2.300]]
 
     for inp in input:
-        if inp.get('PRICE_SP'):
+        if inp.get('CONCEPT') == 'PRICE_SP':
             for i, v in enumerate(prices):
                 assert UtilTest.isEqualFloat(prices[i], float(inp.get('H' + f'{i + 1:01}')), tolerance=1e-6), \
-                    'Data is corrupt'
-
+                    'Data is corrupt: ' + inp.get('CONCEPT') + ' (H' + f'{i + 1:01})'
 
 # Unoffical testing ....
 if __name__ == '__main__':

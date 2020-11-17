@@ -25,12 +25,12 @@ if __name__ == '__main__':
 
     # Just spanish prices
     dfPrices = df[df.CONCEPT == 'PRICE_SP']
-    dfEnergy = df[df.CONCEPT == 'ENER_IB']
 
     plt.plot(dfPrices.DATE, dfPrices.H12)
     plt.plot(dfPrices.DATE, dfPrices.H23)
     plt.show()
 
+    dfEnergy = df[df.CONCEPT == 'ENER_IB']
     plt.plot(dfEnergy.DATE, dfEnergy.H12)
     plt.show()
 
