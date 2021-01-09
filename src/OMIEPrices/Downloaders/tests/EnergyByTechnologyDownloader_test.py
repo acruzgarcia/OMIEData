@@ -2,32 +2,36 @@
 import datetime as dt
 import os
 import filecmp
-from Downloaders.IntraDayPriceDownloader import IntradayPriceDownloader
+
+from Downloaders.EnergyByTechnologyDownloader import EnergyByTechnologyDownloader
+from Downloaders.EnergyByTechnologyDownloader import SystemType
 
 ########################################################################################################################
-def Test1():
+def test_1():
 
     folder = os.path.abspath('OutputTesting')
-    downloader = IntradayPriceDownloader(session=2, output_folder=folder)
+    downloader = EnergyByTechnologyDownloader(system=SystemType.IBERIAN, output_folder=folder)
 
     assert downloader.getCompleteURL() == \
-           'https://www.omie.es/sites/default/files/dados/AGNO_YYYY/MES_MM/TXT/INT_PIB_EV_H_1_2_DD_MM_YYYY_DD_MM_YYYY.TXT', \
+           'https://www.omie.es/sites/default/files/dados/AGNO_YYYY/MES_MM/TXT/INT_PBC_TECNOLOGIAS_H_9_DD_MM_YYYY_DD_MM_YYYY.TXT', \
         'URL mask is not the one expected.'
+
 ########################################################################################################################
 
 ########################################################################################################################
-def Test2():
+def test_2():
 
-    dateIni = dt.datetime(2009, 1, 3)
-    dateEnd = dt.datetime(2009, 1, 3)
+    dateIni = dt.datetime(2020, 11, 13)
+    dateEnd = dt.datetime(2020, 11, 13)
     folderOut = os.path.abspath('OutputTesting')
-    downloader = IntradayPriceDownloader(session=2, output_folder=folderOut)
+    # System 1= Spain 2= Portugal 9= Iberian Market
+    downloader = EnergyByTechnologyDownloader(system=SystemType.IBERIAN, output_folder=folderOut)
 
     error = downloader.downloadData(dateIni=dateIni, dateEnd=dateEnd)
     assert error == 0, 'There was an error when downloading.'
 
     # Check it downloaded with the right name
-    outputFileName = 'PrecioIntra_2_20090103.txt'
+    outputFileName = 'EnergyByTechnology_9_20201113.txt'
     assert os.path.isfile(os.path.join(folderOut, outputFileName)), \
         'The downloaded file does not have the expected name.'
 
@@ -37,13 +41,5 @@ def Test2():
                        shallow=True), \
         'The content of the downloaded file is not as expected.'
 
+    assert error == 0
 ########################################################################################################################
-
-# Unoffical testing ....
-if __name__ == '__main__':
-
-    # run the tests, they will fill if they do not pass
-    Test1()
-    print('Test1() passed.')
-    Test2()
-    print('Test2() passed.')

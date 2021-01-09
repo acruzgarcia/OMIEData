@@ -57,12 +57,3 @@ def Test2():
         'The content of the downloaded file is not as expected.'
 
 ########################################################################################################################
-
-# Unoffical testing ....
-if __name__ == '__main__':
-
-    # run the tests, they will fill if they do not pass
-    Test1()
-    print('Test1() passed.')
-    Test2()
-    print('Test2() passed.')
