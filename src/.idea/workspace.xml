@@ -19,11 +19,66 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e688e7b-09cc-46a4-9675-7a17d0a13b37" name="Default Changelist" comment="" />
+    <list default="true" id="5e688e7b-09cc-46a4-9675-7a17d0a13b37" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/src.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/src.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/.idea/OMIEPrices.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/DbLoaders/MarginalPricesLoader.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/DbLoaders/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/Downloaders/EnergyByTechnologyDownloader.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/Downloaders/GeneralOMIEDownloader.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/Downloaders/IntraDayPriceDownloader.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/Downloaders/MarginalPriceDownloader.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/Downloaders/OfferAndDemandCurveDownloader.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/Downloaders/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/Downloaders/tests/EnergyByTechnologyDownloader_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/Downloaders/tests/GeneralOMIEDownloader_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/Downloaders/tests/InputTesting/.txt.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/Downloaders/tests/InputTesting/EnergyByTechnology_9_20201113.TXT" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/Downloaders/tests/InputTesting/OfferAndDemandCurve_1_20090102.TXT" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/Downloaders/tests/InputTesting/PMD_20060101.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/Downloaders/tests/InputTesting/PMD_20090601.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/Downloaders/tests/InputTesting/PrecioIntra_2_20090102.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/Downloaders/tests/InputTesting/PrecioIntra_2_20090103.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/Downloaders/tests/IntraDayPriceDownloader_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/Downloaders/tests/MarginalPriceDownloader_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/Downloaders/tests/OfferAndDemandCurveDownloader_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/Downloaders/tests/OutputTesting/EnergyByTechnology_9_20201113.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/Downloaders/tests/OutputTesting/OfferAndDemandCurve_1_20090102.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/Downloaders/tests/OutputTesting/PMD_20090601.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/Downloaders/tests/OutputTesting/PrecioIntra_2_20090103.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/RawFilesReaders/MarginalPriceFileReader.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/RawFilesReaders/MarginalPriceReader.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/RawFilesReaders/__init__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/RawFilesReaders/tests/InputTesting/PMD_20030802.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/RawFilesReaders/tests/InputTesting/PMD_20040101.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/RawFilesReaders/tests/InputTesting/PMD_20060101.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/RawFilesReaders/tests/InputTesting/PMD_20090601.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/RawFilesReaders/tests/InputTesting/PrecioMD_OMIE_20200329.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/RawFilesReaders/tests/InputTesting/PrecioMD_OMIE_20201022.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/RawFilesReaders/tests/OutputTesting/README.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/RawFilesReaders/tests/RawFilesReaders_test.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEPrices/main.py" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -36,7 +91,75 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/OMIEPrices" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyIntegratedToolsModulesConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="F:\OMIEPrices\proj\OMIEPrices\src" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Python tests.pytest in tests">
+    <configuration name="pytest in bin" type="tests" factoryName="py.test" nameIsGenerated="true">
+      <module name="src" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="C:\ProgramData\Anaconda3\envs\OMIEPrices\python.exe" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_parameters" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pytest in tests (1)" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="src" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/OMIEData/RawFilesReaders/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_parameters" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/OMIEData/RawFilesReaders/tests&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pytest in tests" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="src" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/OMIEData/Downloaders/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_parameters" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/OMIEData/Downloaders/tests&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Python tests.pytest in bin" />
+      <item itemvalue="Python tests.pytest in tests" />
+      <item itemvalue="Python tests.pytest in tests (1)" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python tests.pytest in tests" />
+        <item itemvalue="Python tests.pytest in tests (1)" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -59,11 +182,17 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
-  <component name="WindowStateProjectService">
-    <state x="549" y="187" key="FileChooserDialogImpl" timestamp="1603562988544">
-      <screen x="0" y="0" width="1536" height="864" />
-    </state>
-    <state x="549" y="187" key="FileChooserDialogImpl/0.0.1536.864/1920.0.1680.1050@0.0.1536.864" timestamp="1603562988544" />
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/OMIEData/Downloaders/tests/MarginalPriceDownloader_test.py</url>
+          <line>1</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

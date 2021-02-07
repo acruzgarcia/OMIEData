@@ -1,8 +1,10 @@
 # This is a sample Python script.
-from RawFilesReaders.MarginalPriceReader import MarginalPriceReader
-from Downloaders.MarginalPriceDownloader import MarginalPriceDownloader
 import matplotlib.pyplot as plt
 import datetime as dt
+
+from OMIEData.RawFilesReaders.MarginalPriceReader import MarginalPriceReader
+from OMIEData.Downloaders.MarginalPriceDownloader import MarginalPriceDownloader
+
 import os
 
 # Press the green button in the gutter to run the script.

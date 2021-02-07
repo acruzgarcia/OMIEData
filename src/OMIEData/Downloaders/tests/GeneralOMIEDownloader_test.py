@@ -1,6 +1,6 @@
 
 import datetime as dt
-from Downloaders.GeneralOMIEDownloader import GeneralOMIEDownloader
+from OMIEData.Downloaders.GeneralOMIEDownloader import GeneralOMIEDownloader
 import os
 import filecmp
 

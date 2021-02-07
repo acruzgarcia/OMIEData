@@ -1,33 +1,32 @@
-
 import datetime as dt
 import os
 import filecmp
-from Downloaders.IntraDayPriceDownloader import IntradayPriceDownloader
+from OMIEData.Downloaders.OfferAndDemandCurveDownloader import OfferAndDemandCurveDownloader
 
 ########################################################################################################################
 def test_1():
 
     folder = os.path.abspath('OutputTesting')
-    downloader = IntradayPriceDownloader(session=2, output_folder=folder)
+    downloader = OfferAndDemandCurveDownloader(hour=1, output_folder=folder)
 
     assert downloader.getCompleteURL() == \
-           'https://www.omie.es/sites/default/files/dados/AGNO_YYYY/MES_MM/TXT/INT_PIB_EV_H_1_2_DD_MM_YYYY_DD_MM_YYYY.TXT', \
+           'https://www.omie.es/sites/default/files/dados/AGNO_YYYY/MES_MM/TXT/INT_CURVA_ACUM_UO_MIB_1_1_DD_MM_YYYY_DD_MM_YYYY.TXT', \
         'URL mask is not the one expected.'
 ########################################################################################################################
 
 ########################################################################################################################
 def test_2():
 
-    dateIni = dt.datetime(2009, 1, 3)
-    dateEnd = dt.datetime(2009, 1, 3)
+    dateIni = dt.datetime(2009, 1, 2)
+    dateEnd = dt.datetime(2009, 1, 2)
     folderOut = os.path.abspath('OutputTesting')
-    downloader = IntradayPriceDownloader(session=2, output_folder=folderOut)
+    downloader = OfferAndDemandCurveDownloader(hour=1, output_folder=folderOut)
 
     error = downloader.downloadData(dateIni=dateIni, dateEnd=dateEnd)
     assert error == 0, 'There was an error when downloading.'
 
     # Check it downloaded with the right name
-    outputFileName = 'PrecioIntra_2_20090103.txt'
+    outputFileName = 'OfferAndDemandCurve_1_20090102.txt'
     assert os.path.isfile(os.path.join(folderOut, outputFileName)), \
         'The downloaded file does not have the expected name.'
 

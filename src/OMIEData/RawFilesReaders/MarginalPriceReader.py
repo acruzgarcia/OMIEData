@@ -1,6 +1,6 @@
 import pandas as pd
 import os
-from RawFilesReaders.MarginalPriceFileReader import MarginalPriceFileReader
+from .MarginalPriceFileReader import MarginalPriceFileReader
 
 ####################################################################################################################
 class MarginalPriceReader:

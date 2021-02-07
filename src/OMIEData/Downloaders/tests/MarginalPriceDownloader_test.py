@@ -2,7 +2,7 @@
 import datetime as dt
 import os
 import filecmp
-from Downloaders.MarginalPriceDownloader import MarginalPriceDownloader
+from OMIEData.Downloaders.MarginalPriceDownloader import MarginalPriceDownloader
 
 ########################################################################################################################
 def test_1():

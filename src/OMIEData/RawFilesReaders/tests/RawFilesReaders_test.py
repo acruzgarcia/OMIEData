@@ -1,9 +1,8 @@
 import datetime as dt
-
 import numpy as np
 
-from RawFilesReaders.MarginalPriceFileReader import MarginalPriceFileReader
-from RawFilesReaders.MarginalPriceReader import MarginalPriceReader
+from OMIEData.RawFilesReaders.MarginalPriceFileReader import MarginalPriceFileReader
+from OMIEData.RawFilesReaders.MarginalPriceReader import MarginalPriceReader
 import os
 
 ########################################################################################################################

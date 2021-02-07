@@ -1,22 +1,29 @@
 
-from Downloaders.GeneralOMIEDownloader import GeneralOMIEDownloader
+from OMIEData.Downloaders.GeneralOMIEDownloader import GeneralOMIEDownloader
+from enum import Enum
+
+class SystemType(Enum):
+
+    SPAIN = 1
+    PORTUGAL = 2
+    IBERIAN = 9
 
 ####################################################################################################################
-class IntradayPriceDownloader(GeneralOMIEDownloader):
+class EnergyByTechnologyDownloader(GeneralOMIEDownloader):
 
     url_year = 'AGNO_YYYY'
     url_month = '/MES_MM/TXT/'
-    url_name = 'INT_PIB_EV_H_1_SS_DD_MM_YYYY_DD_MM_YYYY.TXT'
-    output_mask = 'PrecioIntra_SS_YYYYMMDD.txt'
+    url_name = 'INT_PBC_TECNOLOGIAS_H_SYS_DD_MM_YYYY_DD_MM_YYYY.TXT'
+    output_mask = 'EnergyByTechnology_SYS_YYYYMMDD.txt'
 
     ####################################################################################################################
-    def __init__(self, session: int, output_folder: str):
+    def __init__(self, system: SystemType, output_folder: str):
 
-        strSession = f'{session:01}'
-        self.output_mask = self.output_mask.replace('SS', strSession)
+        strSystem = f'{system.value:01}'
+        self.output_mask = self.output_mask.replace('SYS', strSystem)
 
         url1 = self.url_year + self.url_month + self.url_name
-        url1 = url1.replace('SS', strSession)
+        url1 = url1.replace('SYS', strSystem)
 
         GeneralOMIEDownloader.__init__(self,
                                        url_mask=url1,
@@ -24,5 +31,5 @@ class IntradayPriceDownloader(GeneralOMIEDownloader):
                                        output_mask=self.output_mask)
     ####################################################################################################################
 
-# End class MarginalPriceDownloader
+# End class EnergyByTechnologyDownloader
 ####################################################################################################################
