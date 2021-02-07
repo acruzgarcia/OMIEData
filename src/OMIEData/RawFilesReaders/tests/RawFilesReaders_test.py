@@ -18,8 +18,8 @@ def test_AllKeysInDictionary():
     filename = os.path.join(folder,'PMD_20060101.txt')
     keys = MarginalPriceFileReader.getKeys()
 
-    reader = MarginalPriceFileReader(filename=filename)
-    data = list(reader.dataGenerator())
+    reader = MarginalPriceFileReader()
+    data = list(reader.dataGenerator(filename=filename))
 
     # data is list of dictionaries
     for dictionary in data:
@@ -40,7 +40,7 @@ def test_CheckCorrectValues():
     #21.415;  20.712;  19.438;  19.699;  20.583;  21.119;  21.741;  22.264;  22.359;  21.763;  21.463;  21.610;  23.872;\
     #  24.322;  24.993;  25.064;  24.792;  25.373;'
 
-    data = list(MarginalPriceFileReader(filename=filename).dataGenerator())
+    data = list(MarginalPriceFileReader().dataGenerator(filename=filename))
 
     assert is_equal_float(data[0]['H7'], 36.11, tolerance=1e-3), 'Data is corrupted'
     assert is_equal_float(data[1]['H9'], 19438, tolerance=1e-3), 'Data is corrupted'
@@ -50,7 +50,8 @@ def test_CheckCorrectValues():
 ########################################################################################################################
 def test_DumpToDataframe(verbose=False):
 
-    dumper = Reader(absolutePath=os.path.abspath('InputTesting'))
+    fileReader = MarginalPriceFileReader()
+    dumper = Reader(absolutePath=os.path.abspath('InputTesting'), fileReader=fileReader)
     df = dumper.readToDataFrame()
 
     # show dataframe
@@ -111,7 +112,7 @@ def test_TestDayWith23hours():
     # 24.909;  24.664;
     #;;;;;;;;;;;;;;;;;;;;;;;;;'
 
-    for dataline in MarginalPriceFileReader(filename=filename).dataGenerator():
+    for dataline in MarginalPriceFileReader().dataGenerator(filename=filename):
         assert dataline['H23'] == dataline['H24'], 'Day with 23 hours must repeat last hour.'
 ########################################################################################################################
 
@@ -130,7 +131,7 @@ def test_Test20030802():
     # 25.507;  24.181;
     # ;;;;;;;;;;;;;;;;;;;;;;;;
 
-    input = list(MarginalPriceFileReader(filename=filename).dataGenerator())
+    input = list(MarginalPriceFileReader().dataGenerator(filename=filename))
     concepts = [x.get('CONCEPT') for x in input]
 
     assert str(EnergyDataType.ENERGY_IBERIAN) in concepts, \
@@ -157,7 +158,7 @@ def test_Test20040101():
     # ;;;;;;;;;;;;;;;;;;;;;;;;;
     #
 
-    input = list(MarginalPriceFileReader(filename=filename).dataGenerator())
+    input = list(MarginalPriceFileReader().dataGenerator(filename=filename))
     concepts = [x.get('CONCEPT') for x in input]
 
     assert str(EnergyDataType.ENERGY_IBERIAN) in concepts, \

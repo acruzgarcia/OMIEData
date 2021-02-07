@@ -1,30 +1,12 @@
 import datetime as dt
 import re
 import locale
-from enum import Enum, auto
+
+from .EnergyDataTypes import EnergyDataType
+from .FileReader import FileReader
 
 ########################################################################################################################
-from typing import List
-
-class EnergyDataType(Enum):
-
-    PRICE_SPAIN = auto()
-    PRICE_PORTUGAL = auto()
-    ENERGY_IBERIAN = auto()
-    ENERGY_IBERIAN_WITH_BILLATERAL = auto()
-
-    __dict_concept_str__ = {PRICE_SPAIN: 'PRICE_SP',
-                            PRICE_PORTUGAL: 'PRICE_PT',
-                            ENERGY_IBERIAN: 'ENER_IB',
-                            ENERGY_IBERIAN_WITH_BILLATERAL: 'ENER_IB_BILLAT'}
-
-    def __str__(self):
-        return self.__dict_concept_str__[self.value]
-########################################################################################################################
-
-
-########################################################################################################################
-class MarginalPriceFileReader:
+class MarginalPriceFileReader(FileReader):
 
     # Static or class variables
     __dic_static_concepts__ = {'Precio marginal (Cent/kWh)': [EnergyDataType.PRICE_SPAIN, 10.0],
@@ -50,8 +32,7 @@ class MarginalPriceFileReader:
                      EnergyDataType.ENERGY_IBERIAN, EnergyDataType.ENERGY_IBERIAN_WITH_BILLATERAL]
 
     ####################################################################################################################
-    def __init__(self, filename: str, types=None):
-        self.filename = filename
+    def __init__(self, types=None):
         self.conceptsToLoad = MarginalPriceFileReader.__all_types__ if not types else types
     ####################################################################################################################
 
@@ -62,16 +43,16 @@ class MarginalPriceFileReader:
     ####################################################################################################################
 
     ####################################################################################################################
-    def dataGenerator(self):
+    def dataGenerator(self, filename: str):
 
         # Method yield each dictionary one by one
-        file = open(self.filename, 'r')
+        file = open(filename, 'r')
 
         # from first line we get the units and the price date. We just look at the date
         line = file.readline()
         matches = re.findall('\d\d/\d\d/\d\d\d\d', line)
         if not (len(matches) == 2):
-            print('File ' + self.filename + ' does not have the expected format.')
+            print('File ' + filename + ' does not have the expected format.')
         else:
             # The second date is the one we want
             date = dt.datetime.strptime(matches[1], MarginalPriceFileReader.__dateFormatInFile__).date()

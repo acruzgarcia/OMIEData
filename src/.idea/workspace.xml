@@ -22,9 +22,8 @@
     <list default="true" id="5e688e7b-09cc-46a4-9675-7a17d0a13b37" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OMIEData/RawFilesReaders/MarginalPriceFileReader.py" beforeDir="false" afterPath="$PROJECT_DIR$/OMIEData/RawFilesReaders/MarginalPriceFileReader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OMIEData/RawFilesReaders/MarginalPriceReader.py" beforeDir="false" afterPath="$PROJECT_DIR$/OMIEData/RawFilesReaders/Reader.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEData/RawFilesReaders/Reader.py" beforeDir="false" afterPath="$PROJECT_DIR$/OMIEData/RawFilesReaders/Reader.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/OMIEData/RawFilesReaders/tests/RawFilesReaders_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/OMIEData/RawFilesReaders/tests/RawFilesReaders_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +58,7 @@
     </key>
   </component>
   <component name="RunManager" selected="Python tests.pytest in tests (1)">
+  <component name="RunManager" selected="Python tests.pytest in tests">
     <configuration name="pytest for RawFilesReaders_test.test_DumpToDataframe" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="src" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -73,6 +73,22 @@
       <option name="_new_additionalArguments" value="&quot;&quot;" />
       <option name="_new_target" value="&quot;RawFilesReaders_test.test_DumpToDataframe&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="pytest in RawFilesReaders_test.py" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="src" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/OMIEData/RawFilesReaders/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_parameters" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/OMIEData/RawFilesReaders/tests/RawFilesReaders_test.py&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
     <configuration name="pytest in bin" type="tests" factoryName="py.test" nameIsGenerated="true">
@@ -128,11 +144,13 @@
       <item itemvalue="Python tests.pytest in tests" />
       <item itemvalue="Python tests.pytest in tests (1)" />
       <item itemvalue="Python tests.pytest for RawFilesReaders_test.test_DumpToDataframe" />
+      <item itemvalue="Python tests.pytest in RawFilesReaders_test.py" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python tests.pytest in tests (1)" />
         <item itemvalue="Python tests.pytest in tests" />
+        <item itemvalue="Python tests.pytest in tests (1)" />
+        <item itemvalue="Python tests.pytest in RawFilesReaders_test.py" />
         <item itemvalue="Python tests.pytest for RawFilesReaders_test.test_DumpToDataframe" />
       </list>
     </recent_temporary>
