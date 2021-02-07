@@ -17,11 +17,10 @@ class Reader:
         # List all the files in the directory
         filenames = [f for f in os.listdir(self.folder) if os.path.isfile(os.path.join(self.folder, f))]
 
-        reader = self.fileReader
-        df = pd.DataFrame(columns=reader.getKeys())
+        df = pd.DataFrame(columns=self.fileReader.getKeys())
         for f in filenames:
             try:
-                for row in reader.dataGenerator(filename=os.path.join(self.folder, f)):
+                for row in self.fileReader.dataGenerator(filename=os.path.join(self.folder, f)):
                     # df = df.append(row, ignore_index=True) # This is inefficient
                     df.loc[df.shape[0], :] = row
             except:

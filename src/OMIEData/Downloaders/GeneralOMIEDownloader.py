@@ -29,7 +29,7 @@ class GeneralOMIEDownloader:
         error = 0
         dtaux = dateIni
 
-        while (dtaux <= dateEnd):
+        while dtaux <= dateEnd:
 
             dd = f'{dtaux.day:02}'
             mm = f'{dtaux.month:02}'
@@ -51,6 +51,25 @@ class GeneralOMIEDownloader:
             dtaux = dtaux + dt.timedelta(days=+1)
 
         return error
+    ####################################################################################################################
+
+    ####################################################################################################################
+    def requestGenerator(self, dateIni: dt.datetime, dateEnd: dt.datetime):
+
+        dtaux = dateIni
+        while dtaux <= dateEnd:
+            dd = f'{dtaux.day:02}'
+            mm = f'{dtaux.month:02}'
+            yyyy = f'{dtaux.year:04}'
+
+            # There could be errors when downloading or writtng to file... try-catch ??
+            urlaux = self.getCompleteURL()
+            urlaux = urlaux.replace('DD', dd).replace('MM', mm).replace('YYYY', yyyy)
+
+            print('Requesting ' + urlaux + ' ...')
+            request = req.get(urlaux, allow_redirects=True)
+
+            yield request
     ####################################################################################################################
 
 # End class GeneralOMIEDownloader
