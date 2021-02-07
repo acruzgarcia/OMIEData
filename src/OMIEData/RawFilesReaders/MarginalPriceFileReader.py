@@ -1,54 +1,64 @@
 import datetime as dt
 import re
 import locale
-
 from enum import Enum, auto
 
-class ConceptType(Enum):
+########################################################################################################################
+from typing import List
+
+class EnergyDataType(Enum):
 
     PRICE_SPAIN = auto()
     PRICE_PORTUGAL = auto()
     ENERGY_IBERIAN = auto()
     ENERGY_IBERIAN_WITH_BILLATERAL = auto()
 
-####################################################################################################################
+    __dict_concept_str__ = {PRICE_SPAIN: 'PRICE_SP',
+                            PRICE_PORTUGAL: 'PRICE_PT',
+                            ENERGY_IBERIAN: 'ENER_IB',
+                            ENERGY_IBERIAN_WITH_BILLATERAL: 'ENER_IB_BILLAT'}
+
+    def __str__(self):
+        return self.__dict_concept_str__[self.value]
+########################################################################################################################
+
+
+########################################################################################################################
 class MarginalPriceFileReader:
 
-    filename: str
+    # Static or class variables
+    __dic_static_concepts__ = {'Precio marginal (Cent/kWh)': [EnergyDataType.PRICE_SPAIN, 10.0],
+                               'Precio marginal (EUR/MWh)': [EnergyDataType.PRICE_SPAIN, 1.0],
+                               'Precio marginal en el sistema español (Cent/kWh)': [EnergyDataType.PRICE_SPAIN, 10.0],
+                               'Precio marginal en el sistema español (EUR/MWh)': [EnergyDataType.PRICE_SPAIN, 1.0],
+                               'Precio marginal en el sistema portugués (Cent/kWh)': [EnergyDataType.PRICE_PORTUGAL, 10.0],
+                               'Precio marginal en el sistema portugués (EUR/MWh)': [EnergyDataType.PRICE_PORTUGAL, 1.0],
+                               'Demanda+bombeos (MWh)': [EnergyDataType.ENERGY_IBERIAN, 1.0],
+                               'Energía en el programa resultante de la casación (MWh)': [EnergyDataType.ENERGY_IBERIAN, 1.0],
+                               'Energía total del mercado Ibérico (MWh)': [EnergyDataType.ENERGY_IBERIAN, 1.0],
+                               'Energía total con bilaterales del mercado Ibérico (MWh)': [EnergyDataType.ENERGY_IBERIAN_WITH_BILLATERAL, 1.0]}
 
-    # string -> [concept , multplier]
-    _dic_static_concepts_ = {'Precio marginal (Cent/kWh)': [ConceptType.PRICE_SPAIN, 10.0],
-                             'Precio marginal (EUR/MWh)': [ConceptType.PRICE_SPAIN, 1.0],
-                             'Precio marginal en el sistema español (Cent/kWh)': [ConceptType.PRICE_SPAIN, 10.0],
-                             'Precio marginal en el sistema español (EUR/MWh)': [ConceptType.PRICE_SPAIN, 1.0],
-                             'Precio marginal en el sistema portugués (Cent/kWh)': [ConceptType.PRICE_PORTUGAL, 10.0],
-                             'Precio marginal en el sistema portugués (EUR/MWh)': [ConceptType.PRICE_PORTUGAL, 1.0],
-                             'Demanda+bombeos (MWh)': [ConceptType.ENERGY_IBERIAN, 1.0],
-                             'Energía en el programa resultante de la casación (MWh)': [ConceptType.ENERGY_IBERIAN, 1.0],
-                             'Energía total del mercado Ibérico (MWh)': [ConceptType.ENERGY_IBERIAN, 1.0],
-                             'Energía total con bilaterales del mercado Ibérico (MWh)': [ConceptType.ENERGY_IBERIAN_WITH_BILLATERAL, 1.0]}
+    __key_list_retrieve__ = ['DATE', 'CONCEPT',
+                             'H1', 'H2', 'H3', 'H4','H5', 'H6','H7', 'H8','H9','H10',
+                             'H11', 'H12','H13', 'H14','H15', 'H16','H17', 'H18','H19','H20',
+                             'H21', 'H22','H23', 'H24']
 
-    _key_list_retrieve_ = ['DATE', 'CONCEPT',
-                           'H1', 'H2', 'H3', 'H4','H5', 'H6','H7', 'H8','H9','H10',
-                           'H11', 'H12','H13', 'H14','H15', 'H16','H17', 'H18','H19','H20',
-                           'H21', 'H22','H23', 'H24']
+    __dateFormatInFile__ = '%d/%m/%Y'
+    __localeInFile__ = "en_DK.UTF-8"
 
-    _dict_concept_str_ = {ConceptType.PRICE_SPAIN: 'PRICE_SP',
-                          ConceptType.PRICE_PORTUGAL: 'PRICE_PT',
-                          ConceptType.ENERGY_IBERIAN: 'ENER_IB',
-                          ConceptType.ENERGY_IBERIAN_WITH_BILLATERAL: 'ENER_IB_BILLAT'}
-
-    _dateFormatInFile_ = '%d/%m/%Y'
-    _localeInFile_ = "en_DK.UTF-8"
+    __all_types__ = [EnergyDataType.PRICE_SPAIN, EnergyDataType.PRICE_PORTUGAL,
+                     EnergyDataType.ENERGY_IBERIAN, EnergyDataType.ENERGY_IBERIAN_WITH_BILLATERAL]
 
     ####################################################################################################################
-    def __init__(self, filename: str):
+    def __init__(self, filename: str, types=None):
         self.filename = filename
+        self.conceptsToLoad = MarginalPriceFileReader.__all_types__ if not types else types
     ####################################################################################################################
 
     ####################################################################################################################
-    def getKeys(self):
-        return self._key_list_retrieve_
+    @staticmethod
+    def getKeys():
+        return MarginalPriceFileReader.__key_list_retrieve__
     ####################################################################################################################
 
     ####################################################################################################################
@@ -64,7 +74,7 @@ class MarginalPriceFileReader:
             print('File ' + self.filename + ' does not have the expected format.')
         else:
             # The second date is the one we want
-            date = dt.datetime.strptime(matches[1], self._dateFormatInFile_).date()
+            date = dt.datetime.strptime(matches[1], MarginalPriceFileReader.__dateFormatInFile__).date()
 
             # Process all the lines
             while line:
@@ -73,24 +83,28 @@ class MarginalPriceFileReader:
                 splits = line.split(sep=';')
                 firstCol = splits[0]
 
-                if firstCol in self._dic_static_concepts_.keys():
+                if firstCol in MarginalPriceFileReader.__dic_static_concepts__.keys():
+                    conceptType = MarginalPriceFileReader.__dic_static_concepts__[firstCol][0]
 
-                    conceptType = self._dic_static_concepts_[firstCol][0]
-                    units = self._dic_static_concepts_[firstCol][1]
+                    if conceptType in self.conceptsToLoad:
+                        units = MarginalPriceFileReader.__dic_static_concepts__[firstCol][1]
 
-                    yield self._processLine_(date=date,concept=conceptType, values=splits[1:], multiplier=units)
-
+                        yield MarginalPriceFileReader.__processLine__(
+                            date=date, concept=conceptType, values=splits[1:], multiplier=units)
     ####################################################################################################################
 
     ####################################################################################################################
-    def _processLine_(self, date: dt.date, concept: ConceptType, values: list, multiplier = 1.0) -> dict:
+    @staticmethod
+    def __processLine__(date: dt.date, concept: EnergyDataType, values: list, multiplier=1.0) -> dict:
 
-        result = dict.fromkeys(self.getKeys())
-        result[self._key_list_retrieve_[0]] = date
-        result[self._key_list_retrieve_[1]] = self._dict_concept_str_[concept]
+        keylist = MarginalPriceFileReader.__key_list_retrieve__
+
+        result = dict.fromkeys(MarginalPriceFileReader.getKeys())
+        result[keylist[0]] = date
+        result[keylist[1]] = str(concept)
 
         # These are the correct setting to read the files...
-        locale.setlocale(locale.LC_NUMERIC, self._localeInFile_)
+        locale.setlocale(locale.LC_NUMERIC, MarginalPriceFileReader.__localeInFile__)
 
         for i, v in enumerate(values, start=1):
             if i > 24:
@@ -100,11 +114,11 @@ class MarginalPriceFileReader:
             except:
                 if i == 24:
                     # Day with 23-hours.
-                    result[self._key_list_retrieve_[25]] = result[self._key_list_retrieve_[24]]
+                    result[keylist[25]] = result[keylist[24]]
                 else:
                     raise
             else:
-                result[self._key_list_retrieve_[i+1]] = f
+                result[keylist[i + 1]] = f
 
         return result
     ####################################################################################################################

@@ -3,13 +3,11 @@ import os
 from .MarginalPriceFileReader import MarginalPriceFileReader
 
 ####################################################################################################################
-class MarginalPriceReader:
-
-    # folder is the the absolute path
-    folder: str
+class Reader:
 
     ####################################################################################################################
     def __init__(self, absolutePath: str):
+        ## ToDo: Change MarginalPriceFileReader class to be argument of the constructor
         self.folder = absolutePath
     ####################################################################################################################
 
@@ -22,7 +20,8 @@ class MarginalPriceReader:
 
         for f in filenames:
             try:
-                reader = MarginalPriceFileReader(filename=os.path.join(self.folder, f))
+                ## ToDo: The reader has to be passed as argument
+                reader = MarginalPriceFileReader(filename=os.path.join(self.folder, f), types=None)
                 # Create dataframe if it is not done yet
                 if df.empty:
                     df = pd.DataFrame(columns=reader.getKeys())

@@ -1,9 +1,10 @@
 import datetime as dt
 import numpy as np
+import os
 
 from OMIEData.RawFilesReaders.MarginalPriceFileReader import MarginalPriceFileReader
-from OMIEData.RawFilesReaders.MarginalPriceReader import MarginalPriceReader
-import os
+from OMIEData.RawFilesReaders.Reader import Reader
+from OMIEData.RawFilesReaders.MarginalPriceFileReader import EnergyDataType
 
 ########################################################################################################################
 def is_equal_float(x1: float, x2: float, tolerance=1e-4):
@@ -15,9 +16,9 @@ def test_AllKeysInDictionary():
 
     folder = os.path.abspath('InputTesting')
     filename = os.path.join(folder,'PMD_20060101.txt')
-    reader = MarginalPriceFileReader(filename=filename)
-    keys = reader.getKeys()
+    keys = MarginalPriceFileReader.getKeys()
 
+    reader = MarginalPriceFileReader(filename=filename)
     data = list(reader.dataGenerator())
 
     # data is list of dictionaries
@@ -30,7 +31,7 @@ def test_AllKeysInDictionary():
 def test_CheckCorrectValues():
 
     folder = os.path.abspath('InputTesting')
-    filename = os.path.join(folder,'PMD_20060101.txt')
+    filename = os.path.join(folder, 'PMD_20060101.txt')
 
     # File contains
     #'Precio marginal (Cent/kWh);  6,694;  4,888;  4,525;  4,371;  3,870;  3,777;  3,611;  1,000;  0,500;  1,000;  1,000;\
@@ -49,7 +50,7 @@ def test_CheckCorrectValues():
 ########################################################################################################################
 def test_DumpToDataframe(verbose=False):
 
-    dumper = MarginalPriceReader(absolutePath=os.path.abspath('InputTesting'))
+    dumper = Reader(absolutePath=os.path.abspath('InputTesting'))
     df = dumper.readToDataFrame()
 
     # show dataframe
@@ -57,17 +58,17 @@ def test_DumpToDataframe(verbose=False):
         print(df)
 
     # 2006-1-1 file
-    value = float(df.loc[(df.DATE == dt.date(2006, 1, 1)) & (df.CONCEPT == 'PRICE_SP'), 'H1'])
+    value = float(df.loc[(df.DATE == dt.date(2006, 1, 1)) & (df.CONCEPT == str(EnergyDataType.PRICE_SPAIN)), 'H1'])
     assert is_equal_float(value, 66.94, tolerance=1e-6), 'Data is corrupt'
 
-    value = float(df.loc[(df.DATE == dt.date(2006, 1, 1)) & (df.CONCEPT == 'ENER_IB'), 'H23'])
+    value = float(df.loc[(df.DATE == dt.date(2006, 1, 1)) & (df.CONCEPT == str(EnergyDataType.ENERGY_IBERIAN)), 'H23'])
     assert is_equal_float(value, 24792, tolerance=1e-6), 'Data is corrupt'
 
     # 2009-6-1 file
-    value = float(df.loc[(df.DATE == dt.date(2009, 6, 1)) & (df.CONCEPT == 'PRICE_PT'), 'H2'])
+    value = float(df.loc[(df.DATE == dt.date(2009, 6, 1)) & (df.CONCEPT == str(EnergyDataType.PRICE_PORTUGAL)), 'H2'])
     assert is_equal_float(value, 37.60, tolerance=1e-6), 'Data is corrupt'
 
-    slice = df.loc[(df.DATE == dt.date(2009, 6, 1)) & (df.CONCEPT == 'ENER_IB'), :]
+    slice = df.loc[(df.DATE == dt.date(2009, 6, 1)) & (df.CONCEPT == str(EnergyDataType.ENERGY_IBERIAN)), :]
     energies = {'H1': 28325.8, 'H2': 26201.2, 'H3': 24651.6, 'H4': 23788.6, 'H5': 23565.4,
                 'H6': 24149.6, 'H7': 26386.0, 'H8': 29016.5, 'H9': 33149.4, 'H10': 36289.9,
                 'H11': 38527.1, 'H12': 39362.9, 'H13': 40102.1, 'H14': 39556.3, 'H15': 37944.9,
@@ -77,7 +78,8 @@ def test_DumpToDataframe(verbose=False):
         assert is_equal_float(v, float(slice.get(k)), tolerance=1e-6), 'Data is corrupt'
 
     # 2020-10-22 file
-    slice = df.loc[(df.DATE == dt.date(2020, 10, 22)) & (df.CONCEPT == 'ENER_IB_BILLAT'), :]
+    slice = df.loc[(df.DATE == dt.date(2020, 10, 22)) &
+                   (df.CONCEPT == str(EnergyDataType.ENERGY_IBERIAN_WITH_BILLATERAL)), :]
     energies = [29435.7, 27853.8, 27293.8, 26948.5, 26871.7, 27047.6, 28605.8, 31899.4, 33804.2,
                 35118.1, 35916.7, 36518.3, 37036.5, 37006.9, 36251.2, 35312.6, 34689.7, 34358.7,
                 33956.2, 35138.1, 37878.5, 36955.3, 33874.5, 30856.7]
@@ -85,7 +87,7 @@ def test_DumpToDataframe(verbose=False):
         assert is_equal_float(energies[i], float(slice.get('H' + f'{i + 1:01}')),
                               tolerance=1e-6), 'Data is corrupt'
 
-    slice = df.loc[(df.DATE == dt.date(2020, 10, 22)) & (df.CONCEPT == 'PRICE_SP'), :]
+    slice = df.loc[(df.DATE == dt.date(2020, 10, 22)) & (df.CONCEPT == str(EnergyDataType.PRICE_SPAIN)), :]
     prices = [39.55, 35.00, 33.07, 32.68, 32.68, 33.08, 40.11, 47.13, 49.53,
               52.49, 52.43, 50.44, 49.08, 47.50, 46.58, 45.95, 46.11, 48.49,
               50.68, 56.63, 53.56, 49.04, 47.20, 46.30]
@@ -98,7 +100,7 @@ def test_DumpToDataframe(verbose=False):
 def test_TestDayWith23hours():
 
     folder = os.path.abspath('InputTesting')
-    filename = os.path.join(folder,'PrecioMD_OMIE_20200329.txt')
+    filename = os.path.join(folder, 'PrecioMD_OMIE_20200329.txt')
 
     # File contains
     #';1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;24;
@@ -131,8 +133,10 @@ def test_Test20030802():
     input = list(MarginalPriceFileReader(filename=filename).dataGenerator())
     concepts = [x.get('CONCEPT') for x in input]
 
-    assert 'ENER_IB' in concepts, 'ENER_IB has to be one of the concepts read'
-    assert 'PRICE_SP' in concepts, 'PRICE_SP has to be one of the concepts read'
+    assert str(EnergyDataType.ENERGY_IBERIAN) in concepts, \
+        '{} has to be one of the concepts read'.format(EnergyDataType.ENERGY_IBERIAN)
+    assert str(EnergyDataType.PRICE_SPAIN) in concepts, \
+        '{} has to be one of the concepts read'.format(EnergyDataType.PRICE_SPAIN)
 
 ########################################################################################################################
 def test_Test20040101():
@@ -156,15 +160,17 @@ def test_Test20040101():
     input = list(MarginalPriceFileReader(filename=filename).dataGenerator())
     concepts = [x.get('CONCEPT') for x in input]
 
-    assert 'ENER_IB' in concepts, 'ENER_IB has to be one of the concepts read'
-    assert 'PRICE_SP' in concepts, 'PRICE_SP has to be one of the concepts read'
+    assert str(EnergyDataType.ENERGY_IBERIAN) in concepts, \
+        '{} has to be one of the concepts read'.format(str(EnergyDataType.ENERGY_IBERIAN))
+    assert str(EnergyDataType.PRICE_SPAIN) in concepts, \
+        '{} has to be one of the concepts read'.format(str(EnergyDataType.PRICE_SPAIN))
 
     prices = [10*x for x in [2.899,  2.823,  2.548,  2.300,  1.654,  1.468,  1.454,  1.167,  0.757,
                              0.287,  1.001,  0.937,  1.127, 1.217, 1.197,  1.012,  0.917,  1.022,
                              1.468,  2.101,  2.101,  2.300,  2.101,  2.300]]
 
     for inp in input:
-        if inp.get('CONCEPT') == 'PRICE_SP':
+        if inp.get('CONCEPT') == str(EnergyDataType.PRICE_SPAIN):
             for i, v in enumerate(prices):
                 assert is_equal_float(prices[i], float(inp.get('H' + f'{i + 1:01}')), tolerance=1e-6), \
                     'Data is corrupt: ' + inp.get('CONCEPT') + ' (H' + f'{i + 1:01})'

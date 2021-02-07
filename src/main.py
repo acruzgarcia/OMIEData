@@ -2,7 +2,7 @@
 import matplotlib.pyplot as plt
 import datetime as dt
 
-from OMIEData.RawFilesReaders.MarginalPriceReader import MarginalPriceReader
+from OMIEData.RawFilesReaders.Reader import Reader
 from OMIEData.Downloaders.MarginalPriceDownloader import MarginalPriceDownloader
 
 import os
@@ -21,7 +21,7 @@ if __name__ == '__main__':
         downloader = MarginalPriceDownloader(output_folder=workingFolder)
         error = downloader.downloadData(dateIni=dateIni, dateEnd=dateEnd)
 
-    df = MarginalPriceReader(absolutePath=workingFolder).readToDataFrame(verbose=False)
+    df = Reader(absolutePath=workingFolder).readToDataFrame(verbose=False)
     df.sort_values(by='DATE',axis=0, inplace=True)
     print(df)
 
