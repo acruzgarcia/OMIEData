@@ -2,10 +2,9 @@
 import matplotlib.pyplot as plt
 import datetime as dt
 
-from OMIEData.RawFilesReaders.Reader import Reader
+from OMIEData.RawFilesReaders.OMIEFilesReader import OMIEFilesReader
 from OMIEData.Downloaders.MarginalPriceDownloader import MarginalPriceDownloader
 
-import os
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
@@ -21,7 +20,7 @@ if __name__ == '__main__':
         downloader = MarginalPriceDownloader(output_folder=workingFolder)
         error = downloader.downloadData(dateIni=dateIni, dateEnd=dateEnd)
 
-    df = Reader(absolutePath=workingFolder).readToDataFrame(verbose=False)
+    df = OMIEFilesReader(absolutePath=workingFolder).readToDataFrame(verbose=False)
     df.sort_values(by='DATE',axis=0, inplace=True)
     print(df)
 
@@ -37,6 +36,5 @@ if __name__ == '__main__':
     plt.show()
 
     plt.hist(dfPrices.H12, bins=50)
-
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

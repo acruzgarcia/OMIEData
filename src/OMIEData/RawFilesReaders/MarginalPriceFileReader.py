@@ -3,10 +3,10 @@ import re
 import locale
 
 from .EnergyDataTypes import EnergyDataType
-from .FileReader import FileReader
+from .OMIEFileReader import OMIEFileReader
 
 ########################################################################################################################
-class MarginalPriceFileReader(FileReader):
+class MarginalPriceFileReader(OMIEFileReader):
 
     # Static or class variables
     __dic_static_concepts__ = {'Precio marginal (Cent/kWh)': [EnergyDataType.PRICE_SPAIN, 10.0],

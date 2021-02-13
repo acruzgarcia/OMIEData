@@ -3,7 +3,7 @@ import numpy as np
 import os
 
 from OMIEData.RawFilesReaders.MarginalPriceFileReader import MarginalPriceFileReader
-from OMIEData.RawFilesReaders.Reader import Reader
+from OMIEData.RawFilesReaders.OMIEFilesReader import OMIEFilesReader
 from OMIEData.RawFilesReaders.MarginalPriceFileReader import EnergyDataType
 
 ########################################################################################################################
@@ -51,7 +51,7 @@ def test_CheckCorrectValues():
 def test_DumpToDataframe(verbose=False):
 
     fileReader = MarginalPriceFileReader()
-    dumper = Reader(absolutePath=os.path.abspath('InputTesting'), fileReader=fileReader)
+    dumper = OMIEFilesReader(absolutePath=os.path.abspath('InputTesting'), fileReader=fileReader)
     df = dumper.readToDataFrame()
 
     # show dataframe

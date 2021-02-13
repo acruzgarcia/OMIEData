@@ -1,12 +1,12 @@
 import pandas as pd
 import os
-from .FileReader import FileReader
+from .OMIEFileReader import OMIEFileReader
 
 ####################################################################################################################
-class Reader:
+class OMIEFilesReader:
 
     ####################################################################################################################
-    def __init__(self, absolutePath: str, fileReader: FileReader):
+    def __init__(self, absolutePath: str, fileReader: OMIEFileReader):
         self.folder = absolutePath
         self.fileReader = fileReader
     ####################################################################################################################
