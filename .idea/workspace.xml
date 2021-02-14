@@ -20,9 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e688e7b-09cc-46a4-9675-7a17d0a13b37" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/OMIEData-0.0.1-py3-none-any.whl" beforeDir="false" afterPath="$PROJECT_DIR$/dist/OMIEData-0.0.1-py3-none-any.whl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/dist/OMIEData-0.0.1.tar.gz" beforeDir="false" afterPath="$PROJECT_DIR$/dist/OMIEData-0.0.1.tar.gz" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -176,10 +175,10 @@
     </configuration>
     <list>
       <item itemvalue="Python.Example1" />
-      <item itemvalue="Python tests.pytest in bin" />
-      <item itemvalue="Python tests.pytest in tests" />
       <item itemvalue="Python tests.pytest for EnergyByTechnologyDownloader_test.test_1" />
       <item itemvalue="Python tests.pytest in RawFilesReaders_test.py" />
+      <item itemvalue="Python tests.pytest in bin" />
+      <item itemvalue="Python tests.pytest in tests" />
     </list>
     <recent_temporary>
       <list>
