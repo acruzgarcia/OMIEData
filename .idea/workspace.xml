@@ -20,8 +20,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e688e7b-09cc-46a4-9675-7a17d0a13b37" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +38,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1jKq8ADdslvYBhh3qap06Mnxr74" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -55,7 +57,7 @@
       <recent name="F:\OMIEPrices\proj\OMIEPrices\src" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.Example1">
+  <component name="RunManager" selected="Python tests.pytest in tests (1)">
     <configuration name="Example1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="src" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -125,6 +127,22 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
+    <configuration name="pytest in tests (1)" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
+      <module name="src" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/OMIEData/RawFilesReaders/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_keywords" value="&quot;&quot;" />
+      <option name="_new_parameters" value="&quot;&quot;" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/OMIEData/RawFilesReaders/tests&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
     <configuration name="pytest in tests" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="src" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -175,15 +193,17 @@
     </configuration>
     <list>
       <item itemvalue="Python.Example1" />
+      <item itemvalue="Python tests.pytest in bin" />
       <item itemvalue="Python tests.pytest for EnergyByTechnologyDownloader_test.test_1" />
       <item itemvalue="Python tests.pytest in RawFilesReaders_test.py" />
-      <item itemvalue="Python tests.pytest in bin" />
       <item itemvalue="Python tests.pytest in tests" />
+      <item itemvalue="Python tests.pytest in tests (1)" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.Example1" />
+        <item itemvalue="Python tests.pytest in tests (1)" />
         <item itemvalue="Python tests.pytest in tests" />
+        <item itemvalue="Python.Example1" />
         <item itemvalue="Python tests.pytest in RawFilesReaders_test.py" />
         <item itemvalue="Python tests.pytest for EnergyByTechnologyDownloader_test.test_1" />
       </list>
