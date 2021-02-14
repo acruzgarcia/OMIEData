@@ -7,6 +7,6 @@ python -m pip install git+https://github.com/acruzgarcia/OMIEData
 If that fails, the wheel file is available in ./dist/
 
 # Example use case:
-File 'Example.py' describes a use case to download and process, i.e create a dataframe, with prices and demands.
+File 'Example1.py' describes a use case to download and process, i.e create a dataframe, with prices and demands.
 
 Enjoy!.
