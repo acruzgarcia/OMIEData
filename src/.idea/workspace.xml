@@ -21,11 +21,8 @@
   <component name="ChangeListManager">
     <list default="true" id="5e688e7b-09cc-46a4-9675-7a17d0a13b37" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OMIEData/RawFilesReaders/FileReader.py" beforeDir="false" afterPath="$PROJECT_DIR$/OMIEData/RawFilesReaders/OMIEFileReader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OMIEData/RawFilesReaders/MarginalPriceFileReader.py" beforeDir="false" afterPath="$PROJECT_DIR$/OMIEData/RawFilesReaders/MarginalPriceFileReader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OMIEData/RawFilesReaders/Reader.py" beforeDir="false" afterPath="$PROJECT_DIR$/OMIEData/RawFilesReaders/OMIEFilesReader.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OMIEData/RawFilesReaders/tests/RawFilesReaders_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/OMIEData/RawFilesReaders/tests/RawFilesReaders_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Example1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Example1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Example1.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/OMIEData/RawFilesReaders/OMIEFilesReader.py" beforeDir="false" afterPath="$PROJECT_DIR$/OMIEData/RawFilesReaders/OMIEFilesReader.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +56,28 @@
       <recent name="F:\OMIEPrices\proj\OMIEPrices\src" />
     </key>
   </component>
-  <component name="RunManager" selected="Python tests.pytest in tests">
+  <component name="RunManager" selected="Python.Example1">
+    <configuration name="Example1" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="src" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Example1.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="pytest for EnergyByTechnologyDownloader_test.test_1" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
       <module name="src" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -73,22 +91,6 @@
       <option name="_new_parameters" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
       <option name="_new_target" value="&quot;EnergyByTechnologyDownloader_test.test_1&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="pytest for EnergyByTechnologyDownloader_test.test_2" type="tests" factoryName="py.test" temporary="true" nameIsGenerated="true">
-      <module name="src" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/OMIEData/Downloaders/tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_keywords" value="&quot;&quot;" />
-      <option name="_new_parameters" value="&quot;&quot;" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;EnergyByTechnologyDownloader_test.test_2&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
@@ -173,20 +175,18 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.Example1" />
       <item itemvalue="Python tests.pytest in bin" />
       <item itemvalue="Python tests.pytest in tests" />
-      <item itemvalue="Python tests.pytest for EnergyByTechnologyDownloader_test.test_2" />
       <item itemvalue="Python tests.pytest for EnergyByTechnologyDownloader_test.test_1" />
       <item itemvalue="Python tests.pytest in RawFilesReaders_test.py" />
-      <item itemvalue="Python tests.pytest in tests (1)" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Example1" />
         <item itemvalue="Python tests.pytest in tests" />
-        <item itemvalue="Python tests.pytest in tests (1)" />
         <item itemvalue="Python tests.pytest in RawFilesReaders_test.py" />
         <item itemvalue="Python tests.pytest for EnergyByTechnologyDownloader_test.test_1" />
-        <item itemvalue="Python tests.pytest for EnergyByTechnologyDownloader_test.test_2" />
       </list>
     </recent_temporary>
   </component>
@@ -225,6 +225,11 @@
           <url>file://$PROJECT_DIR$/OMIEData/Downloaders/tests/EnergyByTechnologyDownloader_test.py</url>
           <line>11</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Example1.py</url>
+          <line>20</line>
+          <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
