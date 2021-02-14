@@ -19,11 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5e688e7b-09cc-46a4-9675-7a17d0a13b37" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Example1.py" beforeDir="false" afterPath="$PROJECT_DIR$/Example1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/OMIEData/RawFilesReaders/OMIEFilesReader.py" beforeDir="false" afterPath="$PROJECT_DIR$/OMIEData/RawFilesReaders/OMIEFilesReader.py" afterDir="false" />
-    </list>
+    <list default="true" id="5e688e7b-09cc-46a4-9675-7a17d0a13b37" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
