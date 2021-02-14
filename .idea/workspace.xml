@@ -20,9 +20,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5e688e7b-09cc-46a4-9675-7a17d0a13b37" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitattributes" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -193,11 +190,11 @@
     </configuration>
     <list>
       <item itemvalue="Python.Example1" />
-      <item itemvalue="Python tests.pytest in bin" />
       <item itemvalue="Python tests.pytest for EnergyByTechnologyDownloader_test.test_1" />
       <item itemvalue="Python tests.pytest in RawFilesReaders_test.py" />
-      <item itemvalue="Python tests.pytest in tests" />
+      <item itemvalue="Python tests.pytest in bin" />
       <item itemvalue="Python tests.pytest in tests (1)" />
+      <item itemvalue="Python tests.pytest in tests" />
     </list>
     <recent_temporary>
       <list>
