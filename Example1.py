@@ -5,6 +5,7 @@ import datetime as dt
 from OMIEData.RawFilesReaders.OMIEFilesReader import OMIEFilesReader
 from OMIEData.Downloaders.MarginalPriceDownloader import MarginalPriceDownloader
 from OMIEData.RawFilesReaders.MarginalPriceFileReader import MarginalPriceFileReader
+from OMIEData.RawFilesReaders.EnergyDataTypes import EnergyDataType
 
 
 # Press the green button in the gutter to run the script.
@@ -19,18 +20,20 @@ if __name__ == '__main__':
     #error = downloader.downloadData(dateIni=dateIni, dateEnd=dateEnd)
 
     df = OMIEFilesReader(absolutePath=workingFolder,
-                         fileReader=MarginalPriceFileReader).readToDataFrame(verbose=False)
-    df.sort_values(by='DATE',axis=0, inplace=True)
+                         fileReader=MarginalPriceFileReader()).readToDataFrame(verbose=False)
+    df.sort_values(by='DATE', axis=0, inplace=True)
     print(df)
 
     # Just spanish prices
-    dfPrices = df[df.CONCEPT == 'PRICE_SP']
+    str_price_spain = str(EnergyDataType.PRICE_SPAIN)
+    dfPrices = df[df.CONCEPT == str_price_spain]
 
     plt.plot(dfPrices.DATE, dfPrices.H12)
     plt.plot(dfPrices.DATE, dfPrices.H23)
     plt.show()
 
-    dfEnergy = df[df.CONCEPT == 'ENER_IB']
+    str_energy_ib = str(EnergyDataType.ENERGY_IBERIAN)
+    dfEnergy = df[df.CONCEPT == str_energy_ib]
     plt.plot(dfEnergy.DATE, dfEnergy.H12)
     plt.show()
 

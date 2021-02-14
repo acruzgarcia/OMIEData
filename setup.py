@@ -19,4 +19,6 @@ setuptools.setup(
     ],
     packages=setuptools.find_packages(),
     python_requires='>=3.6',
+    keywords = ['OMIE','Electricity prices'],
+    install_requires=['requests', 'enum', 'datetime']
 )
