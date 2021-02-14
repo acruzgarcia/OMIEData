@@ -17,14 +17,19 @@ if __name__ == '__main__':
     dateIni = dt.datetime(2012, 3, 11)
     dateEnd = dt.datetime(2012, 12, 31)
     downloader = MarginalPriceDownloader(output_folder=workingFolder)
-    #error = downloader.downloadData(dateIni=dateIni, dateEnd=dateEnd)
 
+    # This can take time, it is downloading the files from the website..
+    error = downloader.downloadData(dateIni=dateIni, dateEnd=dateEnd)
+
+    dataTypes = [EnergyDataType.PRICE_SPAIN, EnergyDataType.ENERGY_IBERIAN]
+    fileReader = MarginalPriceFileReader(types=dataTypes)
     df = OMIEFilesReader(absolutePath=workingFolder,
-                         fileReader=MarginalPriceFileReader()).readToDataFrame(verbose=False)
+                         fileReader=fileReader).readToDataFrame(verbose=False)
     df.sort_values(by='DATE', axis=0, inplace=True)
     print(df)
 
     # Just spanish prices
+    plt.figure()
     str_price_spain = str(EnergyDataType.PRICE_SPAIN)
     dfPrices = df[df.CONCEPT == str_price_spain]
 
@@ -32,9 +37,8 @@ if __name__ == '__main__':
     plt.plot(dfPrices.DATE, dfPrices.H23)
     plt.show()
 
+    plt.figure()
     str_energy_ib = str(EnergyDataType.ENERGY_IBERIAN)
     dfEnergy = df[df.CONCEPT == str_energy_ib]
     plt.plot(dfEnergy.DATE, dfEnergy.H12)
     plt.show()
-
-    plt.hist(dfPrices.H12, bins=50)
