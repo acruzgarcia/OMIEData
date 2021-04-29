@@ -1,7 +1,8 @@
 # Package OMIEData: Open source tool for Electricity data analysis
 Package to download electricity time series (prices and demand) from https://www.omie.es/
 
-[![R-CMD-check](https://github.com/acruzgarcia/OMIEData/workflows/R-CMD-check/badge.svg)](https://github.com/acruzgarcia/OMIEData/actions)
+[![Build Status][build-button]][build]
+[![Python-CMD-check](https://github.com/acruzgarcia/OMIEData/workflows/R-CMD-check/badge.svg)](https://github.com/acruzgarcia/OMIEData/actions)
 ![](http://cranlogs.r-pkg.org/badges/grand-total/OMIEData)
 
 # To install the package: 
