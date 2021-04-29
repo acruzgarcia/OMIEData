@@ -4,7 +4,6 @@ Package to download electricity time series (prices and demand) from https://www
 [![Build Status][build-button]][build]
 [![Latest Version][mdversion-button]][md-pypi]
 [![Python Versions][pyversion-button]][md-pypi]
-[![BSD License][bsdlicense-button]][bsdlicense]
 
 
 [build-button]: https://github.com/Python-Markdown/markdown/workflows/CI/badge.svg?event=push
@@ -12,10 +11,7 @@ Package to download electricity time series (prices and demand) from https://www
 [mdversion-button]: https://img.shields.io/pypi/v/Markdown.svg
 [md-pypi]: https://pypi.org/project/Markdown/
 [pyversion-button]: https://img.shields.io/pypi/pyversions/Markdown.svg
-[bsdlicense-button]: https://img.shields.io/badge/license-BSD-yellow.svg
-[bsdlicense]: https://opensource.org/licenses/BSD-3-Clause
 
-(https://github.com/acruzgarcia/OMIEData/actions)
 ![](http://cranlogs.r-pkg.org/badges/grand-total/openair)
 
 
