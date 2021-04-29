@@ -12,10 +12,10 @@ Package to download electricity time series (prices and demand) from https://www
 [md-pypi]: https://pypi.org/project/Markdown/
 [pyversion-button]: https://img.shields.io/pypi/pyversions/Markdown.svg
 
-![](http://cranlogs.r-pkg.org/badges/grand-total/openair)
 
+## Installation 
 
-# To install the package: 
+Installing OMIEData from Github is easy using the devtools package.
 
 from the command line type:
 python -m pip install git+https://github.com/acruzgarcia/OMIEData
