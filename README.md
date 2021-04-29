@@ -11,8 +11,6 @@ Package to download electricity time series (prices and demand) from https://www
 
 [build-button]: https://github.com/Python-Markdown/markdown/workflows/CI/badge.svg?event=push
 [build]: https://github.com/acruzgarcia/OMIEData/actions?query=workflow/CI/badge.svg?event=push
-[codecov-button]: https://codecov.io/gh/Python-Markdown/markdown/branch/master/graph/badge.svg
-[codecov]: https://codecov.io/gh/Python-Markdown/markdown
 [mdversion-button]: https://img.shields.io/pypi/v/Markdown.svg
 [md-pypi]: https://pypi.org/project/Markdown/
 [pyversion-button]: https://img.shields.io/pypi/pyversions/Markdown.svg
