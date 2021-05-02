@@ -1,5 +1,4 @@
-# Package OMIEData: Open source python package to easyly access to electricity data from OMIE.
-Package to download electricity time series from https://www.omie.es/
+# Package OMIEData: Python package to import data from OMIE: https://www.omie.es/
 
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![PyPI version fury.io](https://img.shields.io/pypi/v/OMIEData.svg)](https://pypi.org/project/OMIEData/)
