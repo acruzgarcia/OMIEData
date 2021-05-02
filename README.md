@@ -32,12 +32,16 @@ python -m pip install git+https://github.com/acruzgarcia/OMIEData
 
 or use the .whl (or .tar.gz) file within dist folder:
 
+```python
 python -m pip install OMIEData-0.0.1-py3-none-any.whl
 
+```
 or
 
+```python
 python -m pip install OMIEData-0.0.1.tar.gz
 
+```
 
 # Use case examples:
 Files 'example_energy_by_technology.py' and 'example_marginal_price.py' illustrates the use of the package. Enjoy!.
