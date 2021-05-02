@@ -15,6 +15,10 @@ Package to download electricity time series (prices and demand) from https://www
 
 ## Installation 
 
+```python
+pip install OMIEData
+```
+
 The package is uploaded at https://pypi.org/project/OMIEData/0.0.1/, so the usual
 
 python -m pip install OMIEData
