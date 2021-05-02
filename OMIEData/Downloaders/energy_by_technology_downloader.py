@@ -18,7 +18,7 @@ class EnergyByTechnologyDownloader(GeneralOMIEDownloader):
     output_mask = 'EnergyByTechnology_SYS_YYYYMMDD.txt'
 
     def __init__(self, system: SystemType, output_folder: str):
-
+        
         strSystem = f'{system.value:01}'
         self.output_mask = self.output_mask.replace('SYS', strSystem)
 

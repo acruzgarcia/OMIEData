@@ -1,1 +1,0 @@
-This folder is used for testing purposes only
