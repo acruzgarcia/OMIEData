@@ -3,8 +3,9 @@ import re
 import locale
 import pandas as pd
 
-from OMIEData.RawFilesReaders.data_types_marginal_price_file import DataTypesMarginalPriceFile
-from OMIEData.RawFilesReaders.omie_files_reader import OMIEFileReader
+from requests import Response
+from OMIEData.FileReaders.data_types_marginal_price_file import DataTypesMarginalPriceFile
+from OMIEData.FileReaders.omie_file_reader import OMIEFileReader
 
 
 class MarginalPriceFileReader(OMIEFileReader):
@@ -46,7 +47,39 @@ class MarginalPriceFileReader(OMIEFileReader):
     def get_keys(self):
         return MarginalPriceFileReader.__key_list_retrieve__
 
-    def data_generator(self, filename: str) -> pd.DataFrame:
+    def get_data_from_response(self, response: Response) -> pd.DataFrame:
+
+        res = pd.DataFrame(columns=self.get_keys())
+
+        # from first line we get the units and the price date. We just look at the date
+        lines = response.text.split("\n")
+        matches = re.findall('\d\d/\d\d/\d\d\d\d', lines.pop(0))
+        if not (len(matches) == 2):
+            print('Response ' + response.url + ' does not have the expected format.')
+        else:
+            # The second date is the one we want
+            date = dt.datetime.strptime(matches[1], MarginalPriceFileReader.__dateFormatInFile__).date()
+
+            # Process all the lines
+
+            while lines:
+                # read following line
+                line = lines.pop(0)
+                splits = line.split(sep=';')
+                first_col = splits[0]
+
+                if first_col in MarginalPriceFileReader.__dic_static_concepts__.keys():
+                    concept_type = MarginalPriceFileReader.__dic_static_concepts__[first_col][0]
+
+                    if concept_type in self.conceptsToLoad:
+                        units = MarginalPriceFileReader.__dic_static_concepts__[first_col][1]
+
+                        dico = self._process_line(date=date, concept=concept_type, values=splits[1:], multiplier=units)
+                        res = res.append(dico, ignore_index=True)
+
+            return res
+
+    def get_data_from_file(self, filename: str) -> pd.DataFrame:
 
         # Method yield each dictionary one by one
         res = pd.DataFrame(columns=self.get_keys())

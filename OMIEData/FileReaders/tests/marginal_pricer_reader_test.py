@@ -2,9 +2,9 @@ import datetime as dt
 import numpy as np
 import os
 
-from OMIEData.RawFilesReaders.marginal_price_file_reader import MarginalPriceFileReader
-from OMIEData.RawFilesReaders.omie_files_reader import OMIEFilesReader
-from OMIEData.RawFilesReaders.marginal_price_file_reader import DataTypesMarginalPriceFile
+from OMIEData.FileReaders.marginal_price_file_reader import MarginalPriceFileReader
+from OMIEData.DataImport.omie_data_importer_from_folder import OMIEDataImporterFromFolder
+from OMIEData.FileReaders.marginal_price_file_reader import DataTypesMarginalPriceFile
 
 
 def is_equal_float(x1: float, x2: float, tolerance=1e-4):
@@ -18,7 +18,7 @@ def test_all_keys_in_df():
 
     reader = MarginalPriceFileReader()
     keys = reader.get_keys()
-    df = reader.data_generator(filename=filename)
+    df = reader.get_data_from_file(filename=filename)
 
     # data is list of dictionaries
     columns = df.columns.to_list()
@@ -38,7 +38,7 @@ def test_check_correct_values():
     #21.415;  20.712;  19.438;  19.699;  20.583;  21.119;  21.741;  22.264;  22.359;  21.763;  21.463;  21.610;  23.872;\
     #  24.322;  24.993;  25.064;  24.792;  25.373;'
 
-    data = MarginalPriceFileReader().data_generator(filename=filename)
+    data = MarginalPriceFileReader().get_data_from_file(filename=filename)
 
     assert is_equal_float(data.iloc[0]['H7'], 36.11, tolerance=1e-3), 'Data is corrupted'
     assert is_equal_float(data.iloc[1]['H9'], 19438, tolerance=1e-3), 'Data is corrupted'
@@ -47,7 +47,7 @@ def test_check_correct_values():
 def test_dump_to_dataframe(verbose=False):
 
     fileReader = MarginalPriceFileReader()
-    dumper = OMIEFilesReader(absolute_path=os.path.abspath('InputTesting'), file_reader=fileReader)
+    dumper = OMIEDataImporterFromFolder(absolute_path=os.path.abspath('InputTesting'), file_reader=fileReader)
     df = dumper.read_to_dataframe()
 
     # show dataframe
@@ -107,7 +107,7 @@ def test_day_with_23_hours():
     # 24.909;  24.664;
     #;;;;;;;;;;;;;;;;;;;;;;;;;'
 
-    df = MarginalPriceFileReader().data_generator(filename=filename)
+    df = MarginalPriceFileReader().get_data_from_file(filename=filename)
     assert df.iloc[0]['H23'] == df.iloc[0]['H24'], 'Day with 23 hours must repeat last hour.'
 
 
@@ -124,7 +124,7 @@ def test_20030802():
     # 24.378;  25.414;  25.873;  25.947;  25.103;  24.215;  23.711;  23.506;  23.437;  23.406;  23.543;  24.854;  \
     # 25.507;  24.181;
     # ;;;;;;;;;;;;;;;;;;;;;;;;
-    input = MarginalPriceFileReader().data_generator(filename=filename)
+    input = MarginalPriceFileReader().get_data_from_file(filename=filename)
     concepts = list(input['CONCEPT'])
 
     assert str(DataTypesMarginalPriceFile.ENERGY_IBERIAN) in concepts, \
@@ -151,7 +151,7 @@ def test_20040101():
     # ;;;;;;;;;;;;;;;;;;;;;;;;;
     #
 
-    df = MarginalPriceFileReader().data_generator(filename=filename)
+    df = MarginalPriceFileReader().get_data_from_file(filename=filename)
 
     prices = [10*x for x in [2.899,  2.823,  2.548,  2.300,  1.654,  1.468,  1.454,  1.167,  0.757,
                              0.287,  1.001,  0.937,  1.127, 1.217, 1.197,  1.012,  0.917,  1.022,

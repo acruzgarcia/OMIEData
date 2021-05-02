@@ -1,16 +1,15 @@
 
-from .general_omie_downloader import GeneralOMIEDownloader
+from OMIEData.Downloaders.general_omie_downloader import GeneralOMIEDownloader
 
-####################################################################################################################
-class IntradayPriceDownloader(GeneralOMIEDownloader):
+
+class IntraDayPriceDownloader(GeneralOMIEDownloader):
 
     url_year = 'AGNO_YYYY'
     url_month = '/MES_MM/TXT/'
     url_name = 'INT_PIB_EV_H_1_SS_DD_MM_YYYY_DD_MM_YYYY.TXT'
     output_mask = 'PrecioIntra_SS_YYYYMMDD.txt'
 
-    ####################################################################################################################
-    def __init__(self, session: int, output_folder: str):
+    def __init__(self, session: int):
 
         strSession = f'{session:01}'
         self.output_mask = self.output_mask.replace('SS', strSession)
@@ -20,9 +19,4 @@ class IntradayPriceDownloader(GeneralOMIEDownloader):
 
         GeneralOMIEDownloader.__init__(self,
                                        url_mask=url1,
-                                       output_folder=output_folder,
                                        output_mask=self.output_mask)
-    ####################################################################################################################
-
-# End class MarginalPriceDownloader
-####################################################################################################################

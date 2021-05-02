@@ -1,9 +1,11 @@
 import pandas as pd
 import os
-from .omie_file_reader import OMIEFileReader
+
+from OMIEData.DataImport.omie_data_importer import OMIEDataImporter
+from OMIEData.FileReaders.omie_file_reader import OMIEFileReader
 
 
-class OMIEFilesReader:
+class OMIEDataImporterFromFolder(OMIEDataImporter):
 
     def __init__(self, absolute_path: str, file_reader: OMIEFileReader):
         self.folder = absolute_path
@@ -17,7 +19,7 @@ class OMIEFilesReader:
         df = pd.DataFrame(columns=self.fileReader.get_keys())
         for f in filenames:
             try:
-                df = df.append(self.fileReader.data_generator(filename=os.path.join(self.folder, f)),
+                df = df.append(self.fileReader.get_data_from_file(filename=os.path.join(self.folder, f)),
                                ignore_index=True)
             except Exception as exc:
                 print('There was error processing file: ' + f)

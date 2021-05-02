@@ -4,27 +4,24 @@ from OMIEData.Downloaders.general_omie_downloader import GeneralOMIEDownloader
 import os
 import filecmp
 
-########################################################################################################################
-def Test1():
+
+def test_1():
 
     # Testing PMDs
     url_ano = 'AGNO_YYYY'
     url_mes = '/MES_MM/TXT/'
     url_name = 'INT_PBC_EV_H_1_DD_MM_YYYY_DD_MM_YYYY.TXT'
 
-    folder = os.path.abspath('OutputTesting')
     url1 = url_ano + url_mes + url_name
     downloader = GeneralOMIEDownloader(url_mask=url1,
-                                       output_folder=folder,
                                        output_mask='PMD_YYYYMMDD.txt')
 
     assert downloader.get_complete_url() == \
            'https://www.omie.es/sites/default/files/dados/AGNO_YYYY/MES_MM/TXT/INT_PBC_EV_H_1_DD_MM_YYYY_DD_MM_YYYY.TXT', \
         'URL mask is not the one expected.'
-########################################################################################################################
 
-########################################################################################################################
-def Test2():
+
+def test_2():
 
     # This test is insufficient
     # We need to download the file independently
@@ -35,25 +32,23 @@ def Test2():
     url_name = 'INT_PBC_EV_H_1_DD_MM_YYYY_DD_MM_YYYY.TXT'
 
     url1 = url_ano + url_mes + url_name
-    folderOut = os.path.abspath('OutputTesting')
+
     downloader = GeneralOMIEDownloader(url_mask=url1,
-                                       output_folder=folderOut,
                                        output_mask='PMD_YYYYMMDD.txt')
 
-    dateIni = dt.datetime(2006,1,1)
-    dateEnd = dt.datetime(2006,1,1)
+    date_ini = dt.datetime(2006,1,1)
+    date_end = dt.datetime(2006,1,1)
 
-    error = downloader.download_data(dateIni=dateIni, dateEnd=dateEnd)
+    folder_out = os.path.abspath('OutputTesting')
+    error = downloader.download_data(date_ini=date_ini, date_end=date_end, output_folder=folder_out)
     assert error == 0, 'There was an error when downloading.'
 
     # Check it downloaded with the right name
-    assert os.path.isfile(os.path.join(folderOut, 'PMD_20060101.txt')),\
+    assert os.path.isfile(os.path.join(folder_out, 'PMD_20060101.txt')),\
         'The downloaded file does not have the expected name.'
 
     folderIn = os.path.abspath('InputTesting')
-    assert filecmp.cmp(os.path.join(folderOut,'PMD_20060101.txt'),
-                       os.path.join(folderIn,'PMD_20060101.txt'),
+    assert filecmp.cmp(os.path.join(folder_out, 'PMD_20060101.txt'),
+                       os.path.join(folderIn, 'PMD_20060101.txt'),
                        shallow=True), \
         'The content of the downloaded file is not as expected.'
-
-########################################################################################################################
