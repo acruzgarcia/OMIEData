@@ -15,9 +15,14 @@ Package to download electricity time series (prices and demand) from https://www
 
 ## Installation 
 
-Installing OMIEData from Github is easy using the devtools package.
+The package is uploaded at https://pypi.org/project/OMIEData/0.0.1/, so the usual
 
-from the command line type:
+python -m pip install OMIEData
+
+from the command line should work. 
+
+Aternatively, to install it from GitHub, type:
+
 python -m pip install git+https://github.com/acruzgarcia/OMIEData
 
 or use the .whl (or .tar.gz) file within dist folder:
@@ -30,6 +35,4 @@ python -m pip install OMIEData-0.0.1.tar.gz
 
 
 # Example use case:
-File 'Example1.py' describes a use case to download and process, i.e create a dataframe, with prices and demands.
-
-Enjoy!.
+Files 'example_energy_by_technology.py' and 'example_marginal_price.py' illustrates the use of the package. Enjoy!.
