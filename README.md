@@ -43,6 +43,6 @@ Files
 - [example_energy_by_technology.py](https://github.com/acruzgarcia/OMIEData/blob/dev/example_energy_by_technology.py)
 - [example_marginal_price.py](https://github.com/acruzgarcia/OMIEData/blob/dev/example_marginal_price.py)
 
-illustrates the use of the package. 
+illustrate the use of the package. 
 
 Enjoy!.
