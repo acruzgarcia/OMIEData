@@ -2,9 +2,10 @@
 import requests as req
 import datetime as dt
 import os
+from OMIEData.Downloaders.omie_downloader import OMIEDownloader
 
 
-class GeneralOMIEDownloader:
+class GeneralOMIEDownloader(OMIEDownloader):
 
     _base_url = 'https://www.omie.es/sites/default/files/dados/'
     url_mask: str

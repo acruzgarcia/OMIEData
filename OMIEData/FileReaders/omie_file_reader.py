@@ -1,4 +1,5 @@
 import pandas as pd
+from requests import Response
 
 
 class OMIEFileReader:
@@ -10,5 +11,5 @@ class OMIEFileReader:
     def get_data_from_file(self, filename: str) -> pd.DataFrame:
         pass
 
-    def get_data_from_response(self, filename: str) -> pd.DataFrame:
+    def get_data_from_response(self, response: Response) -> pd.DataFrame:
         pass

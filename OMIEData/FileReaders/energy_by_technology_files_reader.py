@@ -1,5 +1,6 @@
 import pandas as pd
 import locale
+from requests import Response
 
 from OMIEData.FileReaders.omie_file_reader import OMIEFileReader
 from OMIEData.FileReaders.data_types_energy_by_technology import DataTypesEnergyByTechnologyFile
@@ -32,7 +33,7 @@ class EnergyByTechnologyHourlyFileReader(OMIEFileReader):
         key_list_retrieve.extend([str(v) for v in self.conceptsToLoad])
         return key_list_retrieve
 
-    def get_data_from_response(self, filename: str) -> pd.DataFrame:
+    def get_data_from_response(self, response: Response) -> pd.DataFrame:
         raise NotImplemented
 
     def get_data_from_file(self, filename: str) -> pd.DataFrame:
