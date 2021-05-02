@@ -1,9 +1,11 @@
 # Package OMIEData: Open source tool for Electricity data analysis
 Package to download electricity time series (prices and demand) from https://www.omie.es/
 
+[![made-with-python][python]
 [![Latest Version][mdversion-button]][md-pypi]
 [![Python Versions][pyversion-button]][md-pypi]
 
+[python]: (https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [mdversion-button]: https://img.shields.io/pypi/v/OMIEData.svg
 [md-pypi]: https://pypi.org/project/OMIEData/
 [pyversion-button]: https://img.shields.io/pypi/pyversions/OMIEData.svg
