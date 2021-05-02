@@ -3,8 +3,9 @@ Package to download electricity time series (prices and demand) from https://www
 
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
 [![PyPI version fury.io](https://img.shields.io/pypi/v/OMIEData.svg)](https://pypi.org/project/OMIEData/)
-[![Python Versions][pyversion-button]][md-pypi]
+[![PyPI pyversions](https://img.shields.io/pypi/pyversions/OMIEData.svg)](https://pypi.python.org/pypi/OMIEData/)
 
+[![Python Versions][pyversion-button]][md-pypi]
 [md-pypi]: https://pypi.org/project/OMIEData/
 [pyversion-button]: https://img.shields.io/pypi/pyversions/OMIEData.svg
 
