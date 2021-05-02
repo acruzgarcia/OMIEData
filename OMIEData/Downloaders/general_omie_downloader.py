@@ -22,13 +22,13 @@ class GeneralOMIEDownloader:
     def download_data(self, date_ini: dt.datetime, date_end: dt.datetime, output_folder: str) -> int:
 
         error = 0
-        dtaux = date_ini
+        dt_aux = date_ini
 
-        while dtaux <= date_end:
+        while dt_aux <= date_end:
 
-            dd = f'{dtaux.day:02}'
-            mm = f'{dtaux.month:02}'
-            yyyy = f'{dtaux.year:04}'
+            dd = f'{dt_aux.day:02}'
+            mm = f'{dt_aux.month:02}'
+            yyyy = f'{dt_aux.year:04}'
 
             # There could be errors when downloading or writtng to file... try-catch ??
             url_aux = self.get_complete_url()
@@ -43,19 +43,19 @@ class GeneralOMIEDownloader:
             print('Copying to {} ...'.format(file_aux))
             f = open(file_aux, 'wb').write(response.content)
 
-            dtaux = dtaux + dt.timedelta(days=+1)
+            dt_aux = dt_aux + dt.timedelta(days=+1)
 
         return error
 
-    def response_generator(self, date_ini: dt.datetime, date_end: dt.datetime):
+    def url_responses(self, date_ini: dt.datetime, date_end: dt.datetime):
 
-        dtaux = date_ini
+        dt_aux = date_ini
 
-        while dtaux <= date_end:
+        while dt_aux <= date_end:
 
-            dd = f'{dtaux.day:02}'
-            mm = f'{dtaux.month:02}'
-            yyyy = f'{dtaux.year:04}'
+            dd = f'{dt_aux.day:02}'
+            mm = f'{dt_aux.month:02}'
+            yyyy = f'{dt_aux.year:04}'
 
             # There could be errors when downloading or writtng to file... try-catch ??
             url_aux = self.get_complete_url()
@@ -63,3 +63,5 @@ class GeneralOMIEDownloader:
 
             print('Requesting {} ...'.format(url_aux))
             yield req.get(url_aux, allow_redirects=True)
+
+            dt_aux = dt_aux + dt.timedelta(days=+1)

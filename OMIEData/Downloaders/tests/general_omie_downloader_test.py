@@ -36,8 +36,8 @@ def test_2():
     downloader = GeneralOMIEDownloader(url_mask=url1,
                                        output_mask='PMD_YYYYMMDD.txt')
 
-    date_ini = dt.datetime(2006,1,1)
-    date_end = dt.datetime(2006,1,1)
+    date_ini = dt.datetime(2006, 1, 1)
+    date_end = dt.datetime(2006, 1, 1)
 
     folder_out = os.path.abspath('OutputTesting')
     error = downloader.download_data(date_ini=date_ini, date_end=date_end, output_folder=folder_out)

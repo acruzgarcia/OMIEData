@@ -136,7 +136,7 @@ def test_20030802():
 def test_20040101():
 
     folder = os.path.abspath('InputTesting')
-    filename = os.path.join(folder,'PMD_20040101.txt')
+    filename = os.path.join(folder, 'PMD_20040101.txt')
 
     # File contains
     # OMEL - Mercado de electricidad;Fecha Emisión :31/12/2003 - 10:23;;01/01/2004;Precio del mercado diario (cent/kWh)\
@@ -161,4 +161,37 @@ def test_20040101():
         if row.CONCEPT == str(DataTypesMarginalPriceFile.PRICE_SPAIN):
             for i, v in enumerate(prices):
                 assert is_equal_float(prices[i], float(row[i+3]), tolerance=1e-6), \
+                    'Data is corrupt: ' + row.CONCEPT + ' (H' + f'{i + 1:01})'
+
+
+def test_20040101_from_response():
+
+    # File contains
+    # OMEL - Mercado de electricidad;Fecha Emisión :31/12/2003 - 10:23;;01/01/2004;Precio del mercado diario (cent/kWh)\
+    # ;;;;
+    #
+    # ;1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;24;
+    # Precio marginal (Cent/kWh);  2,899;  2,823;  2,548;  2,300;  1,654;  1,468;  1,454;  1,167;  0,757;  0,287;  \
+    # 1,001;  0,937;  1,127;  1,217;  1,197;  1,012;  0,917;  1,022;  1,468;  2,101;  2,101;  2,300;  2,101;  2,300;
+    # Demanda+bombeos (MWh);  21.704;  20.248;  18.415;  16.699;  15.449;  14.677;  14.539;  14.390;  14.596;  14.739;\
+    # 14.908;  16.360;  16.826;  16.855;  17.001;  16.914;  16.666;  17.398;  18.787;  20.146;  20.512;  20.935;\
+    # 20.381;  20.493;
+    # ;;;;;;;;;;;;;;;;;;;;;;;;;
+    #
+
+    prices = [10 * x for x in [2.899, 2.823, 2.548, 2.300, 1.654, 1.468, 1.454, 1.167, 0.757,
+                               0.287, 1.001, 0.937, 1.127, 1.217, 1.197, 1.012, 0.917, 1.022,
+                               1.468, 2.101, 2.101, 2.300, 2.101, 2.300]]
+
+    from OMIEData.Downloaders.marginal_price_downloader import MarginalPriceDownloader
+
+    responses = list(MarginalPriceDownloader().url_responses(date_ini=dt.date(2004, 1, 1),
+                                                             date_end=dt.date(2004, 1, 1)))
+
+    df = MarginalPriceFileReader().get_data_from_response(response=responses[0])
+
+    for row in df.itertuples():
+        if row.CONCEPT == str(DataTypesMarginalPriceFile.PRICE_SPAIN):
+            for i, v in enumerate(prices):
+                assert is_equal_float(prices[i], float(row[i + 3]), tolerance=1e-6), \
                     'Data is corrupt: ' + row.CONCEPT + ' (H' + f'{i + 1:01})'

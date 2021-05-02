@@ -5,13 +5,13 @@ import filecmp
 from OMIEData.Downloaders.marginal_price_downloader import MarginalPriceDownloader
 
 
-def test_1():
+def test_check_url():
 
     assert MarginalPriceDownloader().get_complete_url() == \
            'https://www.omie.es/sites/default/files/dados/AGNO_YYYY/MES_MM/TXT/INT_PBC_EV_H_1_DD_MM_YYYY_DD_MM_YYYY.TXT'
 
 
-def test_2():
+def test_download_data():
 
     date_ini = dt.datetime(2009, 6, 1)
     date_end = dt.datetime(2009, 6, 1)
@@ -33,3 +33,12 @@ def test_2():
         'The content of the downloaded file is not as expected.'
 
     assert error == 0
+
+
+def test_3():
+
+    date_ini = dt.datetime(2009, 6, 1)
+    date_end = dt.datetime(2009, 7, 1)
+
+    for response in MarginalPriceDownloader().url_responses(date_ini=date_ini, date_end=date_end):
+        assert response
