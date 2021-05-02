@@ -52,11 +52,9 @@ df.sort_values(by='DATE', axis=0, inplace=True)
 print(df)
 ```
 
-Other examples:
+Other examples that illustrate the use of the package:
 
 - [example_energy_by_technology.py](https://github.com/acruzgarcia/OMIEData/blob/dev/example_energy_by_technology.py)
 - [example_marginal_price.py](https://github.com/acruzgarcia/OMIEData/blob/dev/example_marginal_price.py)
-
-illustrate the use of the package. 
 
 Enjoy!.
