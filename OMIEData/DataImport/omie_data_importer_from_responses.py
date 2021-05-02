@@ -1,6 +1,5 @@
 import pandas as pd
 import datetime as dt
-import os
 
 from OMIEData.DataImport.omie_data_importer import OMIEDataImporter
 from OMIEData.FileReaders.omie_file_reader import OMIEFileReader
