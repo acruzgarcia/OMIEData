@@ -2,14 +2,17 @@
 Package to download electricity time series (prices and demand) from https://www.omie.es/
 
 [![made-with-python](https://img.shields.io/badge/Made%20with-Python-1f425f.svg)](https://www.python.org/)
-[![PyPI version fury.io](https://badge.fury.io/py/ansicolortags.svg)](https://pypi.python.org/pypi/ansicolortags/)
+[![PyPI version fury.io][mdversion-button]][md-pypi]
+[![Python Versions][pyversion-button]][md-pypi]
 
+[mdversion-button]: https://img.shields.io/pypi/v/OMIEData.svg
+[md-pypi]: https://pypi.org/project/OMIEData/
 [pyversion-button]: https://img.shields.io/pypi/pyversions/OMIEData.svg
 
 
 ## Installation 
 
-The package is uploaded at https://pypi.org/project/OMIEData/0.0.1/, so the usual
+The package is uploaded at https://pypi.org/project/OMIEData/, so the usual
 
 ```python
 python -m pip install OMIEData
