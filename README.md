@@ -39,5 +39,6 @@ python -m pip install OMIEData-0.0.2.tar.gz
 
 ```
 
-# Use case examples:
-Files 'example_energy_by_technology.py' and 'example_marginal_price.py' illustrates the use of the package. Enjoy!.
+## Examples:
+
+Files **example_energy_by_technology.py** and **example_marginal_price.py** illustrates the use of the package. Enjoy!.
