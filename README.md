@@ -47,7 +47,7 @@ to install a previous version.
 
 ## Examples:
 
-A very simple example to download electricity prices and demands:
+A very simple example to download hourly electricity prices and loads:
 
 ```python
 dateIni = dt.datetime(2012, 3, 11)
