@@ -59,6 +59,22 @@ df.sort_values(by='DATE', axis=0, inplace=True)
 print(df)
 ```
 
+another example to download hourly loads resulting of the daily market auction, breakdown by technologies:
+
+```python
+dateIni = dt.datetime(2020, 6, 1)
+dateEnd = dt.datetime(2020, 7, 30)
+system_type = SystemType.SPAIN
+
+# This can take time, it is downloading the files from the website..
+df = OMIEEnergyByTechnologyImporter(date_ini=dateIni,
+                                    date_end=dateEnd,
+                                    system_type=system_type).read_to_dataframe(verbose=True)
+df.sort_values(by=['DATE', 'HOUR'], axis=0, inplace=True)
+print(df)
+```
+
+
 Other examples that illustrate the use of the package:
 
 - [example_energy_by_technology.py](https://github.com/acruzgarcia/OMIEData/blob/dev/examples/example_energy_by_technology.py)
