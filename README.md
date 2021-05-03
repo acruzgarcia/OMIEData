@@ -10,7 +10,7 @@ Concretely, you can easily access to data for the following markets:
 
 - Daily market: hourly prices in Spain and Portugal, total hourly energy after auction (with/without billateral contracts), breakdown of the total hourly energy by technology and bid/ask offer hourly curves.
 - Intra-day market: hourly prices for the different sessions and total hourly energy.
-- More markets in next releases.
+- Additional data in next releases.
 
 
 ## Installation 
