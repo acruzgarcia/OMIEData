@@ -54,7 +54,7 @@ print(df)
 
 Other examples that illustrate the use of the package:
 
-- [example_energy_by_technology.py](https://github.com/acruzgarcia/OMIEData/blob/dev/example/example_energy_by_technology.py)
-- [example_marginal_price.py](https://github.com/acruzgarcia/OMIEData/blob/dev/example/example_marginal_price.py)
+- [example_energy_by_technology.py](https://github.com/acruzgarcia/OMIEData/blob/dev/examples/example_energy_by_technology.py)
+- [example_marginal_price.py](https://github.com/acruzgarcia/OMIEData/blob/dev/examples/example_marginal_price.py)
 
 Enjoy!.
