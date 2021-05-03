@@ -16,7 +16,7 @@ The package is uploaded at https://pypi.org/project/OMIEData/, so
 python -m pip install OMIEData
 
 ```
-from the command line would install the last version uploaded to pypi. 
+from the command line will install the last version uploaded to pypi. 
 
 Aternatively, to install it from GitHub, type:
 
