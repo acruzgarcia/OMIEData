@@ -30,7 +30,7 @@ python -m pip install git+https://github.com/acruzgarcia/OMIEData
 
 ```
 
-or use the .whl (or .tar.gz) file within dist (and dist_old) folders as:
+in the command line, or use the .whl (or .tar.gz) file within dist (and dist_old) folders as:
 
 ```python
 python -m pip install OMIEData-VERSION-py3-none-any.whl
