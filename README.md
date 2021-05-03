@@ -40,11 +40,21 @@ python -m pip install OMIEData-VERSION.tar.gz
 
 ## Examples:
 
-Files 
+A very simple example to download electricity prices and demands:
+
+```python
+dateIni = dt.datetime(2012, 3, 11)
+dateEnd = dt.datetime(2012, 4, 15)
+
+# This can take time, it is downloading the files from the website..
+df = OMIEMarginalPriceImporter(date_ini=dateIni, date_end=dateEnd).read_to_dataframe(verbose=True)
+df.sort_values(by='DATE', axis=0, inplace=True)
+print(df)
+```
+
+Other examples that illustrate the use of the package:
 
 - [example_energy_by_technology.py](https://github.com/acruzgarcia/OMIEData/blob/dev/example_energy_by_technology.py)
 - [example_marginal_price.py](https://github.com/acruzgarcia/OMIEData/blob/dev/example_marginal_price.py)
-
-illustrate the use of the package. 
 
 Enjoy!.
