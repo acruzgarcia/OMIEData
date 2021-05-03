@@ -4,7 +4,7 @@ from OMIEData.FileReaders.energy_by_technology_files_reader import EnergyByTechn
 
 def test_all_keys_in_df():
 
-    folder = os.path.abspath('InputTesting')
+    folder = os.path.join(os.path.dirname(__file__), 'InputTesting')
     filename = os.path.join(folder, 'EnergyByTechnology_9_20201113.TXT')
 
     reader = EnergyByTechnologyHourlyFileReader()
@@ -19,10 +19,8 @@ def test_all_keys_in_df():
 
 def test_check_correct_values():
 
-    folder = os.path.abspath('InputTesting')
+    folder = os.path.join(os.path.dirname(__file__), 'InputTesting')
     filename = os.path.join(folder, 'EnergyByTechnology_9_20201113.TXT')
 
     df = EnergyByTechnologyHourlyFileReader().get_data_from_file(filename=filename)
     assert df['NUCLEAR'][23] == 6088.9
-
-

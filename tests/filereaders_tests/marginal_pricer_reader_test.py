@@ -13,7 +13,7 @@ def is_equal_float(x1: float, x2: float, tolerance=1e-4):
 
 def test_all_keys_in_df():
 
-    folder = os.path.abspath('InputTesting')
+    folder = os.path.join(os.path.dirname(__file__), 'InputTesting')
     filename = os.path.join(folder, 'PMD_20060101.txt')
 
     reader = MarginalPriceFileReader()
@@ -28,7 +28,7 @@ def test_all_keys_in_df():
 
 def test_check_correct_values():
 
-    folder = os.path.abspath('InputTesting')
+    folder = os.path.join(os.path.dirname(__file__), 'InputTesting')
     filename = os.path.join(folder, 'PMD_20060101.txt')
 
     # File contains
@@ -46,8 +46,9 @@ def test_check_correct_values():
 
 def test_dump_to_dataframe(verbose=False):
 
-    fileReader = MarginalPriceFileReader()
-    dumper = OMIEDataImporterFromFolder(absolute_path=os.path.abspath('InputTesting'), file_reader=fileReader)
+    folder = os.path.join(os.path.dirname(__file__), 'InputTesting')
+    file_reader = MarginalPriceFileReader()
+    dumper = OMIEDataImporterFromFolder(absolute_path=folder, file_reader=file_reader)
     df = dumper.read_to_dataframe()
 
     # show dataframe
@@ -95,7 +96,7 @@ def test_dump_to_dataframe(verbose=False):
 
 def test_day_with_23_hours():
 
-    folder = os.path.abspath('InputTesting')
+    folder = os.path.join(os.path.dirname(__file__), 'InputTesting')
     filename = os.path.join(folder, 'PrecioMD_OMIE_20200329.txt')
 
     # File contains
@@ -113,7 +114,7 @@ def test_day_with_23_hours():
 
 def test_20030802():
 
-    folder = os.path.abspath('InputTesting')
+    folder = os.path.join(os.path.dirname(__file__), 'InputTesting')
     filename = os.path.join(folder,'PMD_20030802.txt')
 
     # File contains
@@ -135,7 +136,7 @@ def test_20030802():
 
 def test_20040101():
 
-    folder = os.path.abspath('InputTesting')
+    folder = os.path.join(os.path.dirname(__file__), 'InputTesting')
     filename = os.path.join(folder, 'PMD_20040101.txt')
 
     # File contains

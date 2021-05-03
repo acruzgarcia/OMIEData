@@ -39,7 +39,7 @@ def test_2():
     date_ini = dt.datetime(2006, 1, 1)
     date_end = dt.datetime(2006, 1, 1)
 
-    folder_out = os.path.abspath('OutputTesting')
+    folder_out = os.path.join(os.path.dirname(__file__), 'OutputTesting')
     error = downloader.download_data(date_ini=date_ini, date_end=date_end, output_folder=folder_out)
     assert error == 0, 'There was an error when downloading.'
 
@@ -47,8 +47,8 @@ def test_2():
     assert os.path.isfile(os.path.join(folder_out, 'PMD_20060101.txt')),\
         'The downloaded file does not have the expected name.'
 
-    folderIn = os.path.abspath('InputTesting')
+    folder_in = os.path.join(os.path.dirname(__file__), 'InputTesting')
     assert filecmp.cmp(os.path.join(folder_out, 'PMD_20060101.txt'),
-                       os.path.join(folderIn, 'PMD_20060101.txt'),
+                       os.path.join(folder_in, 'PMD_20060101.txt'),
                        shallow=True), \
         'The content of the downloaded file is not as expected.'

@@ -18,7 +18,7 @@ def test_2():
     date_end = dt.datetime(2009, 1, 3)
     downloader = IntraDayPriceDownloader(session=2)
 
-    folder_out = os.path.abspath('OutputTesting')
+    folder_out = os.path.join(os.path.dirname(__file__), 'OutputTesting')
     error = downloader.download_data(date_ini=date_ini, date_end=date_end, output_folder=folder_out)
     assert error == 0, 'There was an error when downloading.'
 
@@ -27,7 +27,7 @@ def test_2():
     assert os.path.isfile(os.path.join(folder_out, output_file_name)), \
         'The downloaded file does not have the expected name.'
 
-    folder_in = os.path.abspath('InputTesting')
+    folder_in = os.path.join(os.path.dirname(__file__), 'InputTesting')
     assert filecmp.cmp(os.path.join(folder_out, output_file_name),
                        os.path.join(folder_in, output_file_name),
                        shallow=True), \

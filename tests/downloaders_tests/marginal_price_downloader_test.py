@@ -15,10 +15,9 @@ def test_download_data():
 
     date_ini = dt.datetime(2009, 6, 1)
     date_end = dt.datetime(2009, 6, 1)
-    folder_out = os.path.abspath('OutputTesting')
-    downloader = MarginalPriceDownloader()
 
-    error = downloader.download_data(date_ini=date_ini, date_end=date_end, output_folder=folder_out)
+    folder_out = os.path.join(os.path.dirname(__file__), 'OutputTesting')
+    error = MarginalPriceDownloader().download_data(date_ini=date_ini, date_end=date_end, output_folder=folder_out)
     assert error == 0, 'There was an error when downloading.'
 
     # Check it downloaded with the right name
@@ -26,7 +25,7 @@ def test_download_data():
     assert os.path.isfile(os.path.join(folder_out, output_file_name)), \
         'The downloaded file does not have the expected name.'
 
-    folder_in = os.path.abspath('InputTesting')
+    folder_in = os.path.join(os.path.dirname(__file__), 'InputTesting')
     assert filecmp.cmp(os.path.join(folder_out, output_file_name),
                        os.path.join(folder_in, output_file_name),
                        shallow=True), \
