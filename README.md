@@ -59,7 +59,7 @@ df.sort_values(by='DATE', axis=0, inplace=True)
 print(df)
 ```
 
-another example to download hourly loads resulting of the daily market auction, breakdown by technologies:
+Another example to download hourly loads resulting of the daily market auction, breakdown by technologies:
 
 ```python
 dateIni = dt.datetime(2020, 6, 1)
