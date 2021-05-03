@@ -8,7 +8,7 @@ from OMIEData.FileReaders.data_types_marginal_price_file import DataTypesMargina
 from OMIEData.FileReaders.omie_file_reader import OMIEFileReader
 
 
-class MarginalPriceFileReader(OMIEFileReader):
+class PriceFileReader(OMIEFileReader):
 
     # Static or class variables
     __dic_static_concepts__ = {
@@ -45,7 +45,7 @@ class MarginalPriceFileReader(OMIEFileReader):
         self.conceptsToLoad = [v for v in DataTypesMarginalPriceFile] if not types else types
 
     def get_keys(self):
-        return MarginalPriceFileReader.__key_list_retrieve__
+        return PriceFileReader.__key_list_retrieve__
 
     def get_data_from_response(self, response: Response) -> pd.DataFrame:
 
@@ -58,7 +58,7 @@ class MarginalPriceFileReader(OMIEFileReader):
             print('Response ' + response.url + ' does not have the expected format.')
         else:
             # The second date is the one we want
-            date = dt.datetime.strptime(matches[1], MarginalPriceFileReader.__dateFormatInFile__).date()
+            date = dt.datetime.strptime(matches[1], PriceFileReader.__dateFormatInFile__).date()
 
             # Process all the lines
 
@@ -68,11 +68,11 @@ class MarginalPriceFileReader(OMIEFileReader):
                 splits = line.split(sep=';')
                 first_col = splits[0]
 
-                if first_col in MarginalPriceFileReader.__dic_static_concepts__.keys():
-                    concept_type = MarginalPriceFileReader.__dic_static_concepts__[first_col][0]
+                if first_col in PriceFileReader.__dic_static_concepts__.keys():
+                    concept_type = PriceFileReader.__dic_static_concepts__[first_col][0]
 
                     if concept_type in self.conceptsToLoad:
-                        units = MarginalPriceFileReader.__dic_static_concepts__[first_col][1]
+                        units = PriceFileReader.__dic_static_concepts__[first_col][1]
 
                         dico = self._process_line(date=date, concept=concept_type, values=splits[1:], multiplier=units)
                         res = res.append(dico, ignore_index=True)
@@ -92,7 +92,7 @@ class MarginalPriceFileReader(OMIEFileReader):
             print('File ' + filename + ' does not have the expected format.')
         else:
             # The second date is the one we want
-            date = dt.datetime.strptime(matches[1], MarginalPriceFileReader.__dateFormatInFile__).date()
+            date = dt.datetime.strptime(matches[1], PriceFileReader.__dateFormatInFile__).date()
 
             # Process all the lines
             while line:
@@ -101,11 +101,11 @@ class MarginalPriceFileReader(OMIEFileReader):
                 splits = line.split(sep=';')
                 first_col = splits[0]
 
-                if first_col in MarginalPriceFileReader.__dic_static_concepts__.keys():
-                    concept_type = MarginalPriceFileReader.__dic_static_concepts__[first_col][0]
+                if first_col in PriceFileReader.__dic_static_concepts__.keys():
+                    concept_type = PriceFileReader.__dic_static_concepts__[first_col][0]
 
                     if concept_type in self.conceptsToLoad:
-                        units = MarginalPriceFileReader.__dic_static_concepts__[first_col][1]
+                        units = PriceFileReader.__dic_static_concepts__[first_col][1]
 
                         dico = self._process_line(date=date, concept=concept_type, values=splits[1:], multiplier=units)
                         res = res.append(dico, ignore_index=True)
@@ -114,14 +114,14 @@ class MarginalPriceFileReader(OMIEFileReader):
 
     def _process_line(self, date: dt.date, concept: DataTypesMarginalPriceFile, values: list, multiplier=1.0) -> dict:
 
-        key_list = MarginalPriceFileReader.__key_list_retrieve__
+        keylist = PriceFileReader.__key_list_retrieve__
 
         result = dict.fromkeys(self.get_keys())
-        result[key_list[0]] = date
-        result[key_list[1]] = str(concept)
+        result[keylist[0]] = date
+        result[keylist[1]] = str(concept)
 
         # These are the correct setting to read the files...
-        locale.setlocale(locale.LC_NUMERIC, MarginalPriceFileReader.__localeInFile__)
+        locale.setlocale(locale.LC_NUMERIC, PriceFileReader.__localeInFile__)
 
         for i, v in enumerate(values, start=1):
             if i > 24:
@@ -131,10 +131,10 @@ class MarginalPriceFileReader(OMIEFileReader):
             except:
                 if i == 24:
                     # Day with 23-hours.
-                    result[key_list[25]] = result[key_list[24]]
+                    result[keylist[25]] = result[keylist[24]]
                 else:
                     raise
             else:
-                result[key_list[i + 1]] = f
+                result[keylist[i + 1]] = f
 
         return result
