@@ -10,13 +10,13 @@ Python package to import data from OMIE (Iberian Peninsula's Electricity Market 
 
 ## Installation 
 
-The package is uploaded at https://pypi.org/project/OMIEData/, so the usual
+The package is uploaded at https://pypi.org/project/OMIEData/, so
 
 ```python
 python -m pip install OMIEData
 
 ```
-from the command line should work. 
+from the command line would install the last version uploaded to pypi. 
 
 Aternatively, to install it from GitHub, type:
 
@@ -25,7 +25,7 @@ python -m pip install git+https://github.com/acruzgarcia/OMIEData
 
 ```
 
-or use the .whl (or .tar.gz) file within dist folder:
+or use the .whl (or .tar.gz) file within dist (and dist_old) folders as:
 
 ```python
 python -m pip install OMIEData-VERSION-py3-none-any.whl
@@ -37,6 +37,8 @@ or
 python -m pip install OMIEData-VERSION.tar.gz
 
 ```
+
+to install a previous version.
 
 ## Examples:
 
