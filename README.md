@@ -78,6 +78,6 @@ print(df)
 Other examples that illustrate the use of the package:
 
 - [example_energy_by_technology.py](https://github.com/acruzgarcia/OMIEData/blob/dev/examples/example_energy_by_technology_2steps.py)
-- [example_marginal_price.py](https://github.com/acruzgarcia/OMIEData/blob/dev/examples/example_marginal_price.py)
+- [example_marginal_price.py](https://github.com/acruzgarcia/OMIEData/blob/dev/examples/example_marginal_price_2steps.py)
 
 Enjoy!.
