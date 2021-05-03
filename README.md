@@ -77,6 +77,6 @@ print(df)
 
 Other examples that illustrate the use of the package in here:
 
-- [examples' folder](https://github.com/acruzgarcia/OMIEData/tree/dev/examples)
+- [examples folder](https://github.com/acruzgarcia/OMIEData/tree/dev/examples)
 
 Enjoy!.
