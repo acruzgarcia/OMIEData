@@ -22,7 +22,9 @@ class OMIEDataImporterFromResponses(OMIEDataImporter):
     def read_to_dataframe(self, verbose=False) -> pd.DataFrame:
 
         df = pd.DataFrame(columns=self.fileReader.get_keys())
-        for response in self.fileDownloader.url_responses(date_ini=self.date_ini, date_end=self.date_end):
+        for response in self.fileDownloader.url_responses(date_ini=self.date_ini,
+                                                          date_end=self.date_end,
+                                                          verbose=verbose):
             try:
                 df = df.append(self.fileReader.get_data_from_response(response=response), ignore_index=True)
             except Exception as exc:

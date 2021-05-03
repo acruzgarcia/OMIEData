@@ -11,11 +11,11 @@ class IntraDayPriceDownloader(GeneralOMIEDownloader):
 
     def __init__(self, session: int):
 
-        strSession = f'{session:01}'
-        self.output_mask = self.output_mask.replace('SS', strSession)
+        str_session = f'{session:01}'
+        self.output_mask = self.output_mask.replace('SS', str_session)
 
         url1 = self.url_year + self.url_month + self.url_name
-        url1 = url1.replace('SS', strSession)
+        url1 = url1.replace('SS', str_session)
 
         GeneralOMIEDownloader.__init__(self,
                                        url_mask=url1,

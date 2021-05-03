@@ -20,7 +20,7 @@ class GeneralOMIEDownloader(OMIEDownloader):
     def get_complete_url(self) -> str:
         return self._base_url + self.url_mask
 
-    def download_data(self, date_ini: dt.datetime, date_end: dt.datetime, output_folder: str) -> int:
+    def download_data(self, date_ini: dt.datetime, date_end: dt.datetime, output_folder: str, verbose=False) -> int:
 
         error = 0
         dt_aux = date_ini
@@ -38,17 +38,19 @@ class GeneralOMIEDownloader(OMIEDownloader):
             file_aux = self.output_mask.replace('DD', dd).replace('MM', mm).replace('YYYY', yyyy)
             file_aux = os.path.join(output_folder, file_aux)
 
-            print('Downloading {} ...'.format(url_aux))
+            if verbose:
+                print('Downloading {} ...'.format(url_aux))
             response = req.get(url_aux, allow_redirects=True)
 
-            print('Copying to {} ...'.format(file_aux))
+            if verbose:
+                print('Copying to {} ...'.format(file_aux))
             f = open(file_aux, 'wb').write(response.content)
 
             dt_aux = dt_aux + dt.timedelta(days=+1)
 
         return error
 
-    def url_responses(self, date_ini: dt.datetime, date_end: dt.datetime):
+    def url_responses(self, date_ini: dt.datetime, date_end: dt.datetime, verbose=False):
 
         dt_aux = date_ini
 
@@ -58,11 +60,13 @@ class GeneralOMIEDownloader(OMIEDownloader):
             mm = f'{dt_aux.month:02}'
             yyyy = f'{dt_aux.year:04}'
 
-            # There could be errors when downloading or writtng to file... try-catch ??
+            # There could be errors when downloading or writing to file... try-catch ??
             url_aux = self.get_complete_url()
             url_aux = url_aux.replace('DD', dd).replace('MM', mm).replace('YYYY', yyyy)
 
-            print('Requesting {} ...'.format(url_aux))
+            if verbose:
+                print('Requesting {} ...'.format(url_aux))
+
             yield req.get(url_aux, allow_redirects=True)
 
             dt_aux = dt_aux + dt.timedelta(days=+1)

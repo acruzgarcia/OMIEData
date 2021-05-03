@@ -10,6 +10,6 @@ if __name__ == '__main__':
     dateEnd = dt.datetime(2012, 4, 15)
 
     # This can take time, it is downloading the files from the website..
-    df = OMIEMarginalPriceImporter(date_ini=dateIni, date_end=dateEnd).read_to_dataframe(verbose=True)
+    df = OMIEMarginalPriceImporter(date_ini=dateIni, date_end=dateEnd).read_to_dataframe(verbose=False)
     df.sort_values(by='DATE', axis=0, inplace=True)
     print(df)

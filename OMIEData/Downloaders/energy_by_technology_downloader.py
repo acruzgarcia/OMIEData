@@ -19,11 +19,11 @@ class EnergyByTechnologyDownloader(GeneralOMIEDownloader):
 
     def __init__(self, system: SystemType):
         
-        strSystem = f'{system.value:01}'
-        self.output_mask = self.output_mask.replace('SYS', strSystem)
+        str_system = f'{system.value:01}'
+        self.output_mask = self.output_mask.replace('SYS', str_system)
 
         url1 = self.url_year + self.url_month + self.url_name
-        url1 = url1.replace('SYS', strSystem)
+        url1 = url1.replace('SYS', str_system)
 
         GeneralOMIEDownloader.__init__(self,
                                        url_mask=url1,
