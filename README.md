@@ -6,7 +6,7 @@
 
 Python package to import data from OMIE (Iberian Peninsula's Electricity Market Operator): https://www.omie.es/
 
-Concretely, it allows to easily access to data from the following markets:
+Concretely, it allows to easily access to data corresponding to the following markets:
 
 - Daily market: hourly market cleared prices in Spain and Portugal, total hourly energy as a result of the auction (with/without billateral contracts), breakdown of the total hourly energy by technology and supply/demand curves.
 - Intra-day market: hourly prices for the different sessions and total hourly energy.
