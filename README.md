@@ -6,11 +6,12 @@
 
 Python package to import data from OMIE (Iberian Peninsula's Electricity Market Operator): https://www.omie.es/
 
-Concretely, you can easily access to data for the following markets:
+Concretely, it allows to easily access to data from the following markets:
 
-- Daily market: hourly prices in Spain and Portugal, total hourly energy after auction (with/without billateral contracts), breakdown of the total hourly energy by technology and bid/ask curves.
+- Daily market: hourly market cleared prices in Spain and Portugal, total hourly energy as a result of the auction (with/without billateral contracts), breakdown of the total hourly energy by technology and supply/demand curves.
 - Intra-day market: hourly prices for the different sessions and total hourly energy.
-- Additional data in next releases.
+
+Additional data will be included in next releases.
 
 
 ## Installation 
@@ -54,12 +55,13 @@ dateIni = dt.datetime(2012, 3, 11)
 dateEnd = dt.datetime(2012, 4, 15)
 
 # This can take time, it is downloading the files from the website..
-df = OMIEMarginalPriceImporter(date_ini=dateIni, date_end=dateEnd).read_to_dataframe(verbose=True)
+df = OMIEMarginalPriceImporter(date_ini=dateIni, 
+                               date_end=dateEnd).read_to_dataframe(verbose=True)
 df.sort_values(by='DATE', axis=0, inplace=True)
 print(df)
 ```
 
-Another example to download hourly loads resulting of the daily market auction, breakdown by technologies:
+Another example to download loads resulting of the daily market auction broken down by the different technology types:
 
 ```python
 dateIni = dt.datetime(2020, 6, 1)
