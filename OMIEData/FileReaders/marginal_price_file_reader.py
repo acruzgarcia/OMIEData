@@ -4,7 +4,7 @@ import locale
 import pandas as pd
 
 from requests import Response
-from OMIEData.FileReaders.data_types_marginal_price_file import DataTypesMarginalPriceFile
+from OMIEData.Enums.all_enums import DataTypeInMarginalPriceFile
 from OMIEData.FileReaders.omie_file_reader import OMIEFileReader
 
 
@@ -13,25 +13,25 @@ class MarginalPriceFileReader(OMIEFileReader):
     # Static or class variables
     __dic_static_concepts__ = {
         'Precio marginal (Cent/kWh)':
-            [DataTypesMarginalPriceFile.PRICE_SPAIN, 10.0],
+            [DataTypeInMarginalPriceFile.PRICE_SPAIN, 10.0],
         'Precio marginal (EUR/MWh)':
-            [DataTypesMarginalPriceFile.PRICE_SPAIN, 1.0],
+            [DataTypeInMarginalPriceFile.PRICE_SPAIN, 1.0],
         'Precio marginal en el sistema español (Cent/kWh)':
-            [DataTypesMarginalPriceFile.PRICE_SPAIN, 10.0],
+            [DataTypeInMarginalPriceFile.PRICE_SPAIN, 10.0],
         'Precio marginal en el sistema español (EUR/MWh)':
-            [DataTypesMarginalPriceFile.PRICE_SPAIN, 1.0],
+            [DataTypeInMarginalPriceFile.PRICE_SPAIN, 1.0],
         'Precio marginal en el sistema portugués (Cent/kWh)':
-            [DataTypesMarginalPriceFile.PRICE_PORTUGAL, 10.0],
+            [DataTypeInMarginalPriceFile.PRICE_PORTUGAL, 10.0],
         'Precio marginal en el sistema portugués (EUR/MWh)':
-            [DataTypesMarginalPriceFile.PRICE_PORTUGAL, 1.0],
+            [DataTypeInMarginalPriceFile.PRICE_PORTUGAL, 1.0],
         'Demanda+bombeos (MWh)':
-            [DataTypesMarginalPriceFile.ENERGY_IBERIAN, 1.0],
+            [DataTypeInMarginalPriceFile.ENERGY_IBERIAN, 1.0],
         'Energía en el programa resultante de la casación (MWh)':
-            [DataTypesMarginalPriceFile.ENERGY_IBERIAN, 1.0],
+            [DataTypeInMarginalPriceFile.ENERGY_IBERIAN, 1.0],
         'Energía total del mercado Ibérico (MWh)':
-            [DataTypesMarginalPriceFile.ENERGY_IBERIAN, 1.0],
+            [DataTypeInMarginalPriceFile.ENERGY_IBERIAN, 1.0],
         'Energía total con bilaterales del mercado Ibérico (MWh)':
-            [DataTypesMarginalPriceFile.ENERGY_IBERIAN_WITH_BILLATERAL, 1.0]}
+            [DataTypeInMarginalPriceFile.ENERGY_IBERIAN_WITH_BILLATERAL, 1.0]}
 
     __key_list_retrieve__ = ['DATE', 'CONCEPT',
                              'H1', 'H2', 'H3', 'H4','H5', 'H6','H7', 'H8','H9','H10',
@@ -42,7 +42,7 @@ class MarginalPriceFileReader(OMIEFileReader):
     __localeInFile__ = "en_DK.UTF-8"
 
     def __init__(self, types=None):
-        self.conceptsToLoad = [v for v in DataTypesMarginalPriceFile] if not types else types
+        self.conceptsToLoad = [v for v in DataTypeInMarginalPriceFile] if not types else types
 
     def get_keys(self):
         return MarginalPriceFileReader.__key_list_retrieve__
@@ -112,7 +112,7 @@ class MarginalPriceFileReader(OMIEFileReader):
 
             return res
 
-    def _process_line(self, date: dt.date, concept: DataTypesMarginalPriceFile, values: list, multiplier=1.0) -> dict:
+    def _process_line(self, date: dt.date, concept: DataTypeInMarginalPriceFile, values: list, multiplier=1.0) -> dict:
 
         key_list = MarginalPriceFileReader.__key_list_retrieve__
 

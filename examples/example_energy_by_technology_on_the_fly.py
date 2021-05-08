@@ -1,7 +1,7 @@
 # This is a sample Python script.
 import datetime as dt
 from OMIEData.DataImport.omie_energy_by_technology_importer import OMIEEnergyByTechnologyImporter
-from OMIEData.Downloaders.energy_by_technology_downloader import SystemType
+from OMIEData.Enums.all_enums import SystemType
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':

@@ -5,7 +5,7 @@ from OMIEData.Downloaders.marginal_price_downloader import MarginalPriceDownload
 from OMIEData.FileReaders.marginal_price_file_reader import MarginalPriceFileReader
 
 
-class OMIEMarginalPriceImporter(OMIEDataImporterFromResponses):
+class OMIEMarginalPriceFileImporter(OMIEDataImporterFromResponses):
 
     def __init__(self, date_ini: dt.date, date_end: dt.date):
 

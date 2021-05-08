@@ -6,7 +6,7 @@ from io import BytesIO
 from OMIEData.FileReaders.omie_file_reader import OMIEFileReader
 
 
-class BidAskCurvesReader(OMIEFileReader):
+class SupplyDemandCurvesReader(OMIEFileReader):
 
     def __init__(self):
 

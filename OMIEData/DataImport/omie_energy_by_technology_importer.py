@@ -3,7 +3,7 @@ import datetime as dt
 from OMIEData.DataImport.omie_data_importer_from_responses import OMIEDataImporterFromResponses
 from OMIEData.Downloaders.energy_by_technology_downloader import EnergyByTechnologyDownloader
 from OMIEData.FileReaders.energy_by_technology_files_reader import EnergyByTechnologyHourlyFileReader
-from OMIEData.Downloaders.energy_by_technology_downloader import SystemType
+from OMIEData.Enums.all_enums import SystemType
 
 
 class OMIEEnergyByTechnologyImporter(OMIEDataImporterFromResponses):

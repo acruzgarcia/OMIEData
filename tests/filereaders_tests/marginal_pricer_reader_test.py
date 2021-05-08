@@ -4,7 +4,7 @@ import os
 
 from OMIEData.FileReaders.marginal_price_file_reader import MarginalPriceFileReader
 from OMIEData.DataImport.omie_data_importer_from_folder import OMIEDataImporterFromFolder
-from OMIEData.FileReaders.marginal_price_file_reader import DataTypesMarginalPriceFile
+from OMIEData.Enums.all_enums import DataTypeInMarginalPriceFile
 
 
 def is_equal_float(x1: float, x2: float, tolerance=1e-4):
@@ -56,17 +56,17 @@ def test_dump_to_dataframe(verbose=False):
         print(df)
 
     # 2006-1-1 file
-    value = float(df.loc[(df.DATE == dt.date(2006, 1, 1)) & (df.CONCEPT == str(DataTypesMarginalPriceFile.PRICE_SPAIN)), 'H1'])
+    value = float(df.loc[(df.DATE == dt.date(2006, 1, 1)) & (df.CONCEPT == str(DataTypeInMarginalPriceFile.PRICE_SPAIN)), 'H1'])
     assert is_equal_float(value, 66.94, tolerance=1e-6), 'Data is corrupt'
 
-    value = float(df.loc[(df.DATE == dt.date(2006, 1, 1)) & (df.CONCEPT == str(DataTypesMarginalPriceFile.ENERGY_IBERIAN)), 'H23'])
+    value = float(df.loc[(df.DATE == dt.date(2006, 1, 1)) & (df.CONCEPT == str(DataTypeInMarginalPriceFile.ENERGY_IBERIAN)), 'H23'])
     assert is_equal_float(value, 24792, tolerance=1e-6), 'Data is corrupt'
 
     # 2009-6-1 file
-    value = float(df.loc[(df.DATE == dt.date(2009, 6, 1)) & (df.CONCEPT == str(DataTypesMarginalPriceFile.PRICE_PORTUGAL)), 'H2'])
+    value = float(df.loc[(df.DATE == dt.date(2009, 6, 1)) & (df.CONCEPT == str(DataTypeInMarginalPriceFile.PRICE_PORTUGAL)), 'H2'])
     assert is_equal_float(value, 37.60, tolerance=1e-6), 'Data is corrupt'
 
-    slice = df.loc[(df.DATE == dt.date(2009, 6, 1)) & (df.CONCEPT == str(DataTypesMarginalPriceFile.ENERGY_IBERIAN)), :]
+    slice = df.loc[(df.DATE == dt.date(2009, 6, 1)) & (df.CONCEPT == str(DataTypeInMarginalPriceFile.ENERGY_IBERIAN)), :]
     energies = {'H1': 28325.8, 'H2': 26201.2, 'H3': 24651.6, 'H4': 23788.6, 'H5': 23565.4,
                 'H6': 24149.6, 'H7': 26386.0, 'H8': 29016.5, 'H9': 33149.4, 'H10': 36289.9,
                 'H11': 38527.1, 'H12': 39362.9, 'H13': 40102.1, 'H14': 39556.3, 'H15': 37944.9,
@@ -77,7 +77,7 @@ def test_dump_to_dataframe(verbose=False):
 
     # 2020-10-22 file
     slice = df.loc[(df.DATE == dt.date(2020, 10, 22)) &
-                   (df.CONCEPT == str(DataTypesMarginalPriceFile.ENERGY_IBERIAN_WITH_BILLATERAL)), :]
+                   (df.CONCEPT == str(DataTypeInMarginalPriceFile.ENERGY_IBERIAN_WITH_BILLATERAL)), :]
     energies = [29435.7, 27853.8, 27293.8, 26948.5, 26871.7, 27047.6, 28605.8, 31899.4, 33804.2,
                 35118.1, 35916.7, 36518.3, 37036.5, 37006.9, 36251.2, 35312.6, 34689.7, 34358.7,
                 33956.2, 35138.1, 37878.5, 36955.3, 33874.5, 30856.7]
@@ -85,7 +85,7 @@ def test_dump_to_dataframe(verbose=False):
         assert is_equal_float(energies[i], float(slice.get('H' + f'{i + 1:01}')),
                               tolerance=1e-6), 'Data is corrupt'
 
-    slice = df.loc[(df.DATE == dt.date(2020, 10, 22)) & (df.CONCEPT == str(DataTypesMarginalPriceFile.PRICE_SPAIN)), :]
+    slice = df.loc[(df.DATE == dt.date(2020, 10, 22)) & (df.CONCEPT == str(DataTypeInMarginalPriceFile.PRICE_SPAIN)), :]
     prices = [39.55, 35.00, 33.07, 32.68, 32.68, 33.08, 40.11, 47.13, 49.53,
               52.49, 52.43, 50.44, 49.08, 47.50, 46.58, 45.95, 46.11, 48.49,
               50.68, 56.63, 53.56, 49.04, 47.20, 46.30]
@@ -128,10 +128,10 @@ def test_20030802():
     input = MarginalPriceFileReader().get_data_from_file(filename=filename)
     concepts = list(input['CONCEPT'])
 
-    assert str(DataTypesMarginalPriceFile.ENERGY_IBERIAN) in concepts, \
-        '{} has to be one of the concepts read'.format(DataTypesMarginalPriceFile.ENERGY_IBERIAN)
-    assert str(DataTypesMarginalPriceFile.PRICE_SPAIN) in concepts, \
-        '{} has to be one of the concepts read'.format(DataTypesMarginalPriceFile.PRICE_SPAIN)
+    assert str(DataTypeInMarginalPriceFile.ENERGY_IBERIAN) in concepts, \
+        '{} has to be one of the concepts read'.format(DataTypeInMarginalPriceFile.ENERGY_IBERIAN)
+    assert str(DataTypeInMarginalPriceFile.PRICE_SPAIN) in concepts, \
+        '{} has to be one of the concepts read'.format(DataTypeInMarginalPriceFile.PRICE_SPAIN)
 
 
 def test_20040101():
@@ -159,7 +159,7 @@ def test_20040101():
                              1.468,  2.101,  2.101,  2.300,  2.101,  2.300]]
 
     for row in df.itertuples():
-        if row.CONCEPT == str(DataTypesMarginalPriceFile.PRICE_SPAIN):
+        if row.CONCEPT == str(DataTypeInMarginalPriceFile.PRICE_SPAIN):
             for i, v in enumerate(prices):
                 assert is_equal_float(prices[i], float(row[i+3]), tolerance=1e-6), \
                     'Data is corrupt: ' + row.CONCEPT + ' (H' + f'{i + 1:01})'
@@ -192,7 +192,7 @@ def test_20040101_from_response():
     df = MarginalPriceFileReader().get_data_from_response(response=responses[0])
 
     for row in df.itertuples():
-        if row.CONCEPT == str(DataTypesMarginalPriceFile.PRICE_SPAIN):
+        if row.CONCEPT == str(DataTypeInMarginalPriceFile.PRICE_SPAIN):
             for i, v in enumerate(prices):
                 assert is_equal_float(prices[i], float(row[i + 3]), tolerance=1e-6), \
                     'Data is corrupt: ' + row.CONCEPT + ' (H' + f'{i + 1:01})'

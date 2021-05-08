@@ -1,12 +1,12 @@
 import datetime as dt
 import os
 import filecmp
-from OMIEData.Downloaders.bid_ask__curve_downloader import BidAskCurveDownloader
+from OMIEData.Downloaders.supply_demand_curve_downloader import SupplyDemandCurveDownloader
 
 
 def test_1():
 
-    assert BidAskCurveDownloader(hour=1).get_complete_url() == \
+    assert SupplyDemandCurveDownloader(hour=1).get_complete_url() == \
            'https://www.omie.es/sites/default/files/dados/AGNO_YYYY/MES_MM/TXT/INT_CURVA_ACUM_UO_MIB_1_1_DD_MM_YYYY_DD_MM_YYYY.TXT', \
         'URL mask is not the one expected.'
 
@@ -17,9 +17,9 @@ def test_2():
     date_end = dt.datetime(2009, 1, 2)
 
     folder_out = os.path.join(os.path.dirname(__file__), 'OutputTesting')
-    error = BidAskCurveDownloader(hour=1).download_data(date_ini=date_ini,
-                                                        date_end=date_end,
-                                                        output_folder=folder_out)
+    error = SupplyDemandCurveDownloader(hour=1).download_data(date_ini=date_ini,
+                                                              date_end=date_end,
+                                                              output_folder=folder_out)
     assert error == 0, 'There was an error when downloading.'
 
     # Check it downloaded with the right name

@@ -4,7 +4,7 @@ import os
 import filecmp
 
 from OMIEData.Downloaders.energy_by_technology_downloader import EnergyByTechnologyDownloader
-from OMIEData.Downloaders.energy_by_technology_downloader import SystemType
+from OMIEData.Enums.all_enums import SystemType
 
 
 def test_1():

@@ -5,7 +5,7 @@ import datetime as dt
 from OMIEData.DataImport.omie_data_importer_from_folder import OMIEDataImporterFromFolder
 from OMIEData.Downloaders.marginal_price_downloader import MarginalPriceDownloader
 from OMIEData.FileReaders.marginal_price_file_reader import MarginalPriceFileReader
-from OMIEData.FileReaders.data_types_marginal_price_file import DataTypesMarginalPriceFile
+from OMIEData.Enums.all_enums import DataTypeInMarginalPriceFile
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
@@ -19,7 +19,7 @@ if __name__ == '__main__':
     # This can take time, it is downloading the files from the website..
     error = MarginalPriceDownloader().download_data(date_ini=dateIni, date_end=dateEnd, output_folder=workingFolder)
 
-    dataTypes = [DataTypesMarginalPriceFile.PRICE_SPAIN, DataTypesMarginalPriceFile.ENERGY_IBERIAN]
+    dataTypes = [DataTypeInMarginalPriceFile.PRICE_SPAIN, DataTypeInMarginalPriceFile.ENERGY_IBERIAN]
     fileReader = MarginalPriceFileReader(types=dataTypes)
     df = OMIEDataImporterFromFolder(absolute_path=workingFolder,
                                     file_reader=fileReader).read_to_dataframe(verbose=False)
@@ -28,7 +28,7 @@ if __name__ == '__main__':
 
     # Just spanish prices
     plt.figure()
-    str_price_spain = str(DataTypesMarginalPriceFile.PRICE_SPAIN)
+    str_price_spain = str(DataTypeInMarginalPriceFile.PRICE_SPAIN)
     dfPrices = df[df.CONCEPT == str_price_spain]
 
     plt.plot(dfPrices.DATE, dfPrices.H12)
@@ -36,7 +36,7 @@ if __name__ == '__main__':
     plt.show()
 
     plt.figure()
-    str_energy_ib = str(DataTypesMarginalPriceFile.ENERGY_IBERIAN)
+    str_energy_ib = str(DataTypeInMarginalPriceFile.ENERGY_IBERIAN)
     dfEnergy = df[df.CONCEPT == str_energy_ib]
     plt.plot(dfEnergy.DATE, dfEnergy.H12)
     plt.show()

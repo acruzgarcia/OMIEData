@@ -4,14 +4,14 @@ from requests import Response
 from io import BytesIO
 
 from OMIEData.FileReaders.omie_file_reader import OMIEFileReader
-from OMIEData.FileReaders.data_types_energy_by_technology import DataTypesEnergyByTechnologyFile
+from OMIEData.Enums.all_enums import TechnologyType
 
 
 class EnergyByTechnologyHourlyFileReader(OMIEFileReader):
 
     def __init__(self, types=None):
 
-        self.conceptsToLoad = [v for v in DataTypesEnergyByTechnologyFile] if not types else types
+        self.conceptsToLoad = [v for v in TechnologyType] if not types else types
 
         self._dict_column_concept = {'Fecha': 'DATE',
                                      'Hora': 'HOUR',

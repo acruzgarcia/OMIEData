@@ -1,13 +1,6 @@
 
 from OMIEData.Downloaders.general_omie_downloader import GeneralOMIEDownloader
-from enum import Enum
-
-
-class SystemType(Enum):
-
-    SPAIN = 1
-    PORTUGAL = 2
-    IBERIAN = 9
+from OMIEData.Enums.all_enums import SystemType
 
 
 class EnergyByTechnologyDownloader(GeneralOMIEDownloader):

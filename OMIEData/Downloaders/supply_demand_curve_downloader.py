@@ -2,7 +2,7 @@
 from OMIEData.Downloaders.general_omie_downloader import GeneralOMIEDownloader
 
 
-class BidAskCurveDownloader(GeneralOMIEDownloader):
+class SupplyDemandCurveDownloader(GeneralOMIEDownloader):
 
     url_year = 'AGNO_YYYY'
     url_month = '/MES_MM/TXT/'
