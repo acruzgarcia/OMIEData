@@ -81,7 +81,7 @@ df.sort_values(by=['DATE', 'HOUR'], axis=0, inplace=True)
 print(df)
 ```
 
-Another example to download supply/demand curves
+Another example to download supply/demand curves:
 
 ```python
 import datetime as dt
