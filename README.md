@@ -47,7 +47,7 @@ or to install a previous version from [dist_old](https://github.com/acruzgarcia/
 
 ## Examples:
 
-A very simple example to download hourly electricity prices and loads:
+A very simple example to download hourly electricity prices and demand:
 
 ```python
 import datetime as dt
@@ -62,7 +62,7 @@ df.sort_values(by='DATE', axis=0, inplace=True)
 print(df)
 ```
 
-Another example to download hourly loads resulting of the daily market auction, breakdown by technologies:
+Another example to download hourly demand resulting of the daily market auction, breakdown by technologies:
 
 ```python
 import datetime as dt
