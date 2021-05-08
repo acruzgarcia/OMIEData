@@ -23,14 +23,16 @@ python -m pip install OMIEData
 ```
 from the command line will install the last version uploaded to pypi. 
 
-Aternatively, to install it from GitHub, type:
+Aternatively, to install it from GitHub repository, type:
 
 ```python
 python -m pip install git+https://github.com/acruzgarcia/OMIEData
 
 ```
 
-in the command line, or use the .whl (or .tar.gz) file within dist (and dist_old) folders as:
+in the command line. 
+
+You can also intall the .whl or .tar.gz files within [dist](https://github.com/acruzgarcia/OMIEData/tree/dev/dist) as:
 
 ```python
 python -m pip install OMIEData-VERSION-py3-none-any.whl
@@ -43,7 +45,7 @@ python -m pip install OMIEData-VERSION.tar.gz
 
 ```
 
-to install a previous version.
+or to install a previous version from [dist_old](https://github.com/acruzgarcia/OMIEData/tree/dev/dist_old).
 
 ## Examples:
 
