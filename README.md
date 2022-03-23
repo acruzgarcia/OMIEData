@@ -62,7 +62,7 @@ df.sort_values(by='DATE', axis=0, inplace=True)
 print(df)
 ```
 
-print(df)
+```python
             DATE         CONCEPT        H1  ...       H22       H23       H24
 0     2020-01-01        PRICE_SP     41.88  ...     45.60     42.90     37.55
 1     2020-01-01        PRICE_PT     41.88  ...     45.60     42.90     37.55
@@ -76,6 +76,7 @@ print(df)
 3244  2022-03-22        PRICE_SP    223.00  ...    256.00    242.18    212.99
 3247  2022-03-22  ENER_IB_BILLAT  29840.30  ...  38281.20  34781.90  31872.50
 [3248 rows x 26 columns]
+```
 
 Another example to download hourly demand resulting of the daily market auction, breakdown by technologies:
 
