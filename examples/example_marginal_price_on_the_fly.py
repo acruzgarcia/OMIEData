@@ -22,7 +22,7 @@ if __name__ == '__main__':
     dfPrices = df[df.CONCEPT == str_price_spain]
 
     plt.figure()
-    plt.plot(dfPrices.DATE, dfPrices.H12, label='H12')
-    plt.plot(dfPrices.DATE, dfPrices.H23, label='H23')
+    plt.plot(dfPrices.DATE, dfPrices.H12, label='Price H12')
+    plt.plot(dfPrices.DATE, dfPrices.H23, label='Price H23')
     plt.legend()
     plt.show()
