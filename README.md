@@ -82,10 +82,10 @@ The code will generate a data-frame like the following one:
 [3248 rows x 26 columns]
 ```
 
-You can filter the data-frame to have only the spanish price, and then plot
+You can filter the data-frame to have only the prices in spain, and then plot
 
 ```python
-# Just spanish prices
+# Just prices in spain
 str_price_spain = str(DataTypeInMarginalPriceFile.PRICE_SPAIN)
 dfPrices = df[df.CONCEPT == str_price_spain]
 
