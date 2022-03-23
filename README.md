@@ -51,7 +51,10 @@ A very simple example to download hourly electricity prices and demand:
 
 ```python
 import datetime as dt
+import matplotlib.pyplot as plt
+
 from OMIEData.DataImport.omie_marginalprice_importer import OMIEMarginalPriceFileImporter
+from OMIEData.Enums.all_enums import DataTypeInMarginalPriceFile
 
 dateIni = dt.datetime(2020, 1, 1)
 dateEnd = dt.datetime(2022, 3, 22)
