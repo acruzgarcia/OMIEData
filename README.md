@@ -61,6 +61,7 @@ df = OMIEMarginalPriceFileImporter(date_ini=dateIni, date_end=dateEnd).read_to_d
 df.sort_values(by='DATE', axis=0, inplace=True)
 print(df)
 ```
+The code will generate a data-frame like the following one:
 
 ```python
             DATE         CONCEPT        H1  ...       H22       H23       H24
@@ -76,6 +77,21 @@ print(df)
 3244  2022-03-22        PRICE_SP    223.00  ...    256.00    242.18    212.99
 3247  2022-03-22  ENER_IB_BILLAT  29840.30  ...  38281.20  34781.90  31872.50
 [3248 rows x 26 columns]
+```
+
+You can filter the data-frame to have only the spanish price:
+
+```python
+# Just spanish prices
+str_price_spain = str(DataTypeInMarginalPriceFile.PRICE_SPAIN)
+dfPrices = df[df.CONCEPT == str_price_spain]
+
+# Plotting
+plt.figure()
+plt.plot(dfPrices.DATE, dfPrices.H12, label='H12')
+plt.plot(dfPrices.DATE, dfPrices.H23, label='H23')
+plt.legend()
+plt.show()
 ```
 
 Another example to download hourly demand resulting of the daily market auction, breakdown by technologies:
