@@ -96,7 +96,7 @@ plt.show()
 
 which will produce the following plot:
 
-![alt text](https://github.com/acruzgar/OMIEData/images/dev/PricesSP_H12_23.png?raw=true
+![alt text](https://github.com/acruzgarcia/OMIEData/blob/dev/images/PricesSP_H12_23.png)
 
 Another example to download hourly demand resulting of the daily market auction, breakdown by technologies:
 
