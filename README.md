@@ -79,7 +79,7 @@ The code will generate a data-frame like the following one:
 [3248 rows x 26 columns]
 ```
 
-You can filter the data-frame to have only the spanish price:
+You can filter the data-frame to have only the spanish price, and then plot
 
 ```python
 # Just spanish prices
@@ -93,6 +93,10 @@ plt.plot(dfPrices.DATE, dfPrices.H23, label='H23')
 plt.legend()
 plt.show()
 ```
+
+which will produce the following plot:
+
+![alt text](https://github.com/acruzgar/OMIEData/images/dev/PricesSP_H12_23.png?raw=true
 
 Another example to download hourly demand resulting of the daily market auction, breakdown by technologies:
 
