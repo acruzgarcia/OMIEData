@@ -12,6 +12,11 @@ if __name__ == '__main__':
     dateIni = dt.datetime(2020, 1, 1)
     dateEnd = dt.datetime(2022, 3, 22)
 
+    # Pandas has removed append() method, so this command is to avoid the message on any file we download
+    # TODO: we must remove append() calls in data frames and replace them by concat
+    import warnings
+    warnings.filterwarnings("ignore")
+
     # This can take time, it is downloading the files from the website..
     df = OMIEMarginalPriceFileImporter(date_ini=dateIni, date_end=dateEnd).read_to_dataframe(verbose=True)
     df.sort_values(by='DATE', axis=0, inplace=True)
