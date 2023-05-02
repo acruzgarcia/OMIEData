@@ -9,10 +9,6 @@ if __name__ == '__main__':
     dateEnd = dt.datetime(2020, 6, 1)
     hour = 1
 
-    # TODO: we must remove append() calls in data frames and replace them by concat
-    import warnings
-    warnings.filterwarnings("ignore")
-
     # This can take time, it is downloading the files from the website..
     df = OMIESupplyDemandCurvesImporter(date_ini=dateIni, date_end=dateEnd, hour=hour).read_to_dataframe(verbose=True)
     df.sort_values(by=['DATE', 'HOUR'], axis=0, inplace=True)

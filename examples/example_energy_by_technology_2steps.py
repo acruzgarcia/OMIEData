@@ -14,10 +14,6 @@ if __name__ == '__main__':
     dateEnd = dt.datetime(2020, 10, 30)
     downloader = EnergyByTechnologyDownloader(SystemType.IBERIAN)
 
-    # TODO: we must remove append() calls in data frames and replace them by concat
-    import warnings
-    warnings.filterwarnings("ignore")
-
     # This can take time, it is downloading the files from the website..
     workingFolder = r'C:\tmp'
     error = downloader.download_data(date_ini=dateIni, date_end=dateEnd, output_folder=workingFolder)

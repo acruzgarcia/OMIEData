@@ -19,8 +19,9 @@ class OMIEDataImporterFromFolder(OMIEDataImporter):
         df = pd.DataFrame(columns=self.fileReader.get_keys())
         for f in filenames:
             try:
-                df = df.append(self.fileReader.get_data_from_file(filename=os.path.join(self.folder, f)),
+                df = pd.concat([df, self.fileReader.get_data_from_file(filename=os.path.join(self.folder, f))],
                                ignore_index=True)
+
             except Exception as exc:
                 print('There was error processing file: ' + f)
                 print('{}'.format(exc) + f)

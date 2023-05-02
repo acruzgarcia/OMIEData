@@ -16,10 +16,6 @@ if __name__ == '__main__':
     dateIni = dt.datetime(2012, 3, 11)
     dateEnd = dt.datetime(2012, 12, 31)
 
-    # TODO: we must remove append() calls in data frames and replace them by concat
-    import warnings
-    warnings.filterwarnings("ignore")
-
     # This can take time, it is downloading the files from the website..
     error = MarginalPriceDownloader().download_data(date_ini=dateIni, date_end=dateEnd, output_folder=workingFolder)
 

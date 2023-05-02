@@ -10,10 +10,6 @@ if __name__ == '__main__':
     dateEnd = dt.datetime(2020, 7, 30)
     system_type = SystemType.SPAIN
 
-    # TODO: we must remove append() calls in data frames and replace them by concat()
-    import warnings
-    warnings.filterwarnings("ignore")
-
     # This can take time, it is downloading the files from the website..
     df = OMIEEnergyByTechnologyImporter(date_ini=dateIni,
                                         date_end=dateEnd,

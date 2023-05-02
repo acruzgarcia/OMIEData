@@ -75,7 +75,7 @@ class MarginalPriceFileReader(OMIEFileReader):
                         units = MarginalPriceFileReader.__dic_static_concepts__[first_col][1]
 
                         dico = self._process_line(date=date, concept=concept_type, values=splits[1:], multiplier=units)
-                        res = res.append(dico, ignore_index=True)
+                        res = pd.concat([res, pd.DataFrame([dico])], ignore_index=True)
 
             return res
 
@@ -108,7 +108,7 @@ class MarginalPriceFileReader(OMIEFileReader):
                         units = MarginalPriceFileReader.__dic_static_concepts__[first_col][1]
 
                         dico = self._process_line(date=date, concept=concept_type, values=splits[1:], multiplier=units)
-                        res = res.append(dico, ignore_index=True)
+                        res = pd.concat([res, pd.DataFrame([dico])], ignore_index=True)
 
             return res
 
