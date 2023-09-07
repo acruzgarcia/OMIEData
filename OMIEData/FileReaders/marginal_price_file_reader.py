@@ -2,6 +2,7 @@ import datetime as dt
 import re
 import locale
 import pandas as pd
+import numpy as np
 
 from requests import Response
 from OMIEData.Enums.all_enums import DataTypeInMarginalPriceFile
@@ -36,7 +37,7 @@ class MarginalPriceFileReader(OMIEFileReader):
     __key_list_retrieve__ = ['DATE', 'CONCEPT',
                              'H1', 'H2', 'H3', 'H4','H5', 'H6','H7', 'H8','H9','H10',
                              'H11', 'H12','H13', 'H14','H15', 'H16','H17', 'H18','H19','H20',
-                             'H21', 'H22','H23', 'H24']
+                             'H21', 'H22','H23', 'H24', "H25"]
 
     __dateFormatInFile__ = '%d/%m/%Y'
     __localeInFile__ = "en_DK.UTF-8"
@@ -63,6 +64,7 @@ class MarginalPriceFileReader(OMIEFileReader):
             # Process all the lines
 
             while lines:
+
                 # read following line
                 line = lines.pop(0)
                 splits = line.split(sep=';')
@@ -83,7 +85,7 @@ class MarginalPriceFileReader(OMIEFileReader):
 
         # Method yield each dictionary one by one
         res = pd.DataFrame(columns=self.get_keys())
-        file = open(filename, 'r')
+        file = open(filename, 'r', encoding='latin-1')
 
         # from first line we get the units and the price date. We just look at the date
         line = file.readline()
@@ -106,7 +108,6 @@ class MarginalPriceFileReader(OMIEFileReader):
 
                     if concept_type in self.conceptsToLoad:
                         units = MarginalPriceFileReader.__dic_static_concepts__[first_col][1]
-
                         dico = self._process_line(date=date, concept=concept_type, values=splits[1:], multiplier=units)
                         res = pd.concat([res, pd.DataFrame([dico])], ignore_index=True)
 
@@ -124,14 +125,20 @@ class MarginalPriceFileReader(OMIEFileReader):
         locale.setlocale(locale.LC_NUMERIC, MarginalPriceFileReader.__localeInFile__)
 
         for i, v in enumerate(values, start=1):
-            if i > 24:
+
+            if i > 25:
                 break # Jump if 25-hour day or spaces ..
             try:
                 f = multiplier * locale.atof(v)
             except:
+
                 if i == 24:
                     # Day with 23-hours.
-                    result[key_list[25]] = result[key_list[24]]
+                    result[key_list[25]] = np.nan
+                    result[key_list[26]] = np.nan
+                elif i == 25:
+                    # Day with 25-hours.
+                    result[key_list[26]] = np.nan
                 else:
                     raise
             else:

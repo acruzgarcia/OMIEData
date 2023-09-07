@@ -5,7 +5,7 @@ import os
 from OMIEData.FileReaders.marginal_price_file_reader import MarginalPriceFileReader
 from OMIEData.DataImport.omie_data_importer_from_folder import OMIEDataImporterFromFolder
 from OMIEData.Enums.all_enums import DataTypeInMarginalPriceFile
-
+import pandas as pd
 
 def is_equal_float(x1: float, x2: float, tolerance=1e-4):
     return np.abs(x1 - x2) < tolerance
@@ -19,7 +19,7 @@ def test_all_keys_in_df():
     reader = MarginalPriceFileReader()
     keys = reader.get_keys()
     df = reader.get_data_from_file(filename=filename)
-
+    
     # data is list of dictionaries
     columns = df.columns.to_list()
     for k in keys:
@@ -100,7 +100,7 @@ def test_day_with_23_hours():
     filename = os.path.join(folder, 'PrecioMD_OMIE_20200329.txt')
 
     # File contains
-    #';1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;24;
+    #';1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;
     #Precio marginal (Cent/kWh);  2,002;  1,762;  1,562;  1,527;  1,482;  1,475;  1,762;  2,149;  4,167;  4,340;  \
     # 4,276;  4,276;  3,500;  3,585;  3,200;  3,300;  3,400;  2,192;  3,300;  5,000;  4,426;  4,197;  3,673;  4,340;
     #Demanda+bombeos (MWh);  23.669;  21.263;  19.804;  19.187;  18.774;  18.666;  20.321;  22.565;  24.720;  25.838;  \
@@ -109,7 +109,20 @@ def test_day_with_23_hours():
     #;;;;;;;;;;;;;;;;;;;;;;;;;'
 
     df = MarginalPriceFileReader().get_data_from_file(filename=filename)
-    assert df.iloc[0]['H23'] == df.iloc[0]['H24'], 'Day with 23 hours must repeat last hour.'
+    assert pd.isna(df.iloc[0]['H24']), 'H24 should be NaN.'
+
+
+def test_day_with_25_hours():
+
+    folder = os.path.join(os.path.dirname(__file__), 'InputTesting')
+    filename = os.path.join(folder, 'PrecioMD_OMIE_20223010.txt')
+
+    # File contains
+    #';1;2;3;4;5;6;7;8;9;10;11;12;13;14;15;16;17;18;19;20;21;22;23;24;25;
+    #;;;;;;;;;;;;;;;;;;;;;;;;;'
+
+    df = MarginalPriceFileReader().get_data_from_file(filename=filename)
+    assert not pd.isna(df.iloc[0]['H25']), 'H24 should not be NaN.'
 
 
 def test_20030802():
@@ -196,3 +209,21 @@ def test_20040101_from_response():
             for i, v in enumerate(prices):
                 assert is_equal_float(prices[i], float(row[i + 3]), tolerance=1e-6), \
                     'Data is corrupt: ' + row.CONCEPT + ' (H' + f'{i + 1:01})'
+
+
+def run_all_tests():
+    import warnings
+
+    test_functions = [test_all_keys_in_df, test_check_correct_values, test_dump_to_dataframe, test_day_with_23_hours, test_20030802, test_20040101]
+    with warnings.catch_warnings():
+        warnings.filterwarnings("ignore", category=FutureWarning)
+        warnings.filterwarnings("ignore", category=DeprecationWarning)
+        for test_func in [test_functions[3]]:
+            try:
+                test_func()
+            except (AssertionError, UnicodeDecodeError, TypeError, IndexError) as e:
+                print(f"{test_func.__name__} failed: {e}")
+                raise e
+
+if __name__ == "__main__":
+    run_all_tests()
