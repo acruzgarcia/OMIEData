@@ -98,7 +98,7 @@ class AdjustmentPriceFileReader(OMIEFileReader):
                             values=splits[1:],
                             multiplier=units,
                         )
-                        res = res.append(dico, ignore_index=True)
+                        res = pd.concat([res, pd.DataFrame([dico])], ignore_index=True)
 
             return res
 
@@ -144,7 +144,7 @@ class AdjustmentPriceFileReader(OMIEFileReader):
                             values=splits[1:],
                             multiplier=units,
                         )
-                        res = res.append(dico, ignore_index=True)
+                        res = pd.concat([res, pd.DataFrame([dico])], ignore_index=True)
 
             return res
 
