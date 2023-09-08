@@ -1,3 +1,5 @@
 *.pyc
 .idea/*
 build
+OMIEData.egg-info/**
+myenv
