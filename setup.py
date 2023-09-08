@@ -18,7 +18,7 @@ setuptools.setup(
         "Operating System :: OS Independent",
     ],
     packages=setuptools.find_packages(),
-    python_requires='>=3.11',
-    keywords=['OMIE', 'Electricity prices'],
-    install_requires=['pandas>=2.0.1', 'requests', 'datetime']
+    python_requires=">=3.10",
+    keywords=["OMIE", "Electricity prices"],
+    install_requires=["pandas>=2.0.1", "requests", "datetime"],
 )
