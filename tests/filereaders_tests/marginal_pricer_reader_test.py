@@ -217,6 +217,8 @@ def test_day_with_23_hours():
 
 
 def test_day_with_25_hours():
+    # TODO: This test can fail in some architecture  because of the encoding of the input file.
+    #  Let´s see if more users/developers have problems with it.
     folder = os.path.join(os.path.dirname(__file__), "InputTesting")
     filename = os.path.join(folder, "PrecioMD_OMIE_20223010.txt")
 
