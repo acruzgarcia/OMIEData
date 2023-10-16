@@ -390,7 +390,7 @@ def run_all_tests():
     with warnings.catch_warnings():
         warnings.filterwarnings("ignore", category=FutureWarning)
         warnings.filterwarnings("ignore", category=DeprecationWarning)
-        for test_func in [test_functions]:
+        for test_func in test_functions:
             try:
                 test_func()
             except (AssertionError, UnicodeDecodeError, TypeError, IndexError) as e:
