@@ -5,9 +5,12 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="OMIEData",
-    version="0.2.0.0",
+    version="0.3.0.0",
     author="Alberto Cruz and Mirel Mora",
-    author_email="a.cruz.garcia@gmail.com, mirel.mora@gmail.com",
+    author_email="a.cruz.g "
+                 ""
+                 ""
+                 "arcia@gmail.com, mirel.mora@gmail.com",
     description="Package to download electricity time series from https://www.omie.es/",
     long_description=long_description,
     long_description_content_type="text/markdown",
