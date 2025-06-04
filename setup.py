@@ -23,5 +23,5 @@ setuptools.setup(
     packages=setuptools.find_packages(),
     python_requires=">=3.10",
     keywords=["OMIE", "Electricity prices"],
-    install_requires=["pandas>=2.0.1", "requests", "datetime"],
+    install_requires=["pandas>=2.0.1", "requests", "datetime", "babel"],
 )
