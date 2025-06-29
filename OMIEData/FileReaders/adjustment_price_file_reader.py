@@ -1,5 +1,5 @@
 import datetime as dt
-import locale
+from babel.numbers import parse_decimal
 import re
 import numpy as np
 import pandas as pd
@@ -161,14 +161,11 @@ class AdjustmentPriceFileReader(OMIEFileReader):
         result[key_list[0]] = date
         result[key_list[1]] = str(concept)
 
-        # These are the correct setting to read the files...
-        locale.setlocale(locale.LC_NUMERIC, AdjustmentPriceFileReader.__localeInFile__)
-
         for i, v in enumerate(values, start=1):
             if i > 25:
                 break  # Jump if 25-hour day or spaces ..
             try:
-                f = multiplier * locale.atof(v)
+                f = multiplier * float(parse_decimal(v, locale=self.__localeInFile__))
             except:
                 if i == 24:
                     # Day with 23-hours.
