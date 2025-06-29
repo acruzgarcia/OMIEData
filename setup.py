@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="OMIEData",
-    version="0.3.0.0",
+    version="0.4.0.0",
     author="Alberto Cruz and Mirel Mora",
     author_email="a.cruz.g "
                  ""
