@@ -20,13 +20,16 @@ class OMIEDataImporterFromResponses(OMIEDataImporter):
         self.date_end = date_end
 
     def read_to_dataframe(self, verbose=False) -> pd.DataFrame:
-
-        df = pd.DataFrame(columns=self.fileReader.get_keys())
+        df = None
         for response in self.fileDownloader.url_responses(date_ini=self.date_ini,
                                                           date_end=self.date_end,
                                                           verbose=verbose):
             try:
-                df = pd.concat([df, self.fileReader.get_data_from_response(response=response)], ignore_index=True)
+                response_df = self.fileReader.get_data_from_response(response=response)
+                if df is not None:
+                    df = pd.concat([df, response_df], ignore_index=True)
+                else:
+                    df = response_df
 
             except Exception as exc:
                 print('There was error processing file: ' + response.url)

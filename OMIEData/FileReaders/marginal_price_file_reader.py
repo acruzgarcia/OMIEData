@@ -37,7 +37,7 @@ class MarginalPriceFileReader(OMIEFileReader):
     __key_list_retrieve__ = ['DATE', 'CONCEPT',
                              'H1', 'H2', 'H3', 'H4','H5', 'H6','H7', 'H8','H9','H10',
                              'H11', 'H12','H13', 'H14','H15', 'H16','H17', 'H18','H19','H20',
-                             'H21', 'H22','H23', 'H24', "H25"]
+                             'H21', 'H22','H23', 'H24']
 
     __dateFormatInFile__ = '%d/%m/%Y'
     __localeInFile__ = "en_DK.UTF-8"
@@ -50,7 +50,7 @@ class MarginalPriceFileReader(OMIEFileReader):
 
     def get_data_from_response(self, response: Response) -> pd.DataFrame:
 
-        res = pd.DataFrame(columns=self.get_keys())
+        res = None
 
         # from first line we get the units and the price date. We just look at the date
         lines = response.text.split("\n")
@@ -76,15 +76,19 @@ class MarginalPriceFileReader(OMIEFileReader):
                     if concept_type in self.conceptsToLoad:
                         units = MarginalPriceFileReader.__dic_static_concepts__[first_col][1]
 
-                        dico = self._process_line(date=date, concept=concept_type, values=splits[1:], multiplier=units)
-                        res = pd.concat([res, pd.DataFrame([dico])], ignore_index=True)
+                        dico = self._process_line(date=date, concept=concept_type, values=splits[1:-1], multiplier=units)
+                        dico_df = pd.DataFrame([dico])
+                        if res is not None:
+                            res = pd.concat([res, dico_df], ignore_index=True)
+                        else:
+                            res = dico_df
 
             return res
 
     def get_data_from_file(self, filename: str) -> pd.DataFrame:
 
         # Method yield each dictionary one by one
-        res = pd.DataFrame(columns=self.get_keys())
+        res = None
         file = open(filename, 'r', encoding='latin-1')
 
         # from first line we get the units and the price date. We just look at the date
@@ -108,8 +112,12 @@ class MarginalPriceFileReader(OMIEFileReader):
 
                     if concept_type in self.conceptsToLoad:
                         units = MarginalPriceFileReader.__dic_static_concepts__[first_col][1]
-                        dico = self._process_line(date=date, concept=concept_type, values=splits[1:], multiplier=units)
-                        res = pd.concat([res, pd.DataFrame([dico])], ignore_index=True)
+                        dico = self._process_line(date=date, concept=concept_type, values=splits[1:-1], multiplier=units)
+                        dico_df = pd.DataFrame([dico])
+                        if res is not None:
+                            res = pd.concat([res, dico_df], ignore_index=True)
+                        else:
+                            res = dico_df
 
             return res
 
