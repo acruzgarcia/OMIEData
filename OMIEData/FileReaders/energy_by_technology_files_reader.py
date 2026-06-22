@@ -1,9 +1,18 @@
+import unicodedata
+from io import BytesIO
+
 import pandas as pd
 from requests import Response
-from io import BytesIO
 
 from OMIEData.FileReaders.omie_file_reader import OMIEFileReader
 from OMIEData.Enums.all_enums import TechnologyType
+
+
+def _strip_accents(s: str) -> str:
+    return "".join(
+        c for c in unicodedata.normalize("NFD", s)
+        if unicodedata.category(c) != "Mn"
+    )
 
 
 class EnergyByTechnologyHourlyFileReader(OMIEFileReader):
@@ -14,6 +23,7 @@ class EnergyByTechnologyHourlyFileReader(OMIEFileReader):
 
         self._dict_column_concept = {'Fecha': 'DATE',
                                      'Hora': 'HOUR',
+                                     'Periodo': 'HOUR',
                                      'CARBÓN': 'COAL',
                                      'FUEL-GAS': 'FUEL_GAS',
                                      'AUTOPRODUCTOR': 'SELF_PRODUCER',
@@ -25,7 +35,9 @@ class EnergyByTechnologyHourlyFileReader(OMIEFileReader):
                                      'SOLAR FOTOVOLTAICA': 'PHOTOVOLTAIC_SOLAR',
                                      'COGENERACIÓN/RESIDUOS/MINI HIDRA': 'RESIDUALS',
                                      'IMPORTACIÓN INTER.': 'IMPORT',
-                                     'IMPORTACIÓN INTER. SIN MIBEL': 'IMPORT_WITHOUT_MIBEL'}
+                                     'IMPORTACIÓN INTER. SIN MIBEL': 'IMPORT_WITHOUT_MIBEL',
+                                     'ALMACENAMIENTO': 'STORAGE',
+                                     'HIBRIDACIÓN': 'HYBRIDIZATION'}
 
     def get_keys(self) -> list:
 
@@ -40,10 +52,23 @@ class EnergyByTechnologyHourlyFileReader(OMIEFileReader):
         return self._get_data_from_file_like(file_like=filename)
 
     def _get_data_from_file_like(self, file_like) -> pd.DataFrame:
-        df = pd.read_csv(file_like, sep=';', skiprows=2, header=0, encoding='latin-1', skipfooter=1, engine='python',
-                         decimal=",", thousands='.')
-        df = df.rename({k: v for k, v in self._dict_column_concept.items()}, axis=1)
-        df = df[[x for x in self.get_keys()]]
+
+        df = pd.read_csv(file_like, sep=';', skiprows=2, header=0, encoding='latin-1', skipfooter=1,
+                         engine='python', decimal=",", thousands='.')
+        df = df.loc[:, ~df.columns.str.startswith("Unnamed")]
+
+        norm_mapping = {_strip_accents(k).lower(): v for k, v in self._dict_column_concept.items()}
+        rename_map = {}
+        for col in df.columns:
+            col_norm = _strip_accents(col.strip()).lower()
+            if col_norm in norm_mapping:
+                rename_map[col] = norm_mapping[col_norm]
+        df = df.rename(columns=rename_map)
+
+        expected = [k for k in self.get_keys() if k in df.columns]
+        for extra in ("STORAGE", "HYBRIDIZATION"):
+            if extra in df.columns and extra not in expected:
+                expected.append(extra)
+        df = df[expected]
 
         return df
-
