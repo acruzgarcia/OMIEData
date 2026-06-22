@@ -43,6 +43,12 @@ class TechnologyType(Enum):
         return self.__dict_concept_str__[self.value][1]
 
 
+class Frequency(Enum):
+
+    HOURLY = 1
+    QUARTERLY = 2
+
+
 class DataTypeInMarginalPriceFile(Enum):
 
     PRICE_SPAIN = auto()
