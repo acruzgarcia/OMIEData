@@ -1,11 +1,11 @@
 import datetime as dt
 import re
-from babel.numbers import parse_decimal
+from babel.numbers import parse_decimal, NumberFormatError
 import pandas as pd
 import numpy as np
 
 from requests import Response
-from OMIEData.Enums.all_enums import DataTypeInMarginalPriceFile
+from OMIEData.Enums.all_enums import DataTypeInMarginalPriceFile, Frequency
 from OMIEData.FileReaders.omie_file_reader import OMIEFileReader
 
 
@@ -35,110 +35,99 @@ class MarginalPriceFileReader(OMIEFileReader):
             [DataTypeInMarginalPriceFile.ENERGY_IBERIAN_WITH_BILLATERAL, 1.0]}
 
     __key_list_retrieve__ = ['DATE', 'CONCEPT',
-                             'H1', 'H2', 'H3', 'H4','H5', 'H6','H7', 'H8','H9','H10',
-                             'H11', 'H12','H13', 'H14','H15', 'H16','H17', 'H18','H19','H20',
-                             'H21', 'H22','H23', 'H24', "H25"]
+                             'H1', 'H2', 'H3', 'H4', 'H5', 'H6', 'H7', 'H8', 'H9', 'H10',
+                             'H11', 'H12', 'H13', 'H14', 'H15', 'H16', 'H17', 'H18', 'H19', 'H20',
+                             'H21', 'H22', 'H23', 'H24', 'H25']
 
     __dateFormatInFile__ = '%d/%m/%Y'
     __localeInFile__ = "en_DK.UTF-8"
+    __quarters_per_hour__ = 4
 
-    def __init__(self, types=None):
+    def __init__(self, types=None, frequency: Frequency = Frequency.HOURLY,
+                 derive_hourly_from_quarters: bool = False):
         self.conceptsToLoad = [v for v in DataTypeInMarginalPriceFile] if not types else types
+        self.frequency = frequency
+        self.derive_hourly_from_quarters = derive_hourly_from_quarters
 
     def get_keys(self):
+        if self.frequency == Frequency.QUARTERLY:
+            return ['DATE', 'CONCEPT'] + [f'H{i}' for i in range(1, 101)]
         return MarginalPriceFileReader.__key_list_retrieve__
 
+    @staticmethod
+    def _is_quarter_hour(text: str) -> bool:
+        return 'H1Q1' in text
+
     def get_data_from_response(self, response: Response) -> pd.DataFrame:
-
-        res = pd.DataFrame(columns=self.get_keys())
-
-        # from first line we get the units and the price date. We just look at the date
-        lines = response.text.split("\n")
-        matches = re.findall('\d\d/\d\d/\d\d\d\d', lines.pop(0))
-        if not (len(matches) == 2):
-            print('Response ' + response.url + ' does not have the expected format.')
-        else:
-            # The second date is the one we want
-            date = dt.datetime.strptime(matches[1], MarginalPriceFileReader.__dateFormatInFile__).date()
-
-            # Process all the lines
-
-            while lines:
-
-                # read following line
-                line = lines.pop(0)
-                splits = line.split(sep=';')
-                first_col = splits[0]
-
-                if first_col in MarginalPriceFileReader.__dic_static_concepts__.keys():
-                    concept_type = MarginalPriceFileReader.__dic_static_concepts__[first_col][0]
-
-                    if concept_type in self.conceptsToLoad:
-                        units = MarginalPriceFileReader.__dic_static_concepts__[first_col][1]
-
-                        dico = self._process_line(date=date, concept=concept_type, values=splits[1:], multiplier=units)
-                        res = pd.concat([res, pd.DataFrame([dico])], ignore_index=True)
-
-            return res
+        return self._read(response.text, source=response.url)
 
     def get_data_from_file(self, filename: str) -> pd.DataFrame:
+        with open(filename, 'r', encoding='latin-1') as file:
+            text = file.read()
+        return self._read(text, source=filename)
 
-        # Method yield each dictionary one by one
+    def _read(self, text: str, source: str) -> pd.DataFrame:
         res = pd.DataFrame(columns=self.get_keys())
-        file = open(filename, 'r', encoding='latin-1')
 
-        # from first line we get the units and the price date. We just look at the date
-        line = file.readline()
-        matches = re.findall('\d\d/\d\d/\d\d\d\d', line)
-        if not (len(matches) == 2):
-            print('File ' + filename + ' does not have the expected format.')
-        else:
-            # The second date is the one we want
-            date = dt.datetime.strptime(matches[1], MarginalPriceFileReader.__dateFormatInFile__).date()
-
-            # Process all the lines
-            while line:
-                # read following line
-                line = file.readline()
-                splits = line.split(sep=';')
-                first_col = splits[0]
-
-                if first_col in MarginalPriceFileReader.__dic_static_concepts__.keys():
-                    concept_type = MarginalPriceFileReader.__dic_static_concepts__[first_col][0]
-
-                    if concept_type in self.conceptsToLoad:
-                        units = MarginalPriceFileReader.__dic_static_concepts__[first_col][1]
-                        dico = self._process_line(date=date, concept=concept_type, values=splits[1:], multiplier=units)
-                        res = pd.concat([res, pd.DataFrame([dico])], ignore_index=True)
-
+        lines = text.split("\n")
+        matches = re.findall(r'\d\d/\d\d/\d\d\d\d', lines.pop(0))
+        if len(matches) != 2:
+            print('Source ' + str(source) + ' does not have the expected format.')
             return res
 
-    def _process_line(self, date: dt.date, concept: DataTypeInMarginalPriceFile, values: list, multiplier=1.0) -> dict:
+        # The second date is the one we want
+        date = dt.datetime.strptime(matches[1], self.__dateFormatInFile__).date()
+        is_quarter = self._is_quarter_hour(text)
 
-        key_list = MarginalPriceFileReader.__key_list_retrieve__
+        if self.frequency == Frequency.QUARTERLY and not is_quarter:
+            return res
+        if self.frequency == Frequency.HOURLY and is_quarter and not self.derive_hourly_from_quarters:
+            return res
+
+        for line in lines:
+            splits = line.split(sep=';')
+            concept = self.__dic_static_concepts__.get(splits[0])
+            if concept is None:
+                continue
+            concept_type, units = concept
+            if concept_type not in self.conceptsToLoad:
+                continue
+            dico = self._process_line(date=date, concept=concept_type, values=splits[1:],
+                                      is_quarter=is_quarter, multiplier=units)
+            res = pd.concat([res, pd.DataFrame([dico])], ignore_index=True)
+
+        return res
+
+    def _process_line(self, date: dt.date, concept: DataTypeInMarginalPriceFile,
+                      values: list, is_quarter: bool, multiplier=1.0) -> dict:
 
         result = dict.fromkeys(self.get_keys())
-        result[key_list[0]] = date
-        result[key_list[1]] = str(concept)
+        result['DATE'] = date
+        result['CONCEPT'] = str(concept)
 
-        for i, v in enumerate(values, start=1):
-
-            if i > 25:
-                break # Jump if 25-hour day or spaces ..
+        parsed = []
+        for v in values:
+            if v.strip() == '':
+                continue
             try:
-                f = multiplier * float(parse_decimal(v, locale=self.__localeInFile__))
-            except:
+                parsed.append(multiplier * float(parse_decimal(v, locale=self.__localeInFile__)))
+            except (NumberFormatError, ValueError):
+                parsed.append(np.nan)
 
-                if i == 24:
-                    # Day with 23-hours.
-                    result[key_list[25]] = np.nan
-                    result[key_list[26]] = np.nan
-                elif i == 25:
-                    # Day with 25-hours.
-                    result[key_list[26]] = np.nan
-                else:
-                    raise
-            else:
-                result[key_list[i + 1]] = f
+        if is_quarter and self.frequency == Frequency.HOURLY:
+            parsed = self._quarters_to_hourly(parsed)
+
+        for i, value in enumerate(parsed, start=1):
+            result[f'H{i}'] = value
 
         return result
+
+    @classmethod
+    def _quarters_to_hourly(cls, values: list) -> list:
+        step = cls.__quarters_per_hour__
+        hourly = []
+        for start in range(0, len(values), step):
+            block = [x for x in values[start:start + step]
+                     if not (isinstance(x, float) and np.isnan(x))]
+            hourly.append(float(np.mean(block)) if block else np.nan)
+        return hourly
